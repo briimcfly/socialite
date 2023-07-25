@@ -1,12 +1,39 @@
 let weather=document.getElementById("weather");
 let inputCity=document.getElementById("input-city");
 let buttonCity=document.getElementById("button-city");
+let ticketmasterEventData=document.getElementById("ticketmaster-event-data")
+
+inputLocation =inputCity.value.trim()
+
+//document.addEventListener('DOMContentLoaded', () => {
+
+    // Get all "navbar-burger" elements
+    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+  
+    // Add a click event on each of them
+    $navbarBurgers.forEach( el => {
+      el.addEventListener('click', () => {
+  
+        // Get the target from the "data-target" attribute
+        const target = el.dataset.target;
+        const $target = document.getElementById(target);
+  
+        // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+        el.classList.toggle('is-active');
+        $target.classList.toggle('is-active');
+  
+      });
+    });
+  
+  //});
+
+
 
 
 function currentWeather() {
-    inputLocation =inputCity.value.trim()
+    inputLocation =inputCity.value.trim() 
     //request URL incorporating the user inputted city
-    var requestUrl ="https://api.openweathermap.org/data/2.5/weather?q="+inputLocation+"&APPID=88a5790f881a820d719667c737ffc4f3&units=imperial";
+    let requestUrl ="https://api.openweathermap.org/data/2.5/weather?q="+inputLocation+"&APPID=88a5790f881a820d719667c737ffc4f3&units=imperial";
 
 //fetch request that returns data
     fetch(requestUrl)
@@ -35,6 +62,7 @@ buttonCity.addEventListener("click" , function(){
         
 //calls the current weather and five day functions when the button is clicked
     currentWeather();
+    ticketMasterEvents();
  })
 
  inputCity.addEventListener("keypress" , function(event){
@@ -43,5 +71,28 @@ buttonCity.addEventListener("click" , function(){
     weather.textContent="";
 //calls the current weather and five day functions when the button is clicked
     currentWeather();
+    ticketMasterEvents();
     }
  })
+
+ function ticketMasterEvents () {
+
+   let eventRequestUrl= "https://app.ticketmaster.com/discovery/v2/events.json?city="+inputLocation+"&apikey=yTpugCkiZy8jJLwQIFI29hvie9b9teAA"
+   
+   fetch(eventRequestUrl)
+        .then(function (response){
+             return response.json();
+        })
+   .then(function (data) {
+       console.log(data);
+
+    //    var headerIconEl =document.createElement("img");
+    //    var temperature = document.createElement("p");
+
+       
+    //    temperature.textContent="Temp: " + data.main.temp + "° F";
+ 
+    //   ticketmasterEventData.appendChild(headerIconEl);
+    //   ticketmasterEventData.appendChild(temperature);
+ })
+}
