@@ -3,6 +3,8 @@ let inputCity=document.getElementById("input-city");
 let buttonCity=document.getElementById("button-city");
 let ticketmasterEventData=document.getElementById("ticketmaster-event-data")
 
+let todayDate= dayjs().format("YYYY-MM-DD")
+console.log(todayDate)
 inputLocation =inputCity.value.trim()
 
 //document.addEventListener('DOMContentLoaded', () => {
@@ -77,7 +79,7 @@ buttonCity.addEventListener("click" , function(){
 
  function ticketMasterEvents () {
 
-   let eventRequestUrl= "https://app.ticketmaster.com/discovery/v2/events.json?city="+inputLocation+"&apikey=yTpugCkiZy8jJLwQIFI29hvie9b9teAA"
+   let eventRequestUrl= "https://app.ticketmaster.com/discovery/v2/events.json?dates="+todayDate+"&city="+inputLocation+"&apikey=yTpugCkiZy8jJLwQIFI29hvie9b9teAA"
    
    fetch(eventRequestUrl)
         .then(function (response){

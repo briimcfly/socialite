@@ -4,8 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Socialite</title>
-    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" src="./assets/css/styles.css">
+    <script
+    src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
+    integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U="
+    crossorigin="anonymous"
+  ></script>
 </head>
 <body>
     <nav class="navbar" role="navigation" aria-label="main navigation">
@@ -59,18 +64,14 @@
             <input class="input" id="input-city" type="text" placeholder="Enter City">
             <button id="button-city">Search</button>
             </div>
-            <div class="has-addons">
-            <input class="input" type="text" placeholder="Enter Date">
-             <button id="button-date">Enter</button>
-            </div>
-         <section class="column is-one-quarter">
-            <h4>Weather</h4>
-            <div id="weather"></div>
-        </section> 
+            <section class="column is-one-quarter">
+                <h4>Weather</h4>
+                <div id="weather"></div>
+            </section> 
+        </section>
     </div>
+   
 
-
-    </section>
     <section>
         <h3>Events</h3>
         <p>Provided by Ticketmaster</p>
