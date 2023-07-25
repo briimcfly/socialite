@@ -98,3 +98,22 @@ buttonCity.addEventListener("click" , function(){
     //   ticketmasterEventData.appendChild(temperature);
  })
 }
+
+
+// openBrewery api
+
+function requestBarsBreweries() {
+  let requestUrl = `https://api.openbrewerydb.org/v1/breweries?by_city=davis&per_page=5`
+
+  fetch(requestUrl)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data)
+      
+      // create result cards - waiting on html template to create/append elements
+      let cardEl = document.createElement("div")
+      cardEl.classList.add("card")
+    })
+}
