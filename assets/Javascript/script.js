@@ -42,7 +42,7 @@ buttonCity.addEventListener("click" , function(){
 //calls the current weather and five day functions when the button is clicked
     currentWeather();
     ticketMasterEvents();
-    latLong()
+    requestBarsBreweries();
  })
 
  inputCity.addEventListener("keypress" , function(event){
@@ -53,6 +53,7 @@ buttonCity.addEventListener("click" , function(){
     ticketmasterEventData=""
     currentWeather();
     ticketMasterEvents();
+    requestBarsBreweries()
     }
  })
 
@@ -152,10 +153,8 @@ buttonCity.addEventListener("click" , function(){
 function requestBarsBreweries() {
   // html elements
   let barContainer = document.querySelector("#barContainer");
-  let barBrewNames = document.querySelectorAll("#barBrewName");
-  let barBrewTypes = document.querySelectorAll("#barBrewType");
 
-  let requestUrl = `https://api.openbrewerydb.org/v1/breweries?by_city=sacramento&per_page=10`
+  let requestUrl = `https://api.openbrewerydb.org/v1/breweries?by_city=${inputLocation}&per_page=10`
 
   fetch(requestUrl)
     .then(function (response) {
@@ -220,5 +219,4 @@ function requestBarsBreweries() {
     })
 }
 
-requestBarsBreweries()
 
