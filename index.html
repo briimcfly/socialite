@@ -9,7 +9,7 @@
     <!-- Bulma -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <!-- Main Styles -->
-    <link rel="stylesheet" src="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
     <!-- DayJS -->
     <script
     src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
@@ -81,18 +81,18 @@
   </section>
   <div class="tabs">
     <ul>
-      <li class="is-active"><a>Music</a></li>
-      <li><a>Sports</a></li>
-      <li><a>Arts & Theatre</a></li>
-      <li><a>Family</a></li>
-      <li><a>Comedy</a></li>
-      <li><a>Film</a></li>
-      <li><a>Festivals</a></li>
-      <li><a>Miscellaneous</a></li>
+      <li class="is-active" id="music"><a>Music</a></li>
+      <li id="sports"><a>Sports</a></li>
+      <li id="arts"><a>Arts & Theatre</a></li>
+      <li id="family"><a>Family</a></li>
+      <li id="comedy"><a>Comedy</a></li>
+      <li id="film"><a>Film</a></li>
+      <li id="festivals"><a>Festivals</a></li>
+      <li id="misc"><a>Miscellaneous</a></li>
     </ul>
   </div>
-  <div class="columns section">
-    <div id="ticketmaster-event-data" class="column">
+  <div id="ticketmaster-event-data" class="columns section is-multiline">
+    <div class="column">
       <div class="card">
         <div class="card-image">
           <figure class="image is-4by3">
