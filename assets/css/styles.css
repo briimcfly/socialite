@@ -10,4 +10,7 @@ html {
     text-overflow: ellipsis;
   }
 
+  .carousel{
+    overflow:hidden;
+  }
  

@@ -12,8 +12,6 @@ let filmEvent=document.getElementById("film");
 let festivalsEvent=document.getElementById("festivals");
 let miscEvent=document.getElementById("misc");
 
-
-
 let todayDate= dayjs().format("YYYY-MM-DD")
 console.log(todayDate)
 inputLocation =inputCity.value.trim()
@@ -62,6 +60,7 @@ buttonCity.addEventListener("click" , function(){
     
     currentWeather();
     ticketMasterEvents();
+    
     }
  })
 
@@ -118,7 +117,8 @@ buttonCity.addEventListener("click" , function(){
     else {
        ticketmasterEventData.innerHTML=""
         for(i=0; i<data._embedded.events.length; i++){
-                
+       
+
        let eventColumn=document.createElement("div")
        let eventCard = document.createElement("div");
        let eventCardImage=document.createElement("div");
@@ -132,6 +132,7 @@ buttonCity.addEventListener("click" , function(){
        let eventClassification=document.createElement("p");
        let descriptionEvents = document.createElement("div");
 
+       ticketmasterEventData.ClassName="columns section carousel is-multiline"
        eventColumn.className="column is-one-quarter"
        eventCard.className="card";
        eventCardImage.className="card-image";
@@ -162,8 +163,16 @@ buttonCity.addEventListener("click" , function(){
        eventMediaContent.appendChild(eventLink)
        eventMediaContent.appendChild(eventClassification)
        eventCard.appendChild(descriptionEvents);
-       }
+          
     }
+
+    }
+    bulmaCarousel.attach('.carousel', {
+        slidesToScroll:1,
+        slidesToShow:4,
+        navigation: true,
+        loop: true,   
+       })
  })
 }
 
@@ -237,4 +246,11 @@ miscEvent.addEventListener("click" , function(){
     miscEvent.classList.add("is-active")
     eventInput="Miscellaneous";
      ticketMasterEvents()
+})
+
+bulmaCarousel.attach('.carousel', {
+    slidesToScroll:1,
+    slidesToShow:4,
+    navigation: true,
+    loop: true,
 })
