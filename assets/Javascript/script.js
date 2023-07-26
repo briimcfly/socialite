@@ -2,34 +2,11 @@ let weather=document.getElementById("weather");
 let inputCity=document.getElementById("input-city");
 let buttonCity=document.getElementById("button-city");
 let ticketmasterEventData=document.getElementById("ticketmaster-event-data")
+let ticketmasterEventContainer=document.getElementById("ticketmaster-event-container")
 
 let todayDate= dayjs().format("YYYY-MM-DD")
 console.log(todayDate)
 inputLocation =inputCity.value.trim()
-
-//document.addEventListener('DOMContentLoaded', () => {
-
-    // Get all "navbar-burger" elements
-    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-  
-    // Add a click event on each of them
-    $navbarBurgers.forEach( el => {
-      el.addEventListener('click', () => {
-  
-        // Get the target from the "data-target" attribute
-        const target = el.dataset.target;
-        const $target = document.getElementById(target);
-  
-        // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-        el.classList.toggle('is-active');
-        $target.classList.toggle('is-active');
-  
-      });
-    });
-  
-  //});
-
-
 
 
 function currentWeather() {
@@ -65,6 +42,7 @@ buttonCity.addEventListener("click" , function(){
 //calls the current weather and five day functions when the button is clicked
     currentWeather();
     ticketMasterEvents();
+    latLong()
  })
 
  inputCity.addEventListener("keypress" , function(event){
@@ -72,6 +50,7 @@ buttonCity.addEventListener("click" , function(){
     event.preventDefault()
     weather.textContent="";
 //calls the current weather and five day functions when the button is clicked
+    ticketmasterEventData=""
     currentWeather();
     ticketMasterEvents();
     }
@@ -86,11 +65,46 @@ buttonCity.addEventListener("click" , function(){
         })
    .then(function (data) {
        console.log(data);
+    if (data.page.totalElements===0) {
+       let eventCard = document.createElement("div");
+       let eventCardImage=document.createElement("div");
+       let eventFigure= document.createElement("figure");
+       let imgEvents =document.createElement("img");
+       let eventCardContent=document.createElement("div");
+       let eventMedia=document.createElement("div");
+       let eventMediaContent=document.createElement("div");
+       let headingEvents=document.createElement("p");
+       let eventClassification=document.createElement("p");
+       let descriptionEvents = document.createElement("div");
+    
+       eventCard.className="card";
+       eventCardImage.className="card-image";
+       eventFigure.className="image is-4by3";
+       eventCardContent.className="card-content";
+       eventMedia.className="media";
+       eventMediaContent.className="media-content";
+       headingEvents.className="title is-4";
+       eventClassification.className="subtitle is-6";
+       descriptionEvents.className="content";
 
+       headingEvents.textContent="No events of this type";
+      
+       ticketmasterEventData.appendChild(eventCard);
+       eventCard.appendChild(eventCardImage);
+       eventCardImage.appendChild(eventFigure)
+       eventFigure.appendChild(imgEvents)
+       eventCard.appendChild(eventCardContent);
+       eventCardContent.appendChild(eventMedia);
+       eventMedia.appendChild(eventMediaContent);
+       eventMediaContent.appendChild(headingEvents)
+       eventMediaContent.appendChild(eventClassification)
+       eventCard.appendChild(descriptionEvents);
+
+
+    }
+    else {
        for(i=0; i<data._embedded.events.length; i++){
-            
-
-        
+                
        let eventCard = document.createElement("div");
        let eventCardImage=document.createElement("div");
        let eventFigure= document.createElement("figure");
@@ -127,14 +141,8 @@ buttonCity.addEventListener("click" , function(){
        eventMediaContent.appendChild(headingEvents)
        eventMediaContent.appendChild(eventClassification)
        eventCard.appendChild(descriptionEvents);
-        
+       }
     }
-      
-
-      
-
-      
-
-
  })
 }
+
