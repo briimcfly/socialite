@@ -128,6 +128,7 @@ buttonCity.addEventListener("click" , function(){
        let eventMedia=document.createElement("div");
        let eventMediaContent=document.createElement("div");
        let headingEvents=document.createElement("p");
+       let eventLink=document.createElement("a");
        let eventClassification=document.createElement("p");
        let descriptionEvents = document.createElement("div");
 
@@ -145,6 +146,8 @@ buttonCity.addEventListener("click" , function(){
        imgEvents.src=data._embedded.events[i].images[0].url;
        headingEvents.textContent=data._embedded.events[i].name;
        eventClassification.textContent=data._embedded.events[i].classifications[0].genre.name;
+       eventLink.textContent="Link to TicketMaster" 
+       eventLink.href=data._embedded.events[i].url
        descriptionEvents.textContent=data._embedded.events[i].info;
         
        ticketmasterEventData.appendChild(eventColumn);
@@ -156,6 +159,7 @@ buttonCity.addEventListener("click" , function(){
        eventCardContent.appendChild(eventMedia);
        eventMedia.appendChild(eventMediaContent);
        eventMediaContent.appendChild(headingEvents)
+       eventMediaContent.appendChild(eventLink)
        eventMediaContent.appendChild(eventClassification)
        eventCard.appendChild(descriptionEvents);
        }
