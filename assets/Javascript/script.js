@@ -117,3 +117,22 @@ function requestBarsBreweries() {
       cardEl.classList.add("card")
     })
 }
+
+// testing Google Places
+function googlePlacesQuery() {
+
+  // place Search
+  let requestUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=1500&type=restaurant&keyword=cruise&key=AIzaSyArbnvxsM-TarH9q4BdEUv3RjLqTQ1WH0I`
+
+  fetch(requestUrl)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data)
+    })
+
+  // take place Search place-id and run thru places Details
+
+}
+
