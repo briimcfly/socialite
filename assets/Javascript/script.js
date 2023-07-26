@@ -78,8 +78,7 @@ buttonCity.addEventListener("click" , function(){
  })
 
  function ticketMasterEvents () {
-
-   let eventRequestUrl= "https://app.ticketmaster.com/discovery/v2/events.json?dates="+todayDate+"&city="+inputLocation+"&apikey=yTpugCkiZy8jJLwQIFI29hvie9b9teAA"
+       let eventRequestUrl= "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime="+todayDate+"T00:00:00Z&&endDateTime="+todayDate+"T23:59:59Z&classificationName=Sports,Family&city="+inputLocation+"&apikey=yTpugCkiZy8jJLwQIFI29hvie9b9teAA"
    
    fetch(eventRequestUrl)
         .then(function (response){
@@ -88,13 +87,54 @@ buttonCity.addEventListener("click" , function(){
    .then(function (data) {
        console.log(data);
 
-    //    var headerIconEl =document.createElement("img");
-    //    var temperature = document.createElement("p");
+       for(i=0; i<data._embedded.events.length; i++){
+            
 
-       
-    //    temperature.textContent="Temp: " + data.main.temp + "° F";
+        
+       let eventCard = document.createElement("div");
+       let eventCardImage=document.createElement("div");
+       let eventFigure= document.createElement("figure");
+       let imgEvents =document.createElement("img");
+       let eventCardContent=document.createElement("div");
+       let eventMedia=document.createElement("div");
+       let eventMediaContent=document.createElement("div");
+       let headingEvents=document.createElement("p");
+       let eventClassification=document.createElement("p");
+       let descriptionEvents = document.createElement("div");
+
+       eventCard.className="card";
+       eventCardImage.className="card-image";
+       eventFigure.className="image is-4by3";
+       eventCardContent.className="card-content";
+       eventMedia.className="media";
+       eventMediaContent.className="media-content";
+       headingEvents.className="title is-4";
+       eventClassification.className="subtitle is-6";
+       descriptionEvents.className="content";
+
+       imgEvents.src=data._embedded.events[i].images[0].url;
+       headingEvents.textContent=data._embedded.events[i].name;
+       eventClassification.textContent=data._embedded.events[i].classifications[0].genre.name;
+       descriptionEvents.textContent=data._embedded.events[i].info;
  
-    //   ticketmasterEventData.appendChild(headerIconEl);
-    //   ticketmasterEventData.appendChild(temperature);
+       ticketmasterEventData.appendChild(eventCard);
+       eventCard.appendChild(eventCardImage);
+       eventCardImage.appendChild(eventFigure)
+       eventFigure.appendChild(imgEvents)
+       eventCard.appendChild(eventCardContent);
+       eventCardContent.appendChild(eventMedia);
+       eventMedia.appendChild(eventMediaContent);
+       eventMediaContent.appendChild(headingEvents)
+       eventMediaContent.appendChild(eventClassification)
+       eventCard.appendChild(descriptionEvents);
+        
+    }
+      
+
+      
+
+      
+
+
  })
 }
