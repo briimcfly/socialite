@@ -428,3 +428,38 @@ bulmaCarousel.attach('.carousel', {
     loop: true,
 })
 
+
+function getFood () {
+ 
+  inputLocation =inputCity.value.trim() 
+  //request URL incorporating the user inputted city
+  let requestUrl ="http://api.openweathermap.org/geo/1.0/direct?q=" + inputLocation + "&limit=5&appid=88a5790f881a820d719667c737ffc4f3" /* used to get the latitude and longintue from the input */
+  fetch(requestUrl)
+      .then(function (response){
+          return response.json();
+      })
+      .then(function (data) {
+      
+      for (i=0; i< data.length; i++) {
+        let lat = parseInt(data[0].lat)
+        let lon = parseInt(data[0].lon)
+
+      let url= "https://api.geoapify.com/v2/places?categories=commercial.food_and_drink&filter=circle:" +lon + ","+lat + ",50000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d"
+      
+      fetch(url)
+      .then(function (response){
+          return response.json();
+      })
+      .then(function (data) {
+        console.log(data)
+    })
+  }
+})
+
+    }
+
+  
+
+
+
+  
