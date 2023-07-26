@@ -155,7 +155,7 @@ function requestBarsBreweries() {
   let barBrewNames = document.querySelectorAll("#barBrewName");
   let barBrewTypes = document.querySelectorAll("#barBrewType");
 
-  let requestUrl = `https://api.openbrewerydb.org/v1/breweries?by_city=sacramento&per_page=5`
+  let requestUrl = `https://api.openbrewerydb.org/v1/breweries?by_city=sacramento&per_page=10`
 
   fetch(requestUrl)
     .then(function (response) {
@@ -165,22 +165,30 @@ function requestBarsBreweries() {
       console.log(data)
       
       let returnedResults = []
-
+      // iterate thru returned data
       for (i = 0; i < data.length; i++) {
-        let barObject = {
-          barname: data[i].name,
-          bartype: data[i].brewery_type,
-          address: data[i].street,
-          lat: data[i].latitude,
-          lon: data[i].longitude,
-          phone: data[i].phone,
-          url: data[i].website_url
+        // filter results that match accepted categories
+        if (
+          ((data[i].brewery_type === "bar") || 
+          (data[i].brewery_type === "brewpub") || 
+          (data[i].brewery_type === "micro") ||
+          (data[i].brewery_type === "nano") ||
+          (data[i].brewery_type === "regional")) ) {
+            // create object for each data result with relevant properties to be used elsewhere
+            let barObject = {
+              barname: data[i].name,
+              bartype: data[i].brewery_type,
+              address: data[i].street,
+              lat: data[i].latitude,
+              lon: data[i].longitude,
+              phone: data[i].phone ?? "None available",
+              url: data[i].website_url ?? "None available"
+            }
+            returnedResults.push(barObject)
         }
-
-        returnedResults.push(barObject)
       }
 
-      // create result cards - waiting on html template to create/append elements
+      // create result cards
       for (i = 0; i < returnedResults.length; i++) {
         let barCardEl = document.createElement("div")
         barCardEl.className = "column is-one-quarter"
@@ -188,10 +196,9 @@ function requestBarsBreweries() {
           `<div class="card">
               <div class="card-image">
                 <figure class="image is-4by3">
-                  <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+                  <img src="assets\\images\\${returnedResults[i].bartype}.png" alt="Placeholder image">
                 </figure>
               </div>
-
               <div class="card-content">
                 <div class="media">
                   <div class="media-content">
@@ -200,17 +207,19 @@ function requestBarsBreweries() {
                   </div>
                 </div>
                 <div id = "eventDescription" class="content ellipsis">
+                  <p class="has-text-weight-bold">${returnedResults[i].address}</p>
+                  <p class="has-text-weight-bold">Phone: <a href="tel:${returnedResults[i].phone}">${returnedResults[i].phone}</a></p>
+                  <p class="has-text-weight-bold"><a href=${returnedResults[i].url} target="_blank">Visit them here!</a></p>
                 </div>
               </div>
             </div>`
         
 
         barContainer.appendChild(barCardEl)
-        // barBrewNames[i].textContent = returnedResults[i].barname
-        // barBrewTypes[i].textContent = returnedResults[i].bartype
       }
     })
 }
 
 requestBarsBreweries()
+
 
