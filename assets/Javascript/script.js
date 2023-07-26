@@ -150,7 +150,12 @@ buttonCity.addEventListener("click" , function(){
 // openBrewery api
 
 function requestBarsBreweries() {
-  let requestUrl = `https://api.openbrewerydb.org/v1/breweries?by_city=davis&per_page=5`
+  // html elements
+  let barContainer = document.querySelector("#barContainer");
+  let barBrewNames = document.querySelectorAll("#barBrewName");
+  let barBrewTypes = document.querySelectorAll("#barBrewType");
+
+  let requestUrl = `https://api.openbrewerydb.org/v1/breweries?by_city=sacramento&per_page=5`
 
   fetch(requestUrl)
     .then(function (response) {
@@ -159,8 +164,53 @@ function requestBarsBreweries() {
     .then(function (data) {
       console.log(data)
       
+      let returnedResults = []
+
+      for (i = 0; i < data.length; i++) {
+        let barObject = {
+          barname: data[i].name,
+          bartype: data[i].brewery_type,
+          address: data[i].street,
+          lat: data[i].latitude,
+          lon: data[i].longitude,
+          phone: data[i].phone,
+          url: data[i].website_url
+        }
+
+        returnedResults.push(barObject)
+      }
+
       // create result cards - waiting on html template to create/append elements
-      let cardEl = document.createElement("div")
-      cardEl.classList.add("card")
+      for (i = 0; i < returnedResults.length; i++) {
+        let barCardEl = document.createElement("div")
+        barCardEl.className = "column is-one-quarter"
+        barCardEl.innerHTML = 
+          `<div class="card">
+              <div class="card-image">
+                <figure class="image is-4by3">
+                  <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+                </figure>
+              </div>
+
+              <div class="card-content">
+                <div class="media">
+                  <div class="media-content">
+                    <p id = "barBrewName" class="title is-4">${returnedResults[i].barname}</p>
+                    <p id = "barBrewType" class="subtitle is-6">${returnedResults[i].bartype}</p>
+                  </div>
+                </div>
+                <div id = "eventDescription" class="content ellipsis">
+                </div>
+              </div>
+            </div>`
+        
+
+        barContainer.appendChild(barCardEl)
+        // barBrewNames[i].textContent = returnedResults[i].barname
+        // barBrewTypes[i].textContent = returnedResults[i].bartype
+      }
     })
 }
+
+requestBarsBreweries()
+
