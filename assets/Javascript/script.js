@@ -13,6 +13,11 @@ let comedyEvent=document.getElementById("comedy");
 let filmEvent=document.getElementById("film");
 let festivalsEvent=document.getElementById("festivals");
 let miscEvent=document.getElementById("misc");
+let restaurants = document.getElementById('restaurants')
+let chinese = document.getElementById('chinese')
+let korean = document.getElementById('korean')
+let american = document.getElementById('american')
+let mexican = document.getElementById('mexican')
 
 let todayDate= dayjs().format("YYYY-MM-DD")
 console.log(todayDate)
@@ -66,6 +71,7 @@ buttonCity.addEventListener("click" , function(){
     currentWeather();
     ticketMasterEvents();
     requestBarsBreweries();
+    getFoodAll();
  })
 
  inputCity.addEventListener("keypress" , function(event){
@@ -78,6 +84,7 @@ buttonCity.addEventListener("click" , function(){
     ticketMasterEvents();
     requestBarsBreweries()
 
+    getFoodAll();
     }
  })
 
@@ -346,4 +353,84 @@ function requestBarsBreweries() {
 }
 
 
+// americian.addEventListener("click", function(event) {})
 
+// mexician.addEventListener("click", function(event) {})
+
+// korean.addEventListener("click", function(event) {})
+
+// chinese.addEventListener("click", function(event) {})
+
+function getFoodAll () {
+ restaurants.innerHTML ="";
+  inputLocation =inputCity.value.trim() 
+  //request URL incorporating the user inputted city
+  let requestUrl ="http://api.openweathermap.org/geo/1.0/direct?q=" + inputLocation + "&limit=5&appid=88a5790f881a820d719667c737ffc4f3" /* used to get the latitude and longintue from the input */
+  fetch(requestUrl)
+      .then(function (response){
+          return response.json();
+      })
+      .then(function (data) {
+     
+     let lat = parseInt(data[0].lat)
+      let lon = parseInt(data[0].lon)
+
+      let urlAll= "https://api.geoapify.com/v2/places?categories=commercial.food_and_drink,catering&filter=circle:" +lon + ","+lat + ",25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d"
+      
+      /* adjust URL for tabbed type
+      catering.restaurant.pizza
+      catering.restaurant.burger
+      catering.restaurant.italian
+      catering.restaurant.chinese
+      catering.restaurant.japanese
+      catering.restaurant.indian
+      catering.restaurant.sushi
+      catering.restaurant.seafood
+      catering.restaurant.steak_house	
+      catering.restaurant.barbecue	
+      */
+
+      fetch(urlAll)
+      .then(function (response){
+          return response.json();
+      })
+      .then(function (data) {
+        console.log(data)
+    for (i=0; i < data.features.length; i++) {
+   
+    let foodCard = document.createElement("div");
+    let foodCardImage=document.createElement("div");
+    let headingFood=document.createElement("p");
+    let foodUrl= document.createElement("p");
+    let foodPhone= document.createElement("p");
+    let foodAddress=document.createElement("p")
+    
+    foodCard.className="card";
+    foodCardImage.className="card-image";
+    
+    // foodCardImage = insert generic picture cards based on type
+    headingFood.textContent=data.features[i].properties.name;
+    foodUrl.textContent=data.features[i].properties.datasource.raw.url;
+    foodPhone.textContent=data.features[i].properties.datasource.raw.phone;
+    foodAddress.textContent=data.features[i].properties.address_line2;
+
+    // foodCard.appendChild(foodCardImage);
+    foodCard.appendChild(headingFood);
+    foodCard.appendChild(foodUrl);
+    foodCard.appendChild(foodPhone);
+    foodCard.appendChild(foodAddress);
+    restaurants.appendChild(foodCard);
+    
+  }
+   
+      })
+  })
+}
+
+    
+
+  
+
+    
+
+  
