@@ -492,26 +492,31 @@ function getFoodAll () {
    
     let foodCard = document.createElement("div");
     let foodCardImage=document.createElement("div");
-    let headingFood=document.createElement("p");
-    let foodUrl= document.createElement("p");
-    let foodPhone= document.createElement("p");
+    let headingFood=document.createElement("h5");
+    let foodUrl= document.createElement("a");
+    let foodPhone= document.createElement("a");
     let foodAddress=document.createElement("p")
     
-    foodCard.className="card";
+    foodCard.className="card column is-one-quarter section is-multiline";
     foodCardImage.className="card-image";
+    headingFood.className="title is-4"
+    foodUrl.className= "content"
+    foodPhone.className="has-text-weight-bold"
+    foodAddress.className= "content"
     
-    // foodCardImage = insert generic picture cards based on type
+
+    foodCardImage.src= "./assets/images/brewpub.png"
     headingFood.textContent=data.features[i].properties.name;
-    foodUrl.textContent=data.features[i].properties.datasource.raw.url;
-    foodPhone.textContent=data.features[i].properties.datasource.raw.phone;
+    foodUrl.textContent=data.features[i].properties.datasource.raw.website;
+    foodPhone.textContent="Phone: "+data.features[i].properties.datasource.raw.phone;
     foodAddress.textContent=data.features[i].properties.address_line2;
 
-    // foodCard.appendChild(foodCardImage);
+    foodCard.appendChild(foodCardImage);
     foodCard.appendChild(headingFood);
-    foodCard.appendChild(foodUrl);
     foodCard.appendChild(foodPhone);
     foodCard.appendChild(foodAddress);
     restaurants.appendChild(foodCard);
+    foodCard.appendChild(foodUrl);
     
   }
    
