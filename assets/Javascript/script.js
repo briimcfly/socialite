@@ -13,6 +13,7 @@ let comedyEvent=document.getElementById("comedy");
 let filmEvent=document.getElementById("film");
 let festivalsEvent=document.getElementById("festivals");
 let miscEvent=document.getElementById("misc");
+const modalLauncher = document.getElementById('modal-launcher')
 
 let todayDate= dayjs().format("YYYY-MM-DD")
 console.log(todayDate)
@@ -37,6 +38,7 @@ function currentWeather() {
 
 //Function that sets a "Things to do in:" Header
 function cityHero(param){
+    modalLauncher.style.display = "inline-flex";
     const titleEl = document.getElementById('titleEl'); 
     titleEl.innerHTML = "";
     titleEl.textContent = "Things to do in "; 
