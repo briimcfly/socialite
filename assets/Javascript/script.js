@@ -19,16 +19,20 @@ let korean = document.getElementById('korean')
 let american = document.getElementById('american')
 let mexican = document.getElementById('mexican')
 let cName;
+var storedCurrentCity = localStorage.getItem("storedCurrentCity");
+
+if (storedCurrentCity !== null) {
+    currentWeather(storedCurrentCity);
+}
 
 let todayDate= dayjs().format("YYYY-MM-DD")
 console.log(todayDate)
-inputLocation =inputCity.value.trim()
 let eventInput= "music"
 
-function currentWeather() {
-    inputLocation =inputCity.value.trim() 
+function currentWeather(city) {
+    // inputLocation =inputCity.value.trim() 
     //request URL incorporating the user inputted city
-    let requestUrl ="https://api.openweathermap.org/data/2.5/weather?q="+inputLocation+"&APPID=88a5790f881a820d719667c737ffc4f3&units=imperial";
+    let requestUrl ="https://api.openweathermap.org/data/2.5/weather?q="+city+"&APPID=88a5790f881a820d719667c737ffc4f3&units=imperial";
 
 //fetch request that returns data
     fetch(requestUrl)
@@ -42,6 +46,10 @@ function currentWeather() {
         requestBarsBreweries();
         getFoodAll();
         cityHero(data);
+
+        //set the cName to local storage 
+
+        localStorage.setItem("storedCurrentCity", cName);
         })
 }
 
@@ -90,17 +98,19 @@ modalClose.onclick = function(){
 
 buttonCity.addEventListener("click" , function(){
     weather.textContent="";
-        
+    inputLocation =inputCity.value.trim()
 //calls the current weather and five day functions when the button is clicked
-    currentWeather();
+    currentWeather(inputLocation);
  })
 
  inputCity.addEventListener("keypress" , function(event){
     if (event.key === "Enter") {
     event.preventDefault()
+    inputLocation =inputCity.value.trim()
+
     weather.textContent="";
 //calls the current weather and five day functions when the button is clicked
-    currentWeather();
+    currentWeather(inputLocation);
     }
  })
 
