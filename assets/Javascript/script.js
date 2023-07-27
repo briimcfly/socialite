@@ -18,6 +18,7 @@ let chinese = document.getElementById('chinese')
 let korean = document.getElementById('korean')
 let american = document.getElementById('american')
 let mexican = document.getElementById('mexican')
+const modalLauncher = document.getElementById('modal-launcher')
 
 let todayDate= dayjs().format("YYYY-MM-DD")
 console.log(todayDate)
@@ -42,6 +43,7 @@ function currentWeather() {
 
 //Function that sets a "Things to do in:" Header
 function cityHero(param){
+    modalLauncher.style.display = "inline-flex";
     const titleEl = document.getElementById('titleEl'); 
     titleEl.innerHTML = "";
     titleEl.textContent = "Things to do in "; 
@@ -351,7 +353,6 @@ function requestBarsBreweries() {
       }
     })
 }
-
 // musicEvent.addEventListener("click" , function(){
 //   let eventLi=document.querySelectorAll("li")
 //   for(i=0; i<eventLi.length; i++){
