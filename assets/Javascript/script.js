@@ -399,7 +399,7 @@ function getFoodAll () {
     for (i=0; i < data.features.length; i++) {
    
     let foodCard = document.createElement("div");
-    let foodCardImage=document.createElement("div");
+    let foodCardImage=document.createElement("img");
     let headingFood=document.createElement("h5");
     let foodUrl= document.createElement("a");
     let foodPhone= document.createElement("a");
