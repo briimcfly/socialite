@@ -3,11 +3,19 @@ let inputCity=document.getElementById("input-city");
 let buttonCity=document.getElementById("button-city");
 let ticketmasterEventData=document.getElementById("ticketmaster-event-data")
 let ticketmasterEventContainer=document.getElementById("ticketmaster-event-container")
+let musicEvent=document.getElementById("music");
+let sportsEvent=document.getElementById("sports");
+let artsEvent=document.getElementById("arts");
+let familyEvent=document.getElementById("family");
+let comedyEvent=document.getElementById("comedy");
+let filmEvent=document.getElementById("film");
+let festivalsEvent=document.getElementById("festivals");
+let miscEvent=document.getElementById("misc");
 
 let todayDate= dayjs().format("YYYY-MM-DD")
 console.log(todayDate)
 inputLocation =inputCity.value.trim()
-
+let eventInput= "music"
 
 function currentWeather() {
     inputLocation =inputCity.value.trim() 
@@ -50,15 +58,16 @@ buttonCity.addEventListener("click" , function(){
     event.preventDefault()
     weather.textContent="";
 //calls the current weather and five day functions when the button is clicked
-    ticketmasterEventData=""
+    
     currentWeather();
     ticketMasterEvents();
     requestBarsBreweries()
+
     }
  })
 
  function ticketMasterEvents () {
-       let eventRequestUrl= "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime="+todayDate+"T00:00:00Z&&endDateTime="+todayDate+"T23:59:59Z&classificationName=Sports,Family&city="+inputLocation+"&apikey=yTpugCkiZy8jJLwQIFI29hvie9b9teAA"
+     let eventRequestUrl= "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime="+todayDate+"T00:00:00Z&&endDateTime="+todayDate+"T23:59:59Z&classificationName="+eventInput+"&city="+inputLocation+"&apikey=yTpugCkiZy8jJLwQIFI29hvie9b9teAA"
    
    fetch(eventRequestUrl)
         .then(function (response){
@@ -66,7 +75,10 @@ buttonCity.addEventListener("click" , function(){
         })
    .then(function (data) {
        console.log(data);
+
     if (data.page.totalElements===0) {
+        ticketmasterEventData.innerHTML=""
+       let eventColumn=document.createElement("div")
        let eventCard = document.createElement("div");
        let eventCardImage=document.createElement("div");
        let eventFigure= document.createElement("figure");
@@ -78,6 +90,7 @@ buttonCity.addEventListener("click" , function(){
        let eventClassification=document.createElement("p");
        let descriptionEvents = document.createElement("div");
     
+       eventColumn.className="column"
        eventCard.className="card";
        eventCardImage.className="card-image";
        eventFigure.className="image is-4by3";
@@ -90,7 +103,8 @@ buttonCity.addEventListener("click" , function(){
 
        headingEvents.textContent="No events of this type";
       
-       ticketmasterEventData.appendChild(eventCard);
+       ticketmasterEventData.appendChild(eventColumn);
+       eventColumn.appendChild(eventCard);
        eventCard.appendChild(eventCardImage);
        eventCardImage.appendChild(eventFigure)
        eventFigure.appendChild(imgEvents)
@@ -100,12 +114,14 @@ buttonCity.addEventListener("click" , function(){
        eventMediaContent.appendChild(headingEvents)
        eventMediaContent.appendChild(eventClassification)
        eventCard.appendChild(descriptionEvents);
-
-
     }
+
     else {
-       for(i=0; i<data._embedded.events.length; i++){
-                
+       ticketmasterEventData.innerHTML=""
+        for(i=0; i<data._embedded.events.length; i++){
+       
+
+       let eventColumn=document.createElement("div")
        let eventCard = document.createElement("div");
        let eventCardImage=document.createElement("div");
        let eventFigure= document.createElement("figure");
@@ -114,9 +130,12 @@ buttonCity.addEventListener("click" , function(){
        let eventMedia=document.createElement("div");
        let eventMediaContent=document.createElement("div");
        let headingEvents=document.createElement("p");
+       let eventLink=document.createElement("a");
        let eventClassification=document.createElement("p");
        let descriptionEvents = document.createElement("div");
 
+       ticketmasterEventData.ClassName="columns section carousel is-multiline"
+       eventColumn.className="column is-one-quarter"
        eventCard.className="card";
        eventCardImage.className="card-image";
        eventFigure.className="image is-4by3";
@@ -125,14 +144,17 @@ buttonCity.addEventListener("click" , function(){
        eventMediaContent.className="media-content";
        headingEvents.className="title is-4";
        eventClassification.className="subtitle is-6";
-       descriptionEvents.className="content";
+       descriptionEvents.className="content ellipsis";
 
        imgEvents.src=data._embedded.events[i].images[0].url;
        headingEvents.textContent=data._embedded.events[i].name;
        eventClassification.textContent=data._embedded.events[i].classifications[0].genre.name;
+       eventLink.textContent="Link to TicketMaster" 
+       eventLink.href=data._embedded.events[i].url
        descriptionEvents.textContent=data._embedded.events[i].info;
- 
-       ticketmasterEventData.appendChild(eventCard);
+        
+       ticketmasterEventData.appendChild(eventColumn);
+       eventColumn.appendChild(eventCard);
        eventCard.appendChild(eventCardImage);
        eventCardImage.appendChild(eventFigure)
        eventFigure.appendChild(imgEvents)
@@ -140,12 +162,101 @@ buttonCity.addEventListener("click" , function(){
        eventCardContent.appendChild(eventMedia);
        eventMedia.appendChild(eventMediaContent);
        eventMediaContent.appendChild(headingEvents)
+       eventMediaContent.appendChild(eventLink)
        eventMediaContent.appendChild(eventClassification)
        eventCard.appendChild(descriptionEvents);
-       }
+          
     }
+
+    }
+    bulmaCarousel.attach('.carousel', {
+        slidesToScroll:1,
+        slidesToShow:4,
+        navigation: true,
+        loop: true,   
+       })
  })
 }
+
+
+musicEvent.addEventListener("click" , function(){
+    let eventLi=document.querySelectorAll("li")
+    for(i=0; i<eventLi.length; i++){
+        eventLi[i].className=""}
+    musicEvent.classList.add("is-active")
+    eventInput="music"
+    ticketMasterEvents()
+})
+
+sportsEvent.addEventListener("click" , function(){
+    let eventLi=document.querySelectorAll("li")
+    for(i=0; i<eventLi.length; i++){
+        eventLi[i].className=""}
+    sportsEvent.classList.add("is-active")
+    eventInput="sports"
+    ticketMasterEvents()
+})
+
+artsEvent.addEventListener("click" , function(){
+    let eventLi=document.querySelectorAll("li")
+    for(i=0; i<eventLi.length; i++){
+        eventLi[i].className=""}
+    artsEvent.classList.add("is-active")
+    eventInput="arts";
+    ticketMasterEvents()
+})
+
+familyEvent.addEventListener("click" , function(){
+    let eventLi=document.querySelectorAll("li")
+    for(i=0; i<eventLi.length; i++){
+        eventLi[i].className=""}
+    familyEvent.classList.add("is-active")
+    eventInput="family";
+    ticketMasterEvents()
+})
+
+comedyEvent.addEventListener("click" , function(){
+    let eventLi=document.querySelectorAll("li")
+    for(i=0; i<eventLi.length; i++){
+        eventLi[i].className=""}
+    comedyEvent.classList.add("is-active")
+    eventInput="comedy";
+    ticketMasterEvents()
+})
+
+filmEvent.addEventListener("click" , function(){
+    let eventLi=document.querySelectorAll("li")
+    for(i=0; i<eventLi.length; i++){
+        eventLi[i].className=""}
+    filmEvent.classList.add("is-active")
+    eventInput="film";
+     ticketMasterEvents()
+})
+
+festivalsEvent.addEventListener("click" , function(){
+    let eventLi=document.querySelectorAll("li")
+    for(i=0; i<eventLi.length; i++){
+        eventLi[i].className=""}
+    festivalsEvent.classList.add("is-active")
+    eventInput="festivals"
+    ticketMasterEvents()
+})
+
+miscEvent.addEventListener("click" , function(){
+    let eventLi=document.querySelectorAll("li") 
+    for(i=0; i<eventLi.length; i++){
+    eventLi[i].className=""}
+    miscEvent.classList.add("is-active")
+    eventInput="Miscellaneous";
+     ticketMasterEvents()
+})
+
+bulmaCarousel.attach('.carousel', {
+    slidesToScroll:1,
+    slidesToShow:4,
+    navigation: true,
+    loop: true,
+})
 
 
 // openBrewery api
@@ -218,5 +329,6 @@ function requestBarsBreweries() {
       }
     })
 }
+
 
 
