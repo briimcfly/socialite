@@ -492,12 +492,13 @@ function getFoodAll () {
    
     let foodCard = document.createElement("div");
     let foodCardImage=document.createElement("img");
-    let headingFood=document.createElement("h5");
+    let headingFood=document.createElement("h2");
     let foodUrl= document.createElement("a");
     let foodPhone= document.createElement("a");
     let foodAddress=document.createElement("p")
     
-    foodCard.className="card column is-one-quarter section is-multiline";
+
+    foodCard.className="card column is-one-quarter section";
     foodCardImage.className="card-image";
     headingFood.className="title is-4"
     foodUrl.className= "content"
