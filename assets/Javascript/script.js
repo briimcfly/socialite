@@ -38,10 +38,10 @@ function currentWeather() {
         })
         .then(function (data) {
 // Add the City Name & Header  
-        var cName = data.name;
-        console.log(cName);
+        cName = data.name;  
         ticketMasterEvents();
-        requestBarsBreweries()
+        requestBarsBreweries();
+        getFoodAll();
         cityHero(data);
         })
 }
@@ -93,9 +93,6 @@ buttonCity.addEventListener("click" , function(){
         
 //calls the current weather and five day functions when the button is clicked
     currentWeather();
-    ticketMasterEvents();
-    requestBarsBreweries();
-    getFoodAll();
  })
 
  inputCity.addEventListener("keypress" , function(event){
@@ -103,16 +100,12 @@ buttonCity.addEventListener("click" , function(){
     event.preventDefault()
     weather.textContent="";
 //calls the current weather and five day functions when the button is clicked
-    
     currentWeather();
-    ticketMasterEvents();
-    requestBarsBreweries()
-    getFoodAll();
     }
  })
 
  function ticketMasterEvents () {
-     let eventRequestUrl= "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime="+todayDate+"T00:00:00Z&&endDateTime="+todayDate+"T23:59:59Z&classificationName="+eventInput+"&city="+inputLocation+"&apikey=yTpugCkiZy8jJLwQIFI29hvie9b9teAA"
+     let eventRequestUrl= "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime="+todayDate+"T00:00:00Z&&endDateTime="+todayDate+"T23:59:59Z&classificationName="+eventInput+"&city="+cName+"&apikey=yTpugCkiZy8jJLwQIFI29hvie9b9teAA"
    
    fetch(eventRequestUrl)
         .then(function (response){
@@ -310,7 +303,7 @@ function requestBarsBreweries() {
   // html elements
   let barContainer = document.querySelector("#barContainer");
 
-  let requestUrl = `https://api.openbrewerydb.org/v1/breweries?by_city=${inputLocation}&per_page=10`
+  let requestUrl = `https://api.openbrewerydb.org/v1/breweries?by_city=${cName}&per_page=10`
 
   fetch(requestUrl)
     .then(function (response) {
@@ -393,9 +386,8 @@ function requestBarsBreweries() {
 
 function getFoodAll () {
  restaurants.innerHTML ="";
-  inputLocation =inputCity.value.trim() 
   //request URL incorporating the user inputted city
-  let requestUrl ="http://api.openweathermap.org/geo/1.0/direct?q=" + inputLocation + "&limit=5&appid=88a5790f881a820d719667c737ffc4f3" /* used to get the latitude and longintue from the input */
+  let requestUrl ="http://api.openweathermap.org/geo/1.0/direct?q=" + cName + "&limit=5&appid=88a5790f881a820d719667c737ffc4f3" /* used to get the latitude and longintue from the input */
   fetch(requestUrl)
       .then(function (response){
           return response.json();
