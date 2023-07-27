@@ -14,6 +14,10 @@ let filmEvent=document.getElementById("film");
 let festivalsEvent=document.getElementById("festivals");
 let miscEvent=document.getElementById("misc");
 let restaurants = document.getElementById('restaurants')
+let chinese = document.getElementById('chinese')
+let korean = document.getElementById('korean')
+let american = document.getElementById('american')
+let mexican = document.getElementById('mexican')
 
 let todayDate= dayjs().format("YYYY-MM-DD")
 console.log(todayDate)
@@ -67,6 +71,7 @@ buttonCity.addEventListener("click" , function(){
     currentWeather();
     ticketMasterEvents();
     requestBarsBreweries();
+    getFoodAll();
  })
 
  inputCity.addEventListener("keypress" , function(event){
@@ -348,10 +353,16 @@ function requestBarsBreweries() {
 }
 
 
+// americian.addEventListener("click", function(event) {})
 
+// mexician.addEventListener("click", function(event) {})
+
+// korean.addEventListener("click", function(event) {})
+
+// chinese.addEventListener("click", function(event) {})
 
 function getFoodAll () {
- 
+ restaurants.innerHTML ="";
   inputLocation =inputCity.value.trim() 
   //request URL incorporating the user inputted city
   let requestUrl ="http://api.openweathermap.org/geo/1.0/direct?q=" + inputLocation + "&limit=5&appid=88a5790f881a820d719667c737ffc4f3" /* used to get the latitude and longintue from the input */
@@ -385,7 +396,7 @@ function getFoodAll () {
       })
       .then(function (data) {
         console.log(data)
-    for (i=0; i < data.length; i++) {
+    for (i=0; i < data.features.length; i++) {
    
     let foodCard = document.createElement("div");
     let foodCardImage=document.createElement("div");
@@ -403,7 +414,7 @@ function getFoodAll () {
     foodPhone.textContent=data.features[i].properties.datasource.raw.phone;
     foodAddress.textContent=data.features[i].properties.address_line2;
 
-    foodCard.appendChild(foodCardImage);
+    // foodCard.appendChild(foodCardImage);
     foodCard.appendChild(headingFood);
     foodCard.appendChild(foodUrl);
     foodCard.appendChild(foodPhone);
