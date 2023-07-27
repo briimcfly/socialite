@@ -347,7 +347,7 @@ function requestBarsBreweries() {
 }
 
 
-
+//adding event listeners to different tabs of events
 musicEvent.addEventListener("click" , function(){
     let eventLi=document.querySelectorAll("li")
     for(i=0; i<eventLi.length; i++){
