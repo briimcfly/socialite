@@ -26,6 +26,7 @@ if (storedCurrentCity !== null) {
 }
 
 let todayDate= dayjs().format("YYYY-MM-DD")
+let weekDate= dayjs().add(7,"day").format("YYYY-MM-DD")
 console.log(todayDate)
 let eventInput= "music"
 
