@@ -366,6 +366,14 @@ function requestBarsBreweries() {
     })
 }
 
+// musicEvent.addEventListener("click" , function(){
+//   let eventLi=document.querySelectorAll("li")
+//   for(i=0; i<eventLi.length; i++){
+//       eventLi[i].className=""}
+//   musicEvent.classList.add("is-active")
+//   eventInput="music"
+//   ticketMasterEvents()
+// })
 
 //adding event listeners to different tabs of events
 musicEvent.addEventListener("click" , function(){
@@ -448,11 +456,11 @@ bulmaCarousel.attach('.carousel', {
     loop: true,
 })
 
-// mexician.addEventListener("click", function(event) {})
+// mexician.addEventListener("click", function() {})
 
-// korean.addEventListener("click", function(event) {})
+// korean.addEventListener("click", function() {})
 
-// chinese.addEventListener("click", function(event) {})
+// chinese.addEventListener("click", function() {})
 
 function getFoodAll () {
  restaurants.innerHTML ="";
