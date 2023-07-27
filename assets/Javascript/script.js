@@ -45,6 +45,8 @@ function currentWeather() {
         })
 }
 
+console.log(cName);
+
 //Function that sets a "Things to do in:" Header
 function cityHero(param){
     inputCity.value = "";
@@ -80,6 +82,7 @@ modalLauncher.onclick = function() {
     modal.style.display = 'block';
 }
 
+
 modalClose.onclick = function(){
     modal.style.display = 'none';
 }
@@ -102,7 +105,9 @@ buttonCity.addEventListener("click" , function(){
  })
 
  function ticketMasterEvents () {
+
      let eventRequestUrl= "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime="+todayDate+"T00:00:00Z&&endDateTime="+weekDate+"T23:59:59Z&classificationName="+eventInput+"&city="+inputLocation+"&apikey=yTpugCkiZy8jJLwQIFI29hvie9b9teAA"
+
    
    fetch(eventRequestUrl)
         .then(function (response){
@@ -365,86 +370,9 @@ function requestBarsBreweries() {
 //   ticketMasterEvents()
 // })
 
-//adding event listeners to different tabs of events
-musicEvent.addEventListener("click" , function(){
-    let eventLi=document.querySelectorAll("li")
-    for(i=0; i<eventLi.length; i++){
-        eventLi[i].className=""}
-    musicEvent.classList.add("is-active")
-    eventInput="music"
-    ticketMasterEvents()
-})
 
-sportsEvent.addEventListener("click" , function(){
-    let eventLi=document.querySelectorAll("li")
-    for(i=0; i<eventLi.length; i++){
-        eventLi[i].className=""}
-    sportsEvent.classList.add("is-active")
-    eventInput="sports"
-    ticketMasterEvents()
-})
+// americian.addEventListener("click", function() {})
 
-artsEvent.addEventListener("click" , function(){
-    let eventLi=document.querySelectorAll("li")
-    for(i=0; i<eventLi.length; i++){
-        eventLi[i].className=""}
-    artsEvent.classList.add("is-active")
-    eventInput="arts";
-    ticketMasterEvents()
-})
-
-familyEvent.addEventListener("click" , function(){
-    let eventLi=document.querySelectorAll("li")
-    for(i=0; i<eventLi.length; i++){
-        eventLi[i].className=""}
-    familyEvent.classList.add("is-active")
-    eventInput="family";
-    ticketMasterEvents()
-})
-
-comedyEvent.addEventListener("click" , function(){
-    let eventLi=document.querySelectorAll("li")
-    for(i=0; i<eventLi.length; i++){
-        eventLi[i].className=""}
-    comedyEvent.classList.add("is-active")
-    eventInput="comedy";
-    ticketMasterEvents()
-})
-
-filmEvent.addEventListener("click" , function(){
-    let eventLi=document.querySelectorAll("li")
-    for(i=0; i<eventLi.length; i++){
-        eventLi[i].className=""}
-    filmEvent.classList.add("is-active")
-    eventInput="film";
-     ticketMasterEvents()
-})
-
-festivalsEvent.addEventListener("click" , function(){
-    let eventLi=document.querySelectorAll("li")
-    for(i=0; i<eventLi.length; i++){
-        eventLi[i].className=""}
-    festivalsEvent.classList.add("is-active")
-    eventInput="festivals"
-    ticketMasterEvents()
-})
-
-miscEvent.addEventListener("click" , function(){
-    let eventLi=document.querySelectorAll("li") 
-    for(i=0; i<eventLi.length; i++){
-    eventLi[i].className=""}
-    miscEvent.classList.add("is-active")
-    eventInput="Miscellaneous";
-     ticketMasterEvents()
-})
-
-
-bulmaCarousel.attach('.carousel', {
-    slidesToScroll:1,
-    slidesToShow:4,
-    navigation: true,
-    loop: true,
-})
 
 // mexician.addEventListener("click", function() {})
 
