@@ -42,6 +42,7 @@ function currentWeather() {
 
 //Function that sets a "Things to do in:" Header
 function cityHero(param){
+    modalLauncher.style.display = "inline-flex";
     const titleEl = document.getElementById('titleEl'); 
     titleEl.innerHTML = "";
     titleEl.textContent = "Things to do in "; 

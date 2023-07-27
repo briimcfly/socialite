@@ -18,9 +18,9 @@
     crossorigin="anonymous"
   ></script>
 </head>
-<body>
+<body  class="has-navbar-fixed-top">
   <!-- Navigation -->
-    <nav class="navbar has-background-link-light" role="navigation" aria-label="main navigation">
+    <nav class="navbar has-background-link-light is-fixed-top" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
           <a class="navbar-item" href="#">
             <img src="assets/images/logo.png" width="112" height="28">
@@ -56,13 +56,17 @@
       </div>
     </div>
 <!-- Things to Do in:  -->
-    <section id = "cityHeader">
-      <h1 id="titleEl" class="title"></h1>
-      <h2 class="subtitle">
+<div class = "is-flex is-justify-content-space-between is-align-items-center">
+  <section id = "cityHeader">
+    <h1 id="titleEl" class="title"></h1>
+    <h2 class="subtitle">
 <!-- Weather -->
-        <div id="weather" class ="is-flex is-align-items-center"></div>
-      </h2>
-    </section>
+      <div id="weather" class ="is-flex is-align-items-center"></div>
+    </h2>
+  </section>
+  <button id = "modal-launcher" class="button is-link"># Saved Items</button>
+</div>
+
   </section>
 
 <!-- Ticketmaster Section -->
