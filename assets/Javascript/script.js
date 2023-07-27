@@ -50,6 +50,7 @@ buttonCity.addEventListener("click" , function(){
 //calls the current weather and five day functions when the button is clicked
     currentWeather();
     ticketMasterEvents();
+    requestBarsBreweries();
  })
 
  inputCity.addEventListener("keypress" , function(event){
@@ -60,7 +61,8 @@ buttonCity.addEventListener("click" , function(){
     
     currentWeather();
     ticketMasterEvents();
-    
+    requestBarsBreweries()
+
     }
  })
 
@@ -176,6 +178,7 @@ buttonCity.addEventListener("click" , function(){
  })
 }
 
+
 musicEvent.addEventListener("click" , function(){
     let eventLi=document.querySelectorAll("li")
     for(i=0; i<eventLi.length; i++){
@@ -254,3 +257,78 @@ bulmaCarousel.attach('.carousel', {
     navigation: true,
     loop: true,
 })
+
+
+// openBrewery api
+
+function requestBarsBreweries() {
+  // html elements
+  let barContainer = document.querySelector("#barContainer");
+
+  let requestUrl = `https://api.openbrewerydb.org/v1/breweries?by_city=${inputLocation}&per_page=10`
+
+  fetch(requestUrl)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data)
+      
+      let returnedResults = []
+      // iterate thru returned data
+      for (i = 0; i < data.length; i++) {
+        // filter results that match accepted categories
+        if (
+          ((data[i].brewery_type === "bar") || 
+          (data[i].brewery_type === "brewpub") || 
+          (data[i].brewery_type === "micro") ||
+          (data[i].brewery_type === "nano") ||
+          (data[i].brewery_type === "regional")) ) {
+            // create object for each data result with relevant properties to be used elsewhere
+            let barObject = {
+              barname: data[i].name,
+              bartype: data[i].brewery_type,
+              address: data[i].street,
+              lat: data[i].latitude,
+              lon: data[i].longitude,
+              phone: data[i].phone ?? "None available",
+              url: data[i].website_url ?? "None available"
+            }
+            returnedResults.push(barObject)
+        }
+      }
+
+      // create result cards
+      for (i = 0; i < returnedResults.length; i++) {
+        let barCardEl = document.createElement("div")
+        barCardEl.className = "column is-one-quarter"
+        barCardEl.innerHTML = 
+          `<div class="card">
+              <div class="card-image">
+                <figure class="image is-4by3">
+                  <img src="assets\\images\\${returnedResults[i].bartype}.png" alt="Placeholder image">
+                </figure>
+              </div>
+              <div class="card-content">
+                <div class="media">
+                  <div class="media-content">
+                    <p id = "barBrewName" class="title is-4">${returnedResults[i].barname}</p>
+                    <p id = "barBrewType" class="subtitle is-6">${returnedResults[i].bartype}</p>
+                  </div>
+                </div>
+                <div id = "eventDescription" class="content ellipsis">
+                  <p class="has-text-weight-bold">${returnedResults[i].address}</p>
+                  <p class="has-text-weight-bold">Phone: <a href="tel:${returnedResults[i].phone}">${returnedResults[i].phone}</a></p>
+                  <p class="has-text-weight-bold"><a href=${returnedResults[i].url} target="_blank">Visit them here!</a></p>
+                </div>
+              </div>
+            </div>`
+        
+
+        barContainer.appendChild(barCardEl)
+      }
+    })
+}
+
+
+
