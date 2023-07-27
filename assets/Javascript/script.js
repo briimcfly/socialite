@@ -1,5 +1,7 @@
 let weather=document.getElementById("weather");
 let inputCity=document.getElementById("input-city");
+let cityName = document.getElementById(`cityName`);
+let cityHeader = document.getElementById(`cityHeader`);
 let buttonCity=document.getElementById("button-city");
 let ticketmasterEventData=document.getElementById("ticketmaster-event-data")
 let ticketmasterEventContainer=document.getElementById("ticketmaster-event-container")
@@ -20,7 +22,8 @@ function currentWeather() {
             return response.json();
         })
         .then(function (data) {
-            console.log(data);
+// Add the City Name & Header           
+            thingToDo(data.name);
 //creating elements that will be part of the display
             var headerIconEl =document.createElement("img");
             var temperature = document.createElement("p");
@@ -34,6 +37,18 @@ function currentWeather() {
            weather.appendChild(temperature);
            
         })
+}
+
+//Function that sets a "Things to do in:" Header
+function thingToDo(param){
+    const titleEl = document.createElement('h1'); //Create the H2
+    titleEl.className = 'title is-3'; // Add the Title Classes
+    titleEl.textContent = 'Things to do in '; // Add the intial Text
+    const spanEl = document.createElement('span'); // Create the Span
+    spanEl.className = 'has-text-link'; // Add the Styling Class
+    spanEl.textContent = param; // Set the City Name as Text
+    titleEl.appendChild(spanEl); // Add Span to H2
+    document.getElementById('cityHeader').prepend(titleEl); // Add H2 to Section
 }
 
 buttonCity.addEventListener("click" , function(){

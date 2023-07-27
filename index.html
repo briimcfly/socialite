@@ -9,7 +9,7 @@
     <!-- Bulma -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <!-- Main Styles -->
-    <link rel="stylesheet" src="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
     <!-- DayJS -->
     <script
     src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
@@ -39,34 +39,29 @@
     </nav> 
 
 <!-- City Selector  -->
-<section class="container is-fluid">
   <section class="section">
-    <div class = "field is-horizontal">
-      <div class="field-label is-normal">
+      <div class="field">
         <label class="label">Where?</label>
-      </div>
-      <div class="field-body">
         <div class="field has-addons">
           <p class="control">
-            <!-- Search Field -->
+<!-- Search Field -->
             <input class="input is static" id="input-city" type="text" placeholder="Search for a City">
           </p>
           <p class="control">
-            <!-- Submit Button -->
+<!-- Submit Button -->
             <button id="button-city" class="button is-primary">Search</button>
           </p>
         </div>
       </div>
     </div>
-</section>
-
+<!-- Things to Do in:  -->
+    <section id = "cityHeader">
+      <h2 class="subtitle">
 <!-- Weather -->
-<h2 class="title is-3">Things to do in <span id="cityName" class="has-text-link">{City Name Goes Here}</span></h2>
-<section class="column is-one-quarter">
-  <h4>Weather</h4>
-  <div id="weather"></div>
-  </section> 
-</section>
+        <div id="weather" class ="is-flex is-align-items-center"></div>
+      </h2>
+    </section>
+  </section>
 
 <!-- Ticketmaster Section -->
   <section id = "events" class="hero is-info">
@@ -79,6 +74,8 @@
       </p>
     </div>
   </section>
+
+<!-- Section Tab Group -->
   <div class="tabs">
     <ul>
       <li class="is-active"><a>Music</a></li>
