@@ -19,6 +19,7 @@ let korean = document.getElementById('korean')
 let american = document.getElementById('american')
 let mexican = document.getElementById('mexican')
 
+let cName;
 
 let todayDate= dayjs().format("YYYY-MM-DD")
 console.log(todayDate)
@@ -36,10 +37,16 @@ function currentWeather() {
             return response.json();
         })
         .then(function (data) {
-// Add the City Name & Header   
-            cityHero(data);
+// Add the City Name & Header  
+        var cName = data.name;
+        console.log(cName);
+        ticketMasterEvents();
+        requestBarsBreweries()
+        cityHero(data);
         })
 }
+
+console.log(cName);
 
 //Function that sets a "Things to do in:" Header
 function cityHero(param){
@@ -100,7 +107,6 @@ buttonCity.addEventListener("click" , function(){
     currentWeather();
     ticketMasterEvents();
     requestBarsBreweries()
-
     getFoodAll();
     }
  })
