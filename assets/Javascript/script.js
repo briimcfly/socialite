@@ -82,6 +82,7 @@ modalLauncher.onclick = function() {
     modal.style.display = 'block';
 }
 
+
 modalClose.onclick = function(){
     modal.style.display = 'none';
 }
@@ -104,7 +105,9 @@ buttonCity.addEventListener("click" , function(){
  })
 
  function ticketMasterEvents () {
-     let eventRequestUrl= "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime="+todayDate+"T00:00:00Z&&endDateTime="+todayDate+"T23:59:59Z&classificationName="+eventInput+"&city="+cName+"&apikey=yTpugCkiZy8jJLwQIFI29hvie9b9teAA"
+
+     let eventRequestUrl= "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime="+todayDate+"T00:00:00Z&&endDateTime="+weekDate+"T23:59:59Z&classificationName="+eventInput+"&city="+inputLocation+"&apikey=yTpugCkiZy8jJLwQIFI29hvie9b9teAA"
+
    
    fetch(eventRequestUrl)
         .then(function (response){
@@ -148,7 +151,7 @@ buttonCity.addEventListener("click" , function(){
        eventCard.appendChild(eventCardContent);
        eventCardContent.appendChild(eventMedia);
        eventMedia.appendChild(eventMediaContent);
-       eventMediaContent.appendChild(headingEvents)
+       eventMediaContent.appendChild(headingEvents);
        eventMediaContent.appendChild(eventClassification)
        eventCardContent.appendChild(descriptionEvents);
     }
@@ -167,11 +170,11 @@ buttonCity.addEventListener("click" , function(){
        let eventMedia=document.createElement("div");
        let eventMediaContent=document.createElement("div");
        let headingEvents=document.createElement("p");
+       let eventDate=document.createElement("p");
        let eventLink=document.createElement("a");
        let eventClassification=document.createElement("p");
        let descriptionEvents = document.createElement("div");
 
-       ticketmasterEventData.ClassName="columns section carousel is-multiline"
        eventColumn.className="column is-one-quarter"
        eventCard.className="card";
        eventCardImage.className="card-image";
@@ -186,6 +189,7 @@ buttonCity.addEventListener("click" , function(){
        imgEvents.src=data._embedded.events[i].images[0].url;
        headingEvents.textContent=data._embedded.events[i].name;
        eventClassification.textContent=data._embedded.events[i].classifications[0].genre.name;
+       eventDate.textContent="Date: "+data._embedded.events[i].dates.start.localDate +" "+ data._embedded.events[i].dates.start.localTime;
        eventLink.textContent="Link to TicketMaster" 
        eventLink.href=data._embedded.events[i].url
        descriptionEvents.textContent=data._embedded.events[i].info;
@@ -199,21 +203,16 @@ buttonCity.addEventListener("click" , function(){
        eventCardContent.appendChild(eventMedia);
        eventMedia.appendChild(eventMediaContent);
        eventMediaContent.appendChild(headingEvents)
+       eventMediaContent.appendChild(eventDate)
        eventMediaContent.appendChild(eventLink)
        eventMediaContent.appendChild(eventClassification)
        eventCardContent.appendChild(descriptionEvents);
           
     }
-
     }
-    bulmaCarousel.attach('.carousel', {
-        slidesToScroll:1,
-        slidesToShow:4,
-        navigation: true,
-        loop: true,   
-       })
  })
 }
+
 
 
 musicEvent.addEventListener("click" , function(){
@@ -288,12 +287,7 @@ miscEvent.addEventListener("click" , function(){
      ticketMasterEvents()
 })
 
-bulmaCarousel.attach('.carousel', {
-    slidesToScroll:1,
-    slidesToShow:4,
-    navigation: true,
-    loop: true,
-})
+
 
 
 // openBrewery api
@@ -376,7 +370,9 @@ function requestBarsBreweries() {
 //   ticketMasterEvents()
 // })
 
+
 // americian.addEventListener("click", function() {})
+
 
 // mexician.addEventListener("click", function() {})
 
