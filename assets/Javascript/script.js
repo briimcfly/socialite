@@ -193,6 +193,7 @@ buttonCity.addEventListener("click" , function(){
  })
 }
 
+<<<<<<< HEAD
 
 musicEvent.addEventListener("click" , function(){
     let eventLi=document.querySelectorAll("li")
@@ -346,4 +347,76 @@ function requestBarsBreweries() {
 }
 
 
+
+musicEvent.addEventListener("click" , function(){
+    let eventLi=document.querySelectorAll("li")
+    for(i=0; i<eventLi.length; i++){
+        eventLi[i].className=""}
+    musicEvent.classList.add("is-active")
+    eventInput="music"
+    ticketMasterEvents()
+})
+
+sportsEvent.addEventListener("click" , function(){
+    let eventLi=document.querySelectorAll("li")
+    for(i=0; i<eventLi.length; i++){
+        eventLi[i].className=""}
+    sportsEvent.classList.add("is-active")
+    eventInput="sports"
+    ticketMasterEvents()
+})
+
+artsEvent.addEventListener("click" , function(){
+    let eventLi=document.querySelectorAll("li")
+    for(i=0; i<eventLi.length; i++){
+        eventLi[i].className=""}
+    artsEvent.classList.add("is-active")
+    eventInput="arts";
+    ticketMasterEvents()
+})
+
+familyEvent.addEventListener("click" , function(){
+    let eventLi=document.querySelectorAll("li")
+    for(i=0; i<eventLi.length; i++){
+        eventLi[i].className=""}
+    familyEvent.classList.add("is-active")
+    eventInput="family";
+    ticketMasterEvents()
+})
+
+comedyEvent.addEventListener("click" , function(){
+    let eventLi=document.querySelectorAll("li")
+    for(i=0; i<eventLi.length; i++){
+        eventLi[i].className=""}
+    comedyEvent.classList.add("is-active")
+    eventInput="comedy";
+    ticketMasterEvents()
+})
+
+filmEvent.addEventListener("click" , function(){
+    let eventLi=document.querySelectorAll("li")
+    for(i=0; i<eventLi.length; i++){
+        eventLi[i].className=""}
+    filmEvent.classList.add("is-active")
+    eventInput="film";
+     ticketMasterEvents()
+})
+
+festivalsEvent.addEventListener("click" , function(){
+    let eventLi=document.querySelectorAll("li")
+    for(i=0; i<eventLi.length; i++){
+        eventLi[i].className=""}
+    festivalsEvent.classList.add("is-active")
+    eventInput="festivals"
+    ticketMasterEvents()
+})
+
+miscEvent.addEventListener("click" , function(){
+    let eventLi=document.querySelectorAll("li") 
+    for(i=0; i<eventLi.length; i++){
+    eventLi[i].className=""}
+    miscEvent.classList.add("is-active")
+    eventInput="Miscellaneous";
+     ticketMasterEvents()
+})
 
