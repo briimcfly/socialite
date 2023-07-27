@@ -193,7 +193,7 @@ buttonCity.addEventListener("click" , function(){
  })
 }
 
-<<<<<<< HEAD
+
 
 musicEvent.addEventListener("click" , function(){
     let eventLi=document.querySelectorAll("li")
@@ -418,5 +418,13 @@ miscEvent.addEventListener("click" , function(){
     miscEvent.classList.add("is-active")
     eventInput="Miscellaneous";
      ticketMasterEvents()
+})
+
+
+bulmaCarousel.attach('.carousel', {
+    slidesToScroll:1,
+    slidesToShow:4,
+    navigation: true,
+    loop: true,
 })
 
