@@ -18,9 +18,9 @@
     crossorigin="anonymous"
   ></script>
 </head>
-<body>
+<body  class="has-navbar-fixed-top">
   <!-- Navigation -->
-    <nav class="navbar has-background-link-light" role="navigation" aria-label="main navigation">
+    <nav class="navbar has-background-link-light is-fixed-top" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
           <a class="navbar-item" href="#">
             <img src="assets/images/logo.png" width="112" height="28">
@@ -56,12 +56,30 @@
       </div>
     </div>
 <!-- Things to Do in:  -->
-    <section id = "cityHeader">
-      <h2 class="subtitle">
+<div class = "is-flex is-justify-content-space-between is-align-items-center">
+  <section id = "cityHeader">
+    <h1 id="titleEl" class="title"></h1>
+    <h2 class="subtitle">
 <!-- Weather -->
-        <div id="weather" class ="is-flex is-align-items-center"></div>
-      </h2>
-    </section>
+      <div id="weather" class ="is-flex is-align-items-center"></div>
+    </h2>
+  </section>
+  <button id = "modal-launcher" class="button is-link">Saved Items</button>
+  <!-- Modal -->
+  <div id = "modal" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Modal title</p>
+        <button id = "close" class="delete" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        <p>this is a test</p>
+      </section>
+  </div>
+  </div>
+</div>
+
   </section>
 
 <!-- Ticketmaster Section -->
@@ -316,7 +334,8 @@
   </div>
    
   <script src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.3/dist/js/bulma-carousel.min.js"></script>
-  
+ 
+<button id = "close" class="modal-close is-large" aria-label="close"></button> 
 <script src="./assets/Javascript/script.js"></script>
 </body>
 </html>

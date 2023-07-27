@@ -19,6 +19,7 @@ let korean = document.getElementById('korean')
 let american = document.getElementById('american')
 let mexican = document.getElementById('mexican')
 
+
 let todayDate= dayjs().format("YYYY-MM-DD")
 console.log(todayDate)
 inputLocation =inputCity.value.trim()
@@ -35,34 +36,50 @@ function currentWeather() {
             return response.json();
         })
         .then(function (data) {
-// Add the City Name & Header           
-            thingToDo(data.name);
-//creating elements that will be part of the display
-            var headerIconEl =document.createElement("img");
-            var temperature = document.createElement("p");
-//creating content for the newly created elements
-            imgSrc=data.weather[0].icon
-            iconUrl= "https://openweathermap.org/img/w/"+imgSrc+ ".png";
-            headerIconEl.src=iconUrl
-            temperature.textContent="Temp: " + data.main.temp + "° F";
-//appending the new elements to the DOM  
-           weather.appendChild(headerIconEl);
-           weather.appendChild(temperature);
-           
+// Add the City Name & Header   
+            cityHero(data);
         })
 }
 
 //Function that sets a "Things to do in:" Header
-function thingToDo(param){
-    const titleEl = document.createElement('h1'); //Create the H2
-    titleEl.className = 'title is-3'; // Add the Title Classes
-    titleEl.textContent = 'Things to do in '; // Add the intial Text
-    const spanEl = document.createElement('span'); // Create the Span
-    spanEl.className = 'has-text-link'; // Add the Styling Class
-    spanEl.textContent = param; // Set the City Name as Text
-    titleEl.appendChild(spanEl); // Add Span to H2
-    document.getElementById('cityHeader').prepend(titleEl); // Add H2 to Section
+function cityHero(param){
+    inputCity.value = "";
+    modalLauncher.style.display = "inline-flex";
+    const titleEl = document.getElementById('titleEl'); 
+    titleEl.innerHTML = "";
+    titleEl.textContent = "Things to do this week in "; 
+    const spanEl = document.createElement('span');
+    spanEl.className = "has-text-link";
+    titleEl.append(spanEl); 
+    spanEl.textContent = param.name
+    document.getElementById('cityHeader').prepend(titleEl);
+
+    //creating elements that will be part of the display
+    var headerIconEl =document.createElement("img");
+    var temperature = document.createElement("p");
+    //creating content for the newly created elements
+    imgSrc=param.weather[0].icon
+    iconUrl= "https://openweathermap.org/img/w/"+imgSrc+ ".png";
+    headerIconEl.src=iconUrl
+    temperature.textContent="Temp: " + param.main.temp + "° F";
+    //appending the new elements to the DOM  
+    weather.appendChild(headerIconEl);
+    weather.appendChild(temperature);
 }
+
+//Modal Launcher 
+const modalLauncher = document.getElementById('modal-launcher')
+const modal = document.getElementById('modal');
+const modalClose = document.getElementById('close');
+
+modalLauncher.onclick = function() {
+    modal.style.display = 'block';
+}
+
+modalClose.onclick = function(){
+    modal.style.display = 'none';
+}
+
 
 buttonCity.addEventListener("click" , function(){
     weather.textContent="";
@@ -135,7 +152,7 @@ buttonCity.addEventListener("click" , function(){
        eventMedia.appendChild(eventMediaContent);
        eventMediaContent.appendChild(headingEvents)
        eventMediaContent.appendChild(eventClassification)
-       eventCard.appendChild(descriptionEvents);
+       eventCardContent.appendChild(descriptionEvents);
     }
 
     else {
@@ -186,7 +203,7 @@ buttonCity.addEventListener("click" , function(){
        eventMediaContent.appendChild(headingEvents)
        eventMediaContent.appendChild(eventLink)
        eventMediaContent.appendChild(eventClassification)
-       eventCard.appendChild(descriptionEvents);
+       eventCardContent.appendChild(descriptionEvents);
           
     }
 

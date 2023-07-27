@@ -13,4 +13,8 @@ html {
   .carousel{
     overflow:hidden;
   }
+
+#modal-launcher {
+  display:none;
+}
  
