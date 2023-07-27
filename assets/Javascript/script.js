@@ -36,12 +36,12 @@ function currentWeather() {
         })
         .then(function (data) {
 // Add the City Name & Header   
-            thingToDo(data);
+            cityHero(data);
         })
 }
 
 //Function that sets a "Things to do in:" Header
-function thingToDo(param){
+function cityHero(param){
     const titleEl = document.getElementById('titleEl'); 
     titleEl.innerHTML = "";
     titleEl.textContent = "Things to do in "; 
@@ -135,7 +135,7 @@ buttonCity.addEventListener("click" , function(){
        eventMedia.appendChild(eventMediaContent);
        eventMediaContent.appendChild(headingEvents)
        eventMediaContent.appendChild(eventClassification)
-       eventCard.appendChild(descriptionEvents);
+       eventCardContent.appendChild(descriptionEvents);
     }
 
     else {
@@ -186,7 +186,7 @@ buttonCity.addEventListener("click" , function(){
        eventMediaContent.appendChild(headingEvents)
        eventMediaContent.appendChild(eventLink)
        eventMediaContent.appendChild(eventClassification)
-       eventCard.appendChild(descriptionEvents);
+       eventCardContent.appendChild(descriptionEvents);
           
     }
 
