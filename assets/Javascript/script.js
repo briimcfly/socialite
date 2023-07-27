@@ -13,7 +13,7 @@ let comedyEvent=document.getElementById("comedy");
 let filmEvent=document.getElementById("film");
 let festivalsEvent=document.getElementById("festivals");
 let miscEvent=document.getElementById("misc");
-const modalLauncher = document.getElementById('modal-launcher')
+
 
 let todayDate= dayjs().format("YYYY-MM-DD")
 console.log(todayDate)
@@ -42,7 +42,7 @@ function cityHero(param){
     modalLauncher.style.display = "inline-flex";
     const titleEl = document.getElementById('titleEl'); 
     titleEl.innerHTML = "";
-    titleEl.textContent = "Things to do in "; 
+    titleEl.textContent = "Things to do this week in "; 
     const spanEl = document.createElement('span');
     spanEl.className = "has-text-link";
     titleEl.append(spanEl); 
@@ -61,6 +61,20 @@ function cityHero(param){
     weather.appendChild(headerIconEl);
     weather.appendChild(temperature);
 }
+
+//Modal Launcher 
+const modalLauncher = document.getElementById('modal-launcher')
+const modal = document.getElementById('modal');
+const modalClose = document.getElementById('close');
+
+modalLauncher.onclick = function() {
+    modal.style.display = 'block';
+}
+
+modalClose.onclick = function(){
+    modal.style.display = 'none';
+}
+
 
 buttonCity.addEventListener("click" , function(){
     weather.textContent="";
