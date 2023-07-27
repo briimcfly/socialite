@@ -367,14 +367,22 @@ function requestBarsBreweries() {
     })
 }
 
+// musicEvent.addEventListener("click" , function(){
+//   let eventLi=document.querySelectorAll("li")
+//   for(i=0; i<eventLi.length; i++){
+//       eventLi[i].className=""}
+//   musicEvent.classList.add("is-active")
+//   eventInput="music"
+//   ticketMasterEvents()
+// })
 
-// americian.addEventListener("click", function(event) {})
+// americian.addEventListener("click", function() {})
 
-// mexician.addEventListener("click", function(event) {})
+// mexician.addEventListener("click", function() {})
 
-// korean.addEventListener("click", function(event) {})
+// korean.addEventListener("click", function() {})
 
-// chinese.addEventListener("click", function(event) {})
+// chinese.addEventListener("click", function() {})
 
 function getFoodAll () {
  restaurants.innerHTML ="";
@@ -413,27 +421,33 @@ function getFoodAll () {
     for (i=0; i < data.features.length; i++) {
    
     let foodCard = document.createElement("div");
-    let foodCardImage=document.createElement("div");
-    let headingFood=document.createElement("p");
-    let foodUrl= document.createElement("p");
-    let foodPhone= document.createElement("p");
+    let foodCardImage=document.createElement("img");
+    let headingFood=document.createElement("h2");
+    let foodUrl= document.createElement("a");
+    let foodPhone= document.createElement("a");
     let foodAddress=document.createElement("p")
     
-    foodCard.className="card";
+
+    foodCard.className="card column is-one-quarter section";
     foodCardImage.className="card-image";
+    headingFood.className="title is-4"
+    foodUrl.className= "content"
+    foodPhone.className="has-text-weight-bold"
+    foodAddress.className= "content"
     
-    // foodCardImage = insert generic picture cards based on type
+
+    foodCardImage.src= "./assets/images/brewpub.png"
     headingFood.textContent=data.features[i].properties.name;
-    foodUrl.textContent=data.features[i].properties.datasource.raw.url;
-    foodPhone.textContent=data.features[i].properties.datasource.raw.phone;
+    foodUrl.textContent=data.features[i].properties.datasource.raw.website;
+    foodPhone.textContent="Phone: "+data.features[i].properties.datasource.raw.phone;
     foodAddress.textContent=data.features[i].properties.address_line2;
 
-    // foodCard.appendChild(foodCardImage);
+    foodCard.appendChild(foodCardImage);
     foodCard.appendChild(headingFood);
-    foodCard.appendChild(foodUrl);
     foodCard.appendChild(foodPhone);
     foodCard.appendChild(foodAddress);
     restaurants.appendChild(foodCard);
+    foodCard.appendChild(foodUrl);
     
   }
    
