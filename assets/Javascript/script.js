@@ -27,7 +27,7 @@ if (storedCurrentCity !== null) {
 
 let todayDate= dayjs().format("YYYY-MM-DD")
 let weekDate= dayjs().add(7,"day").format("YYYY-MM-DD")
-let eventInput= "music"
+let eventInput= "arts"
 
 function currentWeather(city) {
     //request URL incorporating the user inputted city
@@ -454,7 +454,6 @@ function getFoodAll () {
   })
 }
 
-    
 
   
 
