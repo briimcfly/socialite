@@ -18,8 +18,8 @@ let chinese = document.getElementById('chinese')
 let korean = document.getElementById('korean')
 let american = document.getElementById('american')
 let mexican = document.getElementById('mexican')
-let cName;
-var storedCurrentCity = localStorage.getItem("storedCurrentCity");
+let currentCity; // The Current City at the Top of the Page 
+var storedCurrentCity = localStorage.getItem("storedCurrentCity"); // The Current City that has been saved to Local Storage
 
 if (storedCurrentCity !== null) {
     currentWeather(storedCurrentCity);
@@ -27,11 +27,9 @@ if (storedCurrentCity !== null) {
 
 let todayDate= dayjs().format("YYYY-MM-DD")
 let weekDate= dayjs().add(7,"day").format("YYYY-MM-DD")
-console.log(todayDate)
 let eventInput= "music"
 
 function currentWeather(city) {
-    // inputLocation =inputCity.value.trim() 
     //request URL incorporating the user inputted city
     let requestUrl ="https://api.openweathermap.org/data/2.5/weather?q="+city+"&APPID=88a5790f881a820d719667c737ffc4f3&units=imperial";
 
@@ -42,19 +40,16 @@ function currentWeather(city) {
         })
         .then(function (data) {
 // Add the City Name & Header  
-        cName = data.name;  
+        currentCity = data.name;  
         ticketMasterEvents();
         requestBarsBreweries();
         getFoodAll();
         cityHero(data);
 
-        //set the cName to local storage 
-
-        localStorage.setItem("storedCurrentCity", cName);
+        //set the currentCity to local storage 
+        localStorage.setItem("storedCurrentCity", currentCity);
         })
 }
-
-console.log(cName);
 
 //Function that sets a "Things to do in:" Header
 function cityHero(param){
@@ -117,7 +112,7 @@ buttonCity.addEventListener("click" , function(){
 
  function ticketMasterEvents () {
 
-     let eventRequestUrl= "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime="+todayDate+"T00:00:00Z&&endDateTime="+weekDate+"T23:59:59Z&classificationName="+eventInput+"&city="+inputLocation+"&apikey=yTpugCkiZy8jJLwQIFI29hvie9b9teAA"
+     let eventRequestUrl= "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime="+todayDate+"T00:00:00Z&&endDateTime="+weekDate+"T23:59:59Z&classificationName="+eventInput+"&city="+currentCity+"&apikey=yTpugCkiZy8jJLwQIFI29hvie9b9teAA"
 
    
    fetch(eventRequestUrl)
@@ -125,7 +120,6 @@ buttonCity.addEventListener("click" , function(){
              return response.json();
         })
    .then(function (data) {
-       console.log(data);
 
     if (data.page.totalElements===0) {
         ticketmasterEventData.innerHTML=""
@@ -307,14 +301,13 @@ function requestBarsBreweries() {
   // html elements
   let barContainer = document.querySelector("#barContainer");
 
-  let requestUrl = `https://api.openbrewerydb.org/v1/breweries?by_city=${cName}&per_page=10`
+  let requestUrl = `https://api.openbrewerydb.org/v1/breweries?by_city=${currentCity}&per_page=10`
 
   fetch(requestUrl)
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
-      console.log(data)
       
       let returnedResults = []
       // iterate thru returned data
@@ -394,7 +387,7 @@ function requestBarsBreweries() {
 function getFoodAll () {
  restaurants.innerHTML ="";
   //request URL incorporating the user inputted city
-  let requestUrl ="http://api.openweathermap.org/geo/1.0/direct?q=" + cName + "&limit=5&appid=88a5790f881a820d719667c737ffc4f3" /* used to get the latitude and longintue from the input */
+  let requestUrl ="http://api.openweathermap.org/geo/1.0/direct?q=" + currentCity + "&limit=5&appid=88a5790f881a820d719667c737ffc4f3" /* used to get the latitude and longintue from the input */
   fetch(requestUrl)
       .then(function (response){
           return response.json();
@@ -424,7 +417,6 @@ function getFoodAll () {
           return response.json();
       })
       .then(function (data) {
-        console.log(data)
     for (i=0; i < data.features.length; i++) {
    
     let foodCard = document.createElement("div");
