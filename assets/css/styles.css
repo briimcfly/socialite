@@ -10,10 +10,6 @@ html {
     text-overflow: ellipsis;
   }
 
-  .carousel{
-    overflow:hidden;
-  }
-
 #modal-launcher {
   display:none;
 }

@@ -19,23 +19,18 @@ let korean = document.getElementById('korean')
 let all = document.getElementById('all')
 let indian = document.getElementById('indian')
 let mexican = document.getElementById('mexican')
-const modalLauncher = document.getElementById('modal-launcher')
 let italian = document.getElementById('italian')
 let seafood = document.getElementById('seafood')
 let steakhouse = document.getElementById('steakhouse')
-let cName;
-let lon;
-let lat;
+
 
 let todayDate= dayjs().format("YYYY-MM-DD")
-console.log(todayDate)
-inputLocation =inputCity.value.trim()
+let weekDate= dayjs().add(7,"day").format("YYYY-MM-DD")
 let eventInput= "music"
 
-function currentWeather() {
-    inputLocation =inputCity.value.trim() 
+function currentWeather(city) {
     //request URL incorporating the user inputted city
-    let requestUrl ="https://api.openweathermap.org/data/2.5/weather?q="+inputLocation+"&APPID=88a5790f881a820d719667c737ffc4f3&units=imperial";
+    let requestUrl ="https://api.openweathermap.org/data/2.5/weather?q="+city+"&APPID=88a5790f881a820d719667c737ffc4f3&units=imperial";
 
 //fetch request that returns data
     fetch(requestUrl)
@@ -44,7 +39,6 @@ function currentWeather() {
         })
         .then(function (data) {
 // Add the City Name & Header  
-        cName = data.name;  
         ticketMasterEvents();
         requestBarsBreweries();
         getFoodAll();
@@ -76,6 +70,7 @@ function cityHero(param){
     //appending the new elements to the DOM  
     weather.appendChild(headerIconEl);
     weather.appendChild(temperature);
+
 }
 
 //Modal Launcher 
@@ -94,29 +89,34 @@ modalClose.onclick = function(){
 
 buttonCity.addEventListener("click" , function(){
     weather.textContent="";
-        
+    inputLocation =inputCity.value.trim()
 //calls the current weather and five day functions when the button is clicked
-    currentWeather();
+    currentWeather(inputLocation);
  })
 
  inputCity.addEventListener("keypress" , function(event){
     if (event.key === "Enter") {
     event.preventDefault()
+    inputLocation =inputCity.value.trim()
+
     weather.textContent="";
 //calls the current weather and five day functions when the button is clicked
-    currentWeather();
+    currentWeather(inputLocation);
+
     }
  })
 
  function ticketMasterEvents () {
-     let eventRequestUrl= "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime="+todayDate+"T00:00:00Z&&endDateTime="+todayDate+"T23:59:59Z&classificationName="+eventInput+"&city="+cName+"&apikey=yTpugCkiZy8jJLwQIFI29hvie9b9teAA"
+
+     let eventRequestUrl= "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime="+todayDate+"T00:00:00Z&&endDateTime="+weekDate+"T23:59:59Z&classificationName="+eventInput+"&city="+currentCity+"&apikey=yTpugCkiZy8jJLwQIFI29hvie9b9teAA"
+
+
    
    fetch(eventRequestUrl)
         .then(function (response){
              return response.json();
         })
    .then(function (data) {
-       console.log(data);
 
     if (data.page.totalElements===0) {
         ticketmasterEventData.innerHTML=""
@@ -153,7 +153,7 @@ buttonCity.addEventListener("click" , function(){
        eventCard.appendChild(eventCardContent);
        eventCardContent.appendChild(eventMedia);
        eventMedia.appendChild(eventMediaContent);
-       eventMediaContent.appendChild(headingEvents)
+       eventMediaContent.appendChild(headingEvents);
        eventMediaContent.appendChild(eventClassification)
        eventCardContent.appendChild(descriptionEvents);
     }
@@ -172,11 +172,11 @@ buttonCity.addEventListener("click" , function(){
        let eventMedia=document.createElement("div");
        let eventMediaContent=document.createElement("div");
        let headingEvents=document.createElement("p");
+       let eventDate=document.createElement("p");
        let eventLink=document.createElement("a");
        let eventClassification=document.createElement("p");
        let descriptionEvents = document.createElement("div");
 
-       ticketmasterEventData.ClassName="columns section carousel is-multiline"
        eventColumn.className="column is-one-quarter"
        eventCard.className="card";
        eventCardImage.className="card-image";
@@ -191,6 +191,7 @@ buttonCity.addEventListener("click" , function(){
        imgEvents.src=data._embedded.events[i].images[0].url;
        headingEvents.textContent=data._embedded.events[i].name;
        eventClassification.textContent=data._embedded.events[i].classifications[0].genre.name;
+       eventDate.textContent="Date: "+data._embedded.events[i].dates.start.localDate +" "+ data._embedded.events[i].dates.start.localTime;
        eventLink.textContent="Link to TicketMaster" 
        eventLink.href=data._embedded.events[i].url
        descriptionEvents.textContent=data._embedded.events[i].info;
@@ -204,21 +205,16 @@ buttonCity.addEventListener("click" , function(){
        eventCardContent.appendChild(eventMedia);
        eventMedia.appendChild(eventMediaContent);
        eventMediaContent.appendChild(headingEvents)
+       eventMediaContent.appendChild(eventDate)
        eventMediaContent.appendChild(eventLink)
        eventMediaContent.appendChild(eventClassification)
        eventCardContent.appendChild(descriptionEvents);
           
     }
-
     }
-    bulmaCarousel.attach('.carousel', {
-        slidesToScroll:1,
-        slidesToShow:4,
-        navigation: true,
-        loop: true,   
-       })
  })
 }
+
 
 
 musicEvent.addEventListener("click" , function(){
@@ -293,12 +289,7 @@ miscEvent.addEventListener("click" , function(){
      ticketMasterEvents()
 })
 
-bulmaCarousel.attach('.carousel', {
-    slidesToScroll:1,
-    slidesToShow:4,
-    navigation: true,
-    loop: true,
-})
+
 
 
 // openBrewery api
@@ -307,14 +298,14 @@ function requestBarsBreweries() {
   // html elements
   let barContainer = document.querySelector("#barContainer");
 
-  let requestUrl = `https://api.openbrewerydb.org/v1/breweries?by_city=${cName}&per_page=10`
+  let requestUrl = `https://api.openbrewerydb.org/v1/breweries?by_city=${currentCity}&per_page=10`
+
 
   fetch(requestUrl)
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
-      console.log(data)
       
       let returnedResults = []
       // iterate thru returned data
@@ -672,6 +663,7 @@ for (i=0; i < data.features.length; i++) {
 }
 
 
+
 function getFoodChinese() {
   let urlChinese= "https://api.geoapify.com/v2/places?categories=catering.restaurant.chinese&filter=circle:" +lon + ","+lat + ",25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d"
 
@@ -681,44 +673,44 @@ function getFoodChinese() {
   })
   .then(function (data) {
     console.log(data)
-for (i=0; i < data.features.length; i++) {
+    for (i=0; i < data.features.length; i++) {
 
-let foodCard = document.createElement("div");
-let foodCardImage=document.createElement("img");
-let headingFood=document.createElement("h2");
-let foodUrl= document.createElement("a");
-let foodPhone= document.createElement("a");
-let foodAddress=document.createElement("p")
+    let foodCard = document.createElement("div");
+    let foodCardImage=document.createElement("img");
+    let headingFood=document.createElement("h2");
+    let foodUrl= document.createElement("a");
+    let foodPhone= document.createElement("a");
+    let foodAddress=document.createElement("p")
 
-foodCard.className="card column is-one-quarter section";
-foodCardImage.className="card-image";
-headingFood.className="title is-4"
-foodUrl.className= "content"
-foodPhone.className="has-text-weight-bold"
-foodAddress.className= "content"
+    foodCard.className="card column is-one-quarter section";
+    foodCardImage.className="card-image";
+    headingFood.className="title is-4"
+    foodUrl.className= "content"
+    foodPhone.className="has-text-weight-bold"
+    foodAddress.className= "content"
 
-foodCardImage.src= "./assets/images/chinese.png"
-headingFood.textContent=data.features[i].properties.name;
-foodUrl.textContent=data.features[i].properties.datasource.raw.website;
-foodPhone.textContent="Phone: "+data.features[i].properties.datasource.raw.phone;
-foodAddress.textContent=data.features[i].properties.address_line2;
+    foodCardImage.src= "./assets/images/chinese.png"
+    headingFood.textContent=data.features[i].properties.name;
+    foodUrl.textContent=data.features[i].properties.datasource.raw.website;
+    foodPhone.textContent="Phone: "+data.features[i].properties.datasource.raw.phone;
+    foodAddress.textContent=data.features[i].properties.address_line2;
 
-foodCard.appendChild(foodCardImage);
-foodCard.appendChild(headingFood);
-foodCard.appendChild(foodPhone);
-foodCard.appendChild(foodAddress);
-restaurants.appendChild(foodCard);
-foodCard.appendChild(foodUrl);
-
-}
-
-})
+    foodCard.appendChild(foodCardImage);
+    foodCard.appendChild(headingFood);
+    foodCard.appendChild(foodPhone);
+    foodCard.appendChild(foodAddress);
+    restaurants.appendChild(foodCard);
+    foodCard.appendChild(foodUrl);
+    }
+  })
 }
 
 function getFoodAll () {
  restaurants.innerHTML ="";
   //request URL incorporating the user inputted city
-  let requestUrl ="http://api.openweathermap.org/geo/1.0/direct?q=" + cName + "&limit=5&appid=88a5790f881a820d719667c737ffc4f3" /* used to get the latitude and longintue from the input */
+  
+  let requestUrl ="http://api.openweathermap.org/geo/1.0/direct?q=" + currentCity + "&limit=5&appid=88a5790f881a820d719667c737ffc4f3" /* used to get the latitude and longintue from the input */
+
   fetch(requestUrl)
       .then(function (response){
           return response.json();
@@ -748,7 +740,6 @@ function getFoodAll () {
           return response.json();
       })
       .then(function (data) {
-        console.log(data)
     for (i=0; i < data.features.length; i++) {
    
     let foodCard = document.createElement("div");
