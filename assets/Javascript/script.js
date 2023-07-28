@@ -230,7 +230,7 @@ buttonCity.addEventListener("click" , function(){
        let descriptionEvents = document.createElement("div");
 
        ticketmasterEventData.className="columns section is-multiline slider"
-       eventColumn.className="column is-one-third slide"
+       eventColumn.className="column is-one-quarter slide"
        eventCard.className="card";
        eventCardImage.className="card-image";
        eventFigure.className="image is-4by3";
@@ -240,6 +240,7 @@ buttonCity.addEventListener("click" , function(){
        headingEvents.className="title is-4";
        eventClassification.className="subtitle is-6";
        descriptionEvents.className="content ellipsis";
+       eventLink.setAttribute("target","_blank")
 
        imgEvents.src=data._embedded.events[i].images[0].url;
        headingEvents.textContent=data._embedded.events[i].name;
