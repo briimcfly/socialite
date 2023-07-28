@@ -23,27 +23,59 @@ let italian = document.getElementById('italian')
 let seafood = document.getElementById('seafood')
 let steakhouse = document.getElementById('steakhouse')
 
+// The Current City that has been saved to Local Storage or default value of "Sacramento, CA"
+let currentCity = localStorage.getItem("storedCurrentCity") ?? "Sacramento, CA";
+let cityObject = {
+  cityName: null,
+  lat: null,
+  lon: null,
+}
+
+currentWeather(currentCity);
 
 let todayDate= dayjs().format("YYYY-MM-DD")
 let weekDate= dayjs().add(7,"day").format("YYYY-MM-DD")
 let eventInput= "music"
 
 function currentWeather(city) {
-    //request URL incorporating the user inputted city
-    let requestUrl ="https://api.openweathermap.org/data/2.5/weather?q="+city+"&APPID=88a5790f881a820d719667c737ffc4f3&units=imperial";
 
-//fetch request that returns data
-    fetch(requestUrl)
-        .then(function (response){
-            return response.json();
-        })
-        .then(function (data) {
-// Add the City Name & Header  
-        ticketMasterEvents();
-        requestBarsBreweries();
-        getFoodAll();
-        cityHero(data);
-        })
+    // Geocoding API to convert city input into lat/lon coordinates
+
+    // take city input and split into pieces. 
+    cityQuery = city.split(",");
+    strippedQuery = []
+    for (i = 0; i < cityQuery.length; i++) {
+        strippedQuery.push(cityQuery[i].trim())
+    }
+
+    let requestCoordsUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${strippedQuery[0]},${strippedQuery[1]},${strippedQuery[2]}&limit=1&appid=e7d709054173c8d786359abf189001df`
+
+    // fetch coordinates
+    fetch(requestCoordsUrl)
+    .then(response => response.json())
+    .then(function (data) {
+      // save search result coords for later use
+        cityObject = {
+          searchText: city,
+          lat: data[0].lat,
+          lon: data[0].lon
+        }
+      currentCity = cityObject.searchText
+      console.log("current city", currentCity)
+      localStorage.setItem("storedCurrentCity", currentCity);
+    //request URL incorporating the user inputted city
+    return fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${cityObject.lat}&lon=${cityObject.lon}&appid=88a5790f881a820d719667c737ffc4f3&units=imperial`)
+    })
+    //fetch request that returns Weather data
+    .then(response => response.json())
+    .then(function (data) {
+      console.log(data)
+      // Add the City Name & Header  
+      ticketMasterEvents();
+      requestBarsBreweries();
+      getFoodAll();
+      cityHero(data);
+    })
 }
 
 //Function that sets a "Things to do in:" Header
@@ -298,7 +330,7 @@ function requestBarsBreweries() {
   // html elements
   let barContainer = document.querySelector("#barContainer");
 
-  let requestUrl = `https://api.openbrewerydb.org/v1/breweries?by_city=${currentCity}&per_page=10`
+  let requestUrl = `https://api.openbrewerydb.org/v1/breweries?by_dist=${cityObject.lat},${cityObject.lon}&per_page=10`
 
 
   fetch(requestUrl)
@@ -707,20 +739,8 @@ function getFoodChinese() {
 
 function getFoodAll () {
  restaurants.innerHTML ="";
-  //request URL incorporating the user inputted city
-  
-  let requestUrl ="http://api.openweathermap.org/geo/1.0/direct?q=" + currentCity + "&limit=5&appid=88a5790f881a820d719667c737ffc4f3" /* used to get the latitude and longintue from the input */
 
-  fetch(requestUrl)
-      .then(function (response){
-          return response.json();
-      })
-      .then(function (data) {
-     
-     lat = parseInt(data[0].lat)
-     lon = parseInt(data[0].lon)
-
-      let urlAll= "https://api.geoapify.com/v2/places?categories=commercial.food_and_drink,catering&filter=circle:" +lon + ","+lat + ",25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d"
+      let urlAll= `https://api.geoapify.com/v2/places?categories=commercial.food_and_drink,catering&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
       
       /* adjust URL for tabbed type
       catering.restaurant.pizza
@@ -740,41 +760,38 @@ function getFoodAll () {
           return response.json();
       })
       .then(function (data) {
-    for (i=0; i < data.features.length; i++) {
-   
-    let foodCard = document.createElement("div");
-    let foodCardImage=document.createElement("img");
-    let headingFood=document.createElement("h2");
-    let foodUrl= document.createElement("a");
-    let foodPhone= document.createElement("a");
-    let foodAddress=document.createElement("p")
-    
+        for (i=0; i < data.features.length; i++) {
+      
+        let foodCard = document.createElement("div");
+        let foodCardImage=document.createElement("img");
+        let headingFood=document.createElement("h2");
+        let foodUrl= document.createElement("a");
+        let foodPhone= document.createElement("a");
+        let foodAddress=document.createElement("p")
+        
 
-    foodCard.className="card column is-one-quarter section";
-    foodCardImage.className="card-image";
-    headingFood.className="title is-4"
-    foodUrl.className= "content"
-    foodPhone.className="has-text-weight-bold"
-    foodAddress.className= "content"
-    
+        foodCard.className="card column is-one-quarter section";
+        foodCardImage.className="card-image";
+        headingFood.className="title is-4"
+        foodUrl.className= "content"
+        foodPhone.className="has-text-weight-bold"
+        foodAddress.className= "content"
+        
 
-    foodCardImage.src= "./assets/images/brewpub.png"
-    headingFood.textContent=data.features[i].properties.name;
-    foodUrl.textContent=data.features[i].properties.datasource.raw.website;
-    foodPhone.textContent="Phone: "+data.features[i].properties.datasource.raw.phone;
-    foodAddress.textContent=data.features[i].properties.address_line2;
+        foodCardImage.src= "./assets/images/brewpub.png"
+        headingFood.textContent=data.features[i].properties.name;
+        foodUrl.textContent=data.features[i].properties.datasource.raw.website;
+        foodPhone.textContent="Phone: "+data.features[i].properties.datasource.raw.phone;
+        foodAddress.textContent=data.features[i].properties.address_line2;
 
-    foodCard.appendChild(foodCardImage);
-    foodCard.appendChild(headingFood);
-    foodCard.appendChild(foodPhone);
-    foodCard.appendChild(foodAddress);
-    restaurants.appendChild(foodCard);
-    foodCard.appendChild(foodUrl);
-    
-  }
-   
+        foodCard.appendChild(foodCardImage);
+        foodCard.appendChild(headingFood);
+        foodCard.appendChild(foodPhone);
+        foodCard.appendChild(foodAddress);
+        restaurants.appendChild(foodCard);
+        foodCard.appendChild(foodUrl);
+        }
       })
-  })
 }
 
 
