@@ -383,7 +383,7 @@ function requestBarsBreweries() {
             }
             returnedResults.push(barObject)
         }
-
+      }
       // create result cards
       for (i = 0; i < returnedResults.length; i++) {
         let barCardEl = document.createElement("div")
@@ -466,7 +466,7 @@ korean.classList.add("is-active")
 })
 
 function getFoodIndian() {
-  let urlIndian= "https://api.geoapify.com/v2/places?categories=catering.restaurant.indian&filter=circle:" +lon + ","+lat + ",25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d"
+  let urlIndian= `https://api.geoapify.com/v2/places?categories=catering.restaurant.indian&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
 
   fetch(urlIndian)
   .then(function (response) {
@@ -509,7 +509,7 @@ for (i=0; i < data.features.length; i++) {
 
 
 function getFoodSteakhouse()   {
-  let urlSteakhouse= "https://api.geoapify.com/v2/places?categories=catering.restaurant.steak_house,catering.restaurant.barbecue&filter=circle:" +lon + ","+lat + ",25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d"
+  let urlSteakhouse= `https://api.geoapify.com/v2/places?categories=catering.restaurant.steak_house,catering.restaurant.barbecue&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
 
   fetch(urlSteakhouse)
   .then(function (response) {
@@ -551,7 +551,7 @@ for (i=0; i < data.features.length; i++) {
 }
 
 function getFoodSeafood() {
-  let urlSeafood= "https://api.geoapify.com/v2/places?categories=catering.restaurant.seafood,catering.restaurant.fish_and_chips&filter=circle:" +lon + ","+lat + ",25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d"
+  let urlSeafood= `https://api.geoapify.com/v2/places?categories=catering.restaurant.seafood,catering.restaurant.fish_and_chips&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
 
   fetch(urlSeafood)
   .then(function (response) {
@@ -592,7 +592,7 @@ for (i=0; i < data.features.length; i++) {
 }
 
 function getFoodItalian() {
-  let urlItalian= "https://api.geoapify.com/v2/places?categories=catering.restaurant.pizza,catering.restaurant.italian&filter=circle:" +lon + ","+lat + ",25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d"
+  let urlItalian= `https://api.geoapify.com/v2/places?categories=catering.restaurant.pizza,catering.restaurant.italian&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
 
   fetch(urlItalian)
   .then(function (response) {
@@ -634,7 +634,7 @@ for (i=0; i < data.features.length; i++) {
 }
 
 function getFoodMexican() {
-  let urlMexican= "https://api.geoapify.com/v2/places?categories=catering.restaurant.mexican,catering.restaurant.tex-mex,catering.restaurant.tacos&filter=circle:" +lon + ","+lat + ",25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d"
+  let urlMexican= `https://api.geoapify.com/v2/places?categories=catering.restaurant.mexican,catering.restaurant.tex-mex,catering.restaurant.tacos&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
 
   fetch(urlMexican)
   .then(function (response) {
@@ -678,7 +678,7 @@ for (i=0; i < data.features.length; i++) {
 
 
 function getFoodKorean() {
-  let urlKorean= "https://api.geoapify.com/v2/places?categories=catering.restaurant.korean&filter=circle:" +lon + ","+lat + ",25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d"
+  let urlKorean= `https://api.geoapify.com/v2/places?categories=catering.restaurant.korean&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
 
   fetch(urlKorean)
   .then(function (response) {
@@ -722,7 +722,7 @@ for (i=0; i < data.features.length; i++) {
 
 
 function getFoodChinese() {
-  let urlChinese= "https://api.geoapify.com/v2/places?categories=catering.restaurant.chinese&filter=circle:" +lon + ","+lat + ",25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d"
+  let urlChinese= `https://api.geoapify.com/v2/places?categories=catering.restaurant.chinese&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
 
   fetch(urlChinese)
   .then(function (response) {
