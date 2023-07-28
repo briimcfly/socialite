@@ -755,10 +755,12 @@ function getFoodAll () {
       catering.restaurant.barbecue	
       */
 
-      fetch(urlAll)
-      .then(function (response){
+      fetch(urlPlaceDetails)
+        .then(function (response){
+          console.log("response", response)
+          console.log("reponse status", response.status)
           return response.json();
-      })
+        })
       .then(function (data) {
         for (i=0; i < data.features.length; i++) {
       
