@@ -792,7 +792,7 @@ function getFoodAll () {
       catering.restaurant.barbecue	
       */
 
-      fetch(urlPlaceDetails)
+      fetch(urlAll)
         .then(function (response){
           return response.json();
         })
