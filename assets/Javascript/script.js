@@ -63,8 +63,8 @@ function currentWeather(city) {
       currentCity = cityObject.searchText
       console.log("current city", currentCity)
       localStorage.setItem("storedCurrentCity", currentCity);
-    //request URL incorporating the user inputted city
-    return fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${cityObject.lat}&lon=${cityObject.lon}&appid=88a5790f881a820d719667c737ffc4f3&units=imperial`)
+      //request URL incorporating the user inputted city
+      return fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${cityObject.lat}&lon=${cityObject.lon}&appid=88a5790f881a820d719667c737ffc4f3&units=imperial`)
     })
     //fetch request that returns Weather data
     .then(response => response.json())
@@ -324,14 +324,16 @@ miscEvent.addEventListener("click" , function(){
 
 
 
+
+
 // openBrewery api
 
 function requestBarsBreweries() {
   // html elements
   let barContainer = document.querySelector("#barContainer");
+  barContainer.innerHTML = "";
 
   let requestUrl = `https://api.openbrewerydb.org/v1/breweries?by_dist=${cityObject.lat},${cityObject.lon}&per_page=10`
-
 
   fetch(requestUrl)
     .then(function (response) {
@@ -361,7 +363,6 @@ function requestBarsBreweries() {
             }
             returnedResults.push(barObject)
         }
-      }
 
       // create result cards
       for (i = 0; i < returnedResults.length; i++) {
@@ -757,8 +758,6 @@ function getFoodAll () {
 
       fetch(urlPlaceDetails)
         .then(function (response){
-          console.log("response", response)
-          console.log("reponse status", response.status)
           return response.json();
         })
       .then(function (data) {
