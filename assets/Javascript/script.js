@@ -229,7 +229,8 @@ buttonCity.addEventListener("click" , function(){
        let eventClassification=document.createElement("p");
        let descriptionEvents = document.createElement("div");
 
-       eventColumn.className="column is-one-quarter"
+       ticketmasterEventData.className="columns section is-multiline slider"
+       eventColumn.className="column is-one-third slide"
        eventCard.className="card";
        eventCardImage.className="card-image";
        eventFigure.className="image is-4by3";
@@ -261,7 +262,13 @@ buttonCity.addEventListener("click" , function(){
        eventMediaContent.appendChild(eventLink)
        eventMediaContent.appendChild(eventClassification)
        eventCardContent.appendChild(descriptionEvents);
-          
+       
+       bulmaCarousel.attach('#ticketmaster-event-data', {
+        slidesToScroll: 1,
+        slidesToShow: 3,
+        infinite: true,
+        autoplay: true,
+    });  
     }
     }
  })
