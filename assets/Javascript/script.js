@@ -208,7 +208,6 @@ buttonCity.addEventListener("click" , function(){
        newParent.setAttribute("id","slider")
        ticketmasterEventData.setAttribute("class","")
 
-
        for(i=0; i<data._embedded.events.length; i++){
        
 
@@ -268,7 +267,7 @@ buttonCity.addEventListener("click" , function(){
         slidesToScroll: 1,
         slidesToShow: 3,
         infinite: true,
-        autoplay: true,
+        autoplay: false,
     });  
     }
  })
@@ -426,6 +425,9 @@ function requestBarsBreweries() {
 
 indian.addEventListener("click", function() {
   restaurants.innerHTML ="";
+  let eventLi=document.querySelectorAll("li")
+  for(i=0; i<eventLi.length; i++){
+    eventLi[i].className=""}
   getFoodIndian()
   indian.classList.add("is-active")
 })
@@ -433,6 +435,9 @@ indian.addEventListener("click", function() {
 
 steakhouse.addEventListener("click", function() {
   restaurants.innerHTML ="";
+  let eventLi=document.querySelectorAll("li")
+  for(i=0; i<eventLi.length; i++){
+    eventLi[i].className=""}
   getFoodSteakhouse()
   steakhouse.classList.add("is-active")
 })
@@ -440,6 +445,9 @@ steakhouse.addEventListener("click", function() {
 
 seafood.addEventListener("click", function() {
   restaurants.innerHTML ="";
+  let eventLi=document.querySelectorAll("li")
+  for(i=0; i<eventLi.length; i++){
+    eventLi[i].className=""}
   getFoodSeafood()
   seafood.classList.add("is-active")
 })
@@ -447,32 +455,49 @@ seafood.addEventListener("click", function() {
 
 italian.addEventListener("click", function() {
   restaurants.innerHTML ="";
+  let eventLi=document.querySelectorAll("li")
+  for(i=0; i<eventLi.length; i++){
+    eventLi[i].className=""}
   getFoodItalian()
-  chinese.classList.add("is-active")
+  italian.classList.add("is-active")
 })
 
 chinese.addEventListener("click", function() {
   restaurants.innerHTML ="";
+  let eventLi=document.querySelectorAll("li")
+  for(i=0; i<eventLi.length; i++){
+    eventLi[i].className=""}
   getFoodChinese()
   chinese.classList.add("is-active")
 })
 
 mexican.addEventListener("click", function() {
-  getFoodMexican()
+  
 restaurants.innerHTML ="";
-mexican.classList.add("is-active")
+
+let eventLi=document.querySelectorAll("li")
+for(i=0; i<eventLi.length; i++){
+  eventLi[i].className=""}
+  mexican.classList.add("is-active")
+  getFoodMexican()
 })
 
 
 korean.addEventListener("click", function() {
   getFoodKorean()
 restaurants.innerHTML ="";
+let eventLi=document.querySelectorAll("li")
+for(i=0; i<eventLi.length; i++){
+  eventLi[i].className=""}
 korean.classList.add("is-active")
 })
 
 
 function getFoodIndian() {
   let urlIndian= `https://api.geoapify.com/v2/places?categories=catering.restaurant.indian&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
+  let newParent2=document.createElement("div")
+  newParent2.setAttribute("id","slider2")
+  restaurants.setAttribute("class","")
 
   fetch(urlIndian)
   .then(function (response) {
@@ -488,7 +513,7 @@ for (i=0; i < data.features.length; i++) {
   let foodPhone= document.createElement("a");
   let foodAddress=document.createElement("p")
 
-  foodCard.className="card column is-one-quarter section";
+  foodCard.className="card column section";
   foodCardImage.className="card-image";
   headingFood.className="title is-4"
   foodUrl.className= "content"
@@ -505,10 +530,16 @@ for (i=0; i < data.features.length; i++) {
   foodCard.appendChild(headingFood);
   foodCard.appendChild(foodPhone);
   foodCard.appendChild(foodAddress);
-  restaurants.appendChild(foodCard);
+  restaurants.appendChild(newParent2);
+  newParent2.appendChild(foodCard)
   foodCard.appendChild(foodUrl);
   }
-  
+  bulmaCarousel.attach('#slider2', {
+    slidesToScroll: 1,
+    slidesToShow: 3,
+    infinite: true,
+    autoplay: false,
+});  
   })
 
 }
@@ -516,6 +547,9 @@ for (i=0; i < data.features.length; i++) {
 
 function getFoodSteakhouse()   {
   let urlSteakhouse= `https://api.geoapify.com/v2/places?categories=catering.restaurant.steak_house,catering.restaurant.barbecue&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
+  let newParent2=document.createElement("div")
+  newParent2.setAttribute("id","slider2")
+  restaurants.setAttribute("class","")
 
   fetch(urlSteakhouse)
   .then(function (response) {
@@ -531,7 +565,7 @@ for (i=0; i < data.features.length; i++) {
   let foodPhone= document.createElement("a");
   let foodAddress=document.createElement("p")
   
-  foodCard.className="card column is-one-quarter section";
+  foodCard.className="card column section";
   foodCardImage.className="card-image";
   headingFood.className="title is-4"
   foodUrl.className= "content"
@@ -548,16 +582,25 @@ for (i=0; i < data.features.length; i++) {
   foodCard.appendChild(headingFood);
   foodCard.appendChild(foodPhone);
   foodCard.appendChild(foodAddress);
-  restaurants.appendChild(foodCard);
+  restaurants.appendChild(newParent2);
+  newParent2.appendChild(foodCard)
   foodCard.appendChild(foodUrl);
   }
-  
+  bulmaCarousel.attach('#slider2', {
+    slidesToScroll: 1,
+    slidesToShow: 3,
+    infinite: true,
+    autoplay: false,
+});  
   })
 
 }
 
 function getFoodSeafood() {
   let urlSeafood= `https://api.geoapify.com/v2/places?categories=catering.restaurant.seafood,catering.restaurant.fish_and_chips&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
+  let newParent2=document.createElement("div")
+  newParent2.setAttribute("id","slider2")
+  restaurants.setAttribute("class","")
 
   fetch(urlSeafood)
   .then(function (response) {
@@ -573,7 +616,7 @@ for (i=0; i < data.features.length; i++) {
   let foodPhone= document.createElement("a");
   let foodAddress=document.createElement("p")
   
-  foodCard.className="card column is-one-quarter section";
+  foodCard.className="card column section";
   foodCardImage.className="card-image";
   headingFood.className="title is-4"
   foodUrl.className= "content"
@@ -590,15 +633,24 @@ for (i=0; i < data.features.length; i++) {
   foodCard.appendChild(headingFood);
   foodCard.appendChild(foodPhone);
   foodCard.appendChild(foodAddress);
-  restaurants.appendChild(foodCard);
+  restaurants.appendChild(newParent2);
+  newParent2.appendChild(foodCard);
   foodCard.appendChild(foodUrl);
   }
-  
+  bulmaCarousel.attach('#slider2', {
+    slidesToScroll: 1,
+    slidesToShow: 3,
+    infinite: true,
+    autoplay: false,
+});  
   })
 }
 
 function getFoodItalian() {
   let urlItalian= `https://api.geoapify.com/v2/places?categories=catering.restaurant.pizza,catering.restaurant.italian&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
+  let newParent2=document.createElement("div")
+  newParent2.setAttribute("id","slider2")
+  restaurants.setAttribute("class","")
 
   fetch(urlItalian)
   .then(function (response) {
@@ -614,7 +666,7 @@ for (i=0; i < data.features.length; i++) {
   let foodPhone= document.createElement("a");
   let foodAddress=document.createElement("p")
   
-  foodCard.className="card column is-one-quarter section";
+  foodCard.className="card column section";
   foodCardImage.className="card-image";
   headingFood.className="title is-4"
   foodUrl.className= "content"
@@ -631,16 +683,25 @@ for (i=0; i < data.features.length; i++) {
   foodCard.appendChild(headingFood);
   foodCard.appendChild(foodPhone);
   foodCard.appendChild(foodAddress);
-  restaurants.appendChild(foodCard);
+  restaurants.appendChild(newParent2);
+  newParent2.appendChild(foodCard)
   foodCard.appendChild(foodUrl);
   
   }
-  
+  bulmaCarousel.attach('#slider2', {
+    slidesToScroll: 1,
+    slidesToShow: 3,
+    infinite: true,
+    autoplay: false,
+});  
   })
 }
 
 function getFoodMexican() {
   let urlMexican= `https://api.geoapify.com/v2/places?categories=catering.restaurant.mexican,catering.restaurant.tex-mex,catering.restaurant.tacos&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
+  let newParent2=document.createElement("div")
+  newParent2.setAttribute("id","slider2")
+  restaurants.setAttribute("class","")
 
   fetch(urlMexican)
   .then(function (response) {
@@ -656,7 +717,7 @@ for (i=0; i < data.features.length; i++) {
   let foodPhone= document.createElement("a");
   let foodAddress=document.createElement("p")
 
-  foodCard.className="card column is-one-quarter section";
+  foodCard.className="card column section";
   foodCardImage.className="card-image";
   headingFood.className="title is-4"
   foodUrl.className= "content"
@@ -673,11 +734,17 @@ for (i=0; i < data.features.length; i++) {
   foodCard.appendChild(headingFood);
   foodCard.appendChild(foodPhone);
   foodCard.appendChild(foodAddress);
-  restaurants.appendChild(foodCard);
+  restaurants.appendChild(newParent2);
+  newParent2.appendChild(foodCard)
   foodCard.appendChild(foodUrl);
   
   }
-  
+    bulmaCarousel.attach('#slider2', {
+    slidesToScroll: 1,
+    slidesToShow: 3,
+    infinite: true,
+    autoplay: false,
+});  
   })
 
 }
@@ -685,6 +752,9 @@ for (i=0; i < data.features.length; i++) {
 
 function getFoodKorean() {
   let urlKorean= `https://api.geoapify.com/v2/places?categories=catering.restaurant.korean&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
+  let newParent2=document.createElement("div")
+  newParent2.setAttribute("id","slider2")
+  restaurants.setAttribute("class","")
 
   fetch(urlKorean)
   .then(function (response) {
@@ -700,7 +770,7 @@ for (i=0; i < data.features.length; i++) {
   let foodPhone= document.createElement("a");
   let foodAddress=document.createElement("p")
   
-  foodCard.className="card column is-one-quarter section";
+  foodCard.className="card column section";
   foodCardImage.className="card-image";
   headingFood.className="title is-4"
   foodUrl.className= "content"
@@ -717,11 +787,17 @@ for (i=0; i < data.features.length; i++) {
   foodCard.appendChild(headingFood);
   foodCard.appendChild(foodPhone);
   foodCard.appendChild(foodAddress);
-  restaurants.appendChild(foodCard);
+  restaurants.appendChild(newParent2);
+  newParent2.appendChild(foodCard)
   foodCard.appendChild(foodUrl);
   
   }
-  
+  bulmaCarousel.attach('#slider2', {
+    slidesToScroll: 1,
+    slidesToShow: 3,
+    infinite: true,
+    autoplay: false,
+});  
   })
 
 }
@@ -730,6 +806,9 @@ for (i=0; i < data.features.length; i++) {
 
 function getFoodChinese() {
   let urlChinese= `https://api.geoapify.com/v2/places?categories=catering.restaurant.chinese&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
+  let newParent2=document.createElement("div")
+  newParent2.setAttribute("id","slider2")
+  restaurants.setAttribute("class","")
 
   fetch(urlChinese)
   .then(function (response) {
@@ -746,7 +825,7 @@ function getFoodChinese() {
     let foodPhone= document.createElement("a");
     let foodAddress=document.createElement("p")
 
-    foodCard.className="card column is-one-quarter section";
+    foodCard.className="card column section";
     foodCardImage.className="card-image";
     headingFood.className="title is-4"
     foodUrl.className= "content"
@@ -763,14 +842,24 @@ function getFoodChinese() {
     foodCard.appendChild(headingFood);
     foodCard.appendChild(foodPhone);
     foodCard.appendChild(foodAddress);
-    restaurants.appendChild(foodCard);
+    newParent2.appendChild(foodCard)
+    restaurants.appendChild(newParent2);
     foodCard.appendChild(foodUrl);
     }
+    bulmaCarousel.attach('#slider2', {
+      slidesToScroll: 1,
+      slidesToShow: 3,
+      infinite: true,
+      autoplay: false,
+  });  
   })
 }
 
 function getFoodAll () {
  restaurants.innerHTML ="";
+ let newParent2=document.createElement("div")
+ newParent2.setAttribute("id","slider2")
+ restaurants.setAttribute("class","")
 
       let urlAll= `https://api.geoapify.com/v2/places?categories=commercial.food_and_drink,catering&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
       
@@ -794,7 +883,7 @@ function getFoodAll () {
       .then(function (data) {
         for (i=0; i < data.features.length; i++) {
       
-        let foodCard = document.createElement("div");
+          let foodCard = document.createElement("div");
         let foodCardImage=document.createElement("img");
         let headingFood=document.createElement("h2");
         let foodUrl= document.createElement("a");
@@ -802,7 +891,7 @@ function getFoodAll () {
         let foodAddress=document.createElement("p")
         
 
-        foodCard.className="card column is-one-quarter section";
+        foodCard.className="card column section";
         foodCardImage.className="card-image";
         headingFood.className="title is-4"
         foodUrl.className= "content"
@@ -820,9 +909,16 @@ function getFoodAll () {
         foodCard.appendChild(headingFood);
         foodCard.appendChild(foodPhone);
         foodCard.appendChild(foodAddress);
-        restaurants.appendChild(foodCard);
+        restaurants.appendChild(newParent2);
+        newParent2.appendChild(foodCard);
         foodCard.appendChild(foodUrl);
         }
+        bulmaCarousel.attach('#slider2', {
+          slidesToScroll: 1,
+          slidesToShow: 3,
+          infinite: true,
+          autoplay: false,
+      });  
       })
 }
 

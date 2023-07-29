@@ -6,6 +6,7 @@
     -The website is responsive to the user input of the city and provides options for events, restaurants and drinks.
     -When the user searches for a city the current weather appears at the top of the screen.
     -When the user searches for a city, that city is added to local storage.
+    -When the user looks at events or restaurants, the results can be filtered by the tabs in that section.
     
     
 ## Installation
@@ -17,6 +18,8 @@
 
     -HTML, CSS, JavaScript
     -CSS Framework: Bulma, Bulma Carousel Extension
+    -Third Party API:
+        Day JS
     -Server side APIs:
         Open Weather Map API
         Ticketmaster API
@@ -38,8 +41,9 @@
     Collaborators:
         Bryan Bickel: https://github.com/briimcfly
         Donnie Rawlings: https://github.com/drawlin22
-        Chelsea Wagner: https://github.com/caf62219
         Omar Razo: https://github.com/Omar-Razo
+        Chelsea Wagner: https://github.com/caf62219
+       
     Assistance from Jehyun Jung TA and Jamie Otto TA
     
 
