@@ -43,33 +43,38 @@ function currentWeather(city) {
 
     // take city input and split into pieces. 
     cityQuery = city.split(",");
-    strippedQuery = []
-    for (i = 0; i < cityQuery.length; i++) {
-        strippedQuery.push(cityQuery[i].trim())
-    }
 
-    let requestCoordsUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${strippedQuery[0]},${strippedQuery[1]},${strippedQuery[2]}&limit=1&appid=e7d709054173c8d786359abf189001df`
+    let requestCoordsUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${cityQuery[0]},${cityQuery[1] ?? ""},${cityQuery[2] ?? ""}&limit=1&appid=e7d709054173c8d786359abf189001df`
 
     // fetch coordinates
     fetch(requestCoordsUrl)
     .then(response => response.json())
     .then(function (data) {
-      // save search result coords for later use
+      console.log("geo data", data)
+      if (data.length === 0) {
+        modalTitle.textContent = "Incorrect Input Format"
+        modalBody.innerHTML = `<p>Please separate city and state/province with a comma ",".</p>`
+        modal.style.display = 'block';
+      }
+      else {
+        // save search result coords for later use
         cityObject = {
           searchText: city,
           lat: data[0].lat,
           lon: data[0].lon
         }
-      currentCity = cityObject.searchText
-      console.log("current city", currentCity)
-      localStorage.setItem("storedCurrentCity", currentCity);
+        currentCity = cityObject.searchText
+        console.log("current city", currentCity)
+        localStorage.setItem("storedCurrentCity", currentCity);
+      }
       //request URL incorporating the user inputted city
       return fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${cityObject.lat}&lon=${cityObject.lon}&appid=88a5790f881a820d719667c737ffc4f3&units=imperial`)
     })
+    // .catch(err => console.log("error", err))
     //fetch request that returns Weather data
     .then(response => response.json())
     .then(function (data) {
-      console.log(data)
+
       // Add the City Name & Header  
       ticketMasterEvents();
       requestBarsBreweries();
@@ -109,12 +114,16 @@ function cityHero(param){
 const modalLauncher = document.getElementById('modal-launcher')
 const modal = document.getElementById('modal');
 const modalClose = document.getElementById('close');
+const modalTitle = document.querySelector(".modal-card-title")
+const modalBody = document.querySelector(".modal-card-body")
 
 modalLauncher.onclick = function() {
     modal.style.display = 'block';
 }
 
 modalClose.onclick = function(){
+    modalTitle.textContent = ""
+    modalBody.innerHTML = ""
     modal.style.display = 'none';
 }
 
