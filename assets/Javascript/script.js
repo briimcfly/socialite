@@ -19,11 +19,16 @@ let korean = document.getElementById('korean')
 let all = document.getElementById('all')
 let indian = document.getElementById('indian')
 let mexican = document.getElementById('mexican')
-let currentCity; // The Current City at the Top of the Page 
-var storedCurrentCity = localStorage.getItem("storedCurrentCity"); // The Current City that has been saved to Local Storage
+let italian = document.getElementById('italian')
+let seafood = document.getElementById('seafood')
+let steakhouse = document.getElementById('steakhouse')
 
-if (storedCurrentCity !== null) {
-    currentWeather(storedCurrentCity);
+// The Current City that has been saved to Local Storage or default value of "Sacramento, CA"
+let currentCity = localStorage.getItem("storedCurrentCity") ?? "Sacramento, CA";
+let cityObject = {
+  cityName: null,
+  lat: null,
+  lon: null,
 }
 const modalLauncher = document.getElementById('modal-launcher')
 let italian = document.getElementById('italian')
@@ -40,28 +45,14 @@ let cityObject = {
 
 currentWeather(currentCity);
 
+currentWeather(currentCity);
+
 let todayDate= dayjs().format("YYYY-MM-DD")
 let weekDate= dayjs().add(7,"day").format("YYYY-MM-DD")
 let eventInput= "arts"
 
 function currentWeather(city) {
 
-//fetch request that returns data
-    fetch(requestUrl)
-        .then(function (response){
-            return response.json();
-        })
-        .then(function (data) {
-// Add the City Name & Header  
-        currentCity = data.name;  
-        ticketMasterEvents();
-        requestBarsBreweries();
-        getFoodAll();
-        cityHero(data);
-
-        //set the currentCity to local storage 
-        localStorage.setItem("storedCurrentCity", currentCity);
-        })
     // Geocoding API to convert city input into lat/lon coordinates
 
     // take city input and split into pieces. 
@@ -125,6 +116,7 @@ function cityHero(param){
     //appending the new elements to the DOM  
     weather.appendChild(headerIconEl);
     weather.appendChild(temperature);
+
 }
 
 //Modal Launcher 
@@ -155,13 +147,17 @@ buttonCity.addEventListener("click" , function(){
 
     weather.textContent="";
 //calls the current weather and five day functions when the button is clicked
-    currentWeather();
+
+
+    currentWeather(inputLocation);
+
     }
  })
 
  function ticketMasterEvents () {
 
      let eventRequestUrl= "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime="+todayDate+"T00:00:00Z&&endDateTime="+weekDate+"T23:59:59Z&classificationName="+eventInput+"&city="+currentCity+"&apikey=yTpugCkiZy8jJLwQIFI29hvie9b9teAA"
+
 
    
    fetch(eventRequestUrl)
@@ -433,10 +429,6 @@ function requestBarsBreweries() {
 }
 
 
-// americian.addEventListener("click", function() {})
-
-
-// mexician.addEventListener("click", function() {})
 indian.addEventListener("click", function() {
   restaurants.innerHTML ="";
   getFoodIndian()
@@ -457,6 +449,7 @@ seafood.addEventListener("click", function() {
   seafood.classList.add("is-active")
 })
 
+
 italian.addEventListener("click", function() {
   restaurants.innerHTML ="";
   getFoodItalian()
@@ -475,11 +468,13 @@ restaurants.innerHTML ="";
 mexican.classList.add("is-active")
 })
 
+
 korean.addEventListener("click", function() {
   getFoodKorean()
 restaurants.innerHTML ="";
 korean.classList.add("is-active")
 })
+
 
 function getFoodIndian() {
   let urlIndian= `https://api.geoapify.com/v2/places?categories=catering.restaurant.indian&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
@@ -737,6 +732,7 @@ for (i=0; i < data.features.length; i++) {
 }
 
 
+
 function getFoodChinese() {
   let urlChinese= `https://api.geoapify.com/v2/places?categories=catering.restaurant.chinese&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
 
@@ -746,54 +742,42 @@ function getFoodChinese() {
   })
   .then(function (data) {
     console.log(data)
-for (i=0; i < data.features.length; i++) {
+    for (i=0; i < data.features.length; i++) {
 
-let foodCard = document.createElement("div");
-let foodCardImage=document.createElement("img");
-let headingFood=document.createElement("h2");
-let foodUrl= document.createElement("a");
-let foodPhone= document.createElement("a");
-let foodAddress=document.createElement("p")
+    let foodCard = document.createElement("div");
+    let foodCardImage=document.createElement("img");
+    let headingFood=document.createElement("h2");
+    let foodUrl= document.createElement("a");
+    let foodPhone= document.createElement("a");
+    let foodAddress=document.createElement("p")
 
-foodCard.className="card column is-one-quarter section";
-foodCardImage.className="card-image";
-headingFood.className="title is-4"
-foodUrl.className= "content"
-foodPhone.className="has-text-weight-bold"
-foodAddress.className= "content"
+    foodCard.className="card column is-one-quarter section";
+    foodCardImage.className="card-image";
+    headingFood.className="title is-4"
+    foodUrl.className= "content"
+    foodPhone.className="has-text-weight-bold"
+    foodAddress.className= "content"
 
-foodCardImage.src= "./assets/images/chinese.png"
-headingFood.textContent=data.features[i].properties.name;
-foodUrl.textContent=data.features[i].properties.datasource.raw.website;
-foodPhone.textContent="Phone: "+data.features[i].properties.datasource.raw.phone;
-foodAddress.textContent=data.features[i].properties.address_line2;
+    foodCardImage.src= "./assets/images/chinese.png"
+    headingFood.textContent=data.features[i].properties.name;
+    foodUrl.textContent=data.features[i].properties.datasource.raw.website;
+    foodPhone.textContent="Phone: "+data.features[i].properties.datasource.raw.phone;
+    foodAddress.textContent=data.features[i].properties.address_line2;
 
-foodCard.appendChild(foodCardImage);
-foodCard.appendChild(headingFood);
-foodCard.appendChild(foodPhone);
-foodCard.appendChild(foodAddress);
-restaurants.appendChild(foodCard);
-foodCard.appendChild(foodUrl);
-
-}
-
-})
+    foodCard.appendChild(foodCardImage);
+    foodCard.appendChild(headingFood);
+    foodCard.appendChild(foodPhone);
+    foodCard.appendChild(foodAddress);
+    restaurants.appendChild(foodCard);
+    foodCard.appendChild(foodUrl);
+    }
+  })
 }
 
 function getFoodAll () {
  restaurants.innerHTML ="";
-  //request URL incorporating the user inputted city
-  let requestUrl ="http://api.openweathermap.org/geo/1.0/direct?q=" + currentCity + "&limit=5&appid=88a5790f881a820d719667c737ffc4f3" /* used to get the latitude and longintue from the input */
-  fetch(requestUrl)
-      .then(function (response){
-          return response.json();
-      })
-      .then(function (data) {
-     
-     lat = parseInt(data[0].lat)
-     lon = parseInt(data[0].lon)
 
-      let urlAll= "https://api.geoapify.com/v2/places?categories=commercial.food_and_drink,catering&filter=circle:" +lon + ","+lat + ",25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d"
+      let urlAll= `https://api.geoapify.com/v2/places?categories=commercial.food_and_drink,catering&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
       
       /* adjust URL for tabbed type
       catering.restaurant.pizza
@@ -846,6 +830,8 @@ function getFoodAll () {
         }
       })
 }
+
+
 
 
   
