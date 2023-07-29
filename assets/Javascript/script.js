@@ -208,7 +208,6 @@ buttonCity.addEventListener("click" , function(){
        newParent.setAttribute("id","slider")
        ticketmasterEventData.setAttribute("class","")
 
-
        for(i=0; i<data._embedded.events.length; i++){
        
 
@@ -268,7 +267,7 @@ buttonCity.addEventListener("click" , function(){
         slidesToScroll: 1,
         slidesToShow: 3,
         infinite: true,
-        autoplay: true,
+        autoplay: false,
     });  
     }
  })
