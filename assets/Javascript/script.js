@@ -184,6 +184,7 @@ buttonCity.addEventListener("click" , function(){
        let eventClassification=document.createElement("p");
        let descriptionEvents = document.createElement("div");
     
+
        eventColumn.className="column"
        eventCard.className="card";
        eventCardImage.className="card-image";
@@ -212,7 +213,12 @@ buttonCity.addEventListener("click" , function(){
 
     else {
        ticketmasterEventData.innerHTML=""
-        for(i=0; i<data._embedded.events.length; i++){
+       let newParent=document.createElement("div")
+       newParent.setAttribute("id","slider")
+       ticketmasterEventData.setAttribute("class","")
+       ticketmasterEventData.setAttribute("id","")
+
+       for(i=0; i<data._embedded.events.length; i++){
        
 
        let eventColumn=document.createElement("div")
@@ -229,8 +235,8 @@ buttonCity.addEventListener("click" , function(){
        let eventClassification=document.createElement("p");
        let descriptionEvents = document.createElement("div");
 
-       ticketmasterEventData.className="columns section is-multiline slider"
-       eventColumn.className="column is-one-quarter slide"
+      // ticketmasterEventData.className="columns section is-multiline slider"
+       eventColumn.newParent="column is-one-third "
        eventCard.className="card";
        eventCardImage.className="card-image";
        eventFigure.className="image is-4by3";
@@ -250,7 +256,8 @@ buttonCity.addEventListener("click" , function(){
        eventLink.href=data._embedded.events[i].url
        descriptionEvents.textContent=data._embedded.events[i].info;
         
-       ticketmasterEventData.appendChild(eventColumn);
+       ticketmasterEventData.appendChild(newParent);
+       newParent.appendChild(eventColumn)
        eventColumn.appendChild(eventCard);
        eventCard.appendChild(eventCardImage);
        eventCardImage.appendChild(eventFigure)
@@ -264,13 +271,14 @@ buttonCity.addEventListener("click" , function(){
        eventMediaContent.appendChild(eventClassification)
        eventCardContent.appendChild(descriptionEvents);
        
-       bulmaCarousel.attach('#ticketmaster-event-data', {
+       
+    }
+    bulmaCarousel.attach('#slider', {
         slidesToScroll: 1,
         slidesToShow: 3,
         infinite: true,
         autoplay: true,
     });  
-    }
     }
  })
 }
