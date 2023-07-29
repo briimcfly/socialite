@@ -198,7 +198,7 @@ buttonCity.addEventListener("click" , function(){
        let newParent=document.createElement("div")
        newParent.setAttribute("id","slider")
        ticketmasterEventData.setAttribute("class","")
-       ticketmasterEventData.setAttribute("id","")
+
 
        for(i=0; i<data._embedded.events.length; i++){
        
