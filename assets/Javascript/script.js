@@ -24,6 +24,8 @@ var storedCurrentCity = localStorage.getItem("storedCurrentCity"); // The Curren
 if (storedCurrentCity !== null) {
     currentWeather(storedCurrentCity);
 }
+const modalLauncher = document.getElementById('modal-launcher')
+let cName;
 
 let todayDate= dayjs().format("YYYY-MM-DD")
 let weekDate= dayjs().add(7,"day").format("YYYY-MM-DD")
@@ -50,6 +52,8 @@ function currentWeather(city) {
         localStorage.setItem("storedCurrentCity", currentCity);
         })
 }
+
+console.log(cName);
 
 //Function that sets a "Things to do in:" Header
 function cityHero(param){
@@ -86,10 +90,6 @@ modalLauncher.onclick = function() {
     modal.style.display = 'block';
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 22cb4df (added initial modal code)
 modalClose.onclick = function(){
     modal.style.display = 'none';
 }
@@ -109,7 +109,11 @@ buttonCity.addEventListener("click" , function(){
 
     weather.textContent="";
 //calls the current weather and five day functions when the button is clicked
-    currentWeather(inputLocation);
+    
+    currentWeather();
+    ticketMasterEvents();
+    requestBarsBreweries()
+    getFoodAll();
     }
  })
 
