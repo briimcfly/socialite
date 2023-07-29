@@ -109,11 +109,7 @@ buttonCity.addEventListener("click" , function(){
 
     weather.textContent="";
 //calls the current weather and five day functions when the button is clicked
-    
     currentWeather();
-    ticketMasterEvents();
-    requestBarsBreweries()
-    getFoodAll();
     }
  })
 
