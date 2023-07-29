@@ -86,7 +86,10 @@ modalLauncher.onclick = function() {
     modal.style.display = 'block';
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 22cb4df (added initial modal code)
 modalClose.onclick = function(){
     modal.style.display = 'none';
 }
