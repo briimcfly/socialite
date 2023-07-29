@@ -30,20 +30,6 @@ let cityObject = {
   lat: null,
   lon: null,
 }
-const modalLauncher = document.getElementById('modal-launcher')
-let italian = document.getElementById('italian')
-let seafood = document.getElementById('seafood')
-let steakhouse = document.getElementById('steakhouse')
-
-// The Current City that has been saved to Local Storage or default value of "Sacramento, CA"
-let currentCity = localStorage.getItem("storedCurrentCity") ?? "Sacramento, CA";
-let cityObject = {
-  cityName: null,
-  lat: null,
-  lon: null,
-}
-
-currentWeather(currentCity);
 
 currentWeather(currentCity);
 
