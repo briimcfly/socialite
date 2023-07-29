@@ -364,7 +364,6 @@ function requestBarsBreweries() {
       }
     })
 }
-
 // musicEvent.addEventListener("click" , function(){
 //   let eventLi=document.querySelectorAll("li")
 //   for(i=0; i<eventLi.length; i++){
