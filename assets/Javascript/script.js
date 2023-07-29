@@ -30,12 +30,26 @@ let cityObject = {
   lat: null,
   lon: null,
 }
+const modalLauncher = document.getElementById('modal-launcher')
+let italian = document.getElementById('italian')
+let seafood = document.getElementById('seafood')
+let steakhouse = document.getElementById('steakhouse')
+
+// The Current City that has been saved to Local Storage or default value of "Sacramento, CA"
+let currentCity = localStorage.getItem("storedCurrentCity") ?? "Sacramento, CA";
+let cityObject = {
+  cityName: null,
+  lat: null,
+  lon: null,
+}
+
+currentWeather(currentCity);
 
 currentWeather(currentCity);
 
 let todayDate= dayjs().format("YYYY-MM-DD")
 let weekDate= dayjs().add(7,"day").format("YYYY-MM-DD")
-let eventInput= "music"
+let eventInput= "arts"
 
 function currentWeather(city) {
 
@@ -133,6 +147,8 @@ buttonCity.addEventListener("click" , function(){
 
     weather.textContent="";
 //calls the current weather and five day functions when the button is clicked
+
+
     currentWeather(inputLocation);
 
     }
@@ -164,6 +180,7 @@ buttonCity.addEventListener("click" , function(){
        let eventClassification=document.createElement("p");
        let descriptionEvents = document.createElement("div");
     
+
        eventColumn.className="column"
        eventCard.className="card";
        eventCardImage.className="card-image";
@@ -192,7 +209,12 @@ buttonCity.addEventListener("click" , function(){
 
     else {
        ticketmasterEventData.innerHTML=""
-        for(i=0; i<data._embedded.events.length; i++){
+       let newParent=document.createElement("div")
+       newParent.setAttribute("id","slider")
+       ticketmasterEventData.setAttribute("class","")
+       ticketmasterEventData.setAttribute("id","")
+
+       for(i=0; i<data._embedded.events.length; i++){
        
 
        let eventColumn=document.createElement("div")
@@ -209,7 +231,8 @@ buttonCity.addEventListener("click" , function(){
        let eventClassification=document.createElement("p");
        let descriptionEvents = document.createElement("div");
 
-       eventColumn.className="column is-one-quarter"
+      // ticketmasterEventData.className="columns section is-multiline slider"
+       eventColumn.newParent="column is-one-third "
        eventCard.className="card";
        eventCardImage.className="card-image";
        eventFigure.className="image is-4by3";
@@ -219,6 +242,7 @@ buttonCity.addEventListener("click" , function(){
        headingEvents.className="title is-4";
        eventClassification.className="subtitle is-6";
        descriptionEvents.className="content ellipsis";
+       eventLink.setAttribute("target","_blank")
 
        imgEvents.src=data._embedded.events[i].images[0].url;
        headingEvents.textContent=data._embedded.events[i].name;
@@ -228,7 +252,8 @@ buttonCity.addEventListener("click" , function(){
        eventLink.href=data._embedded.events[i].url
        descriptionEvents.textContent=data._embedded.events[i].info;
         
-       ticketmasterEventData.appendChild(eventColumn);
+       ticketmasterEventData.appendChild(newParent);
+       newParent.appendChild(eventColumn)
        eventColumn.appendChild(eventCard);
        eventCard.appendChild(eventCardImage);
        eventCardImage.appendChild(eventFigure)
@@ -241,8 +266,15 @@ buttonCity.addEventListener("click" , function(){
        eventMediaContent.appendChild(eventLink)
        eventMediaContent.appendChild(eventClassification)
        eventCardContent.appendChild(descriptionEvents);
-          
+       
+       
     }
+    bulmaCarousel.attach('#slider', {
+        slidesToScroll: 1,
+        slidesToShow: 3,
+        infinite: true,
+        autoplay: true,
+    });  
     }
  })
 }
@@ -396,6 +428,7 @@ function requestBarsBreweries() {
     })
 }
 
+
 indian.addEventListener("click", function() {
   restaurants.innerHTML ="";
   getFoodIndian()
@@ -416,6 +449,7 @@ seafood.addEventListener("click", function() {
   seafood.classList.add("is-active")
 })
 
+
 italian.addEventListener("click", function() {
   restaurants.innerHTML ="";
   getFoodItalian()
@@ -434,11 +468,13 @@ restaurants.innerHTML ="";
 mexican.classList.add("is-active")
 })
 
+
 korean.addEventListener("click", function() {
   getFoodKorean()
 restaurants.innerHTML ="";
 korean.classList.add("is-active")
 })
+
 
 function getFoodIndian() {
   let urlIndian= `https://api.geoapify.com/v2/places?categories=catering.restaurant.indian&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
@@ -794,6 +830,7 @@ function getFoodAll () {
         }
       })
 }
+
 
 
 
