@@ -43,17 +43,14 @@ function currentWeather(city) {
 
     // take city input and split into pieces. 
     cityQuery = city.split(",");
-    strippedQuery = []
-    for (i = 0; i < cityQuery.length; i++) {
-        strippedQuery.push(cityQuery[i].trim())
-    }
 
-    let requestCoordsUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${strippedQuery[0]},${strippedQuery[1]},${strippedQuery[2]}&limit=1&appid=e7d709054173c8d786359abf189001df`
+    let requestCoordsUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${cityQuery[0]},${cityQuery[1] ?? ""},${cityQuery[2] ?? ""}&limit=1&appid=e7d709054173c8d786359abf189001df`
 
     // fetch coordinates
     fetch(requestCoordsUrl)
     .then(response => response.json())
     .then(function (data) {
+      console.log("returned geo data", data)
       // save search result coords for later use
         cityObject = {
           searchText: city,
