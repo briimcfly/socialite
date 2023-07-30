@@ -14,14 +14,9 @@ let filmEvent=document.getElementById("film");
 let festivalsEvent=document.getElementById("festivals");
 let miscEvent=document.getElementById("misc");
 let restaurants = document.getElementById('restaurants')
-let chinese = document.getElementById('chinese')
-let korean = document.getElementById('korean')
 let all = document.getElementById('all')
-let indian = document.getElementById('indian')
-let mexican = document.getElementById('mexican')
-let italian = document.getElementById('italian')
-let seafood = document.getElementById('seafood')
-let steakhouse = document.getElementById('steakhouse')
+let foodCardImage=""; /* default food card image */
+let foodPic= "./assets/images/brewpub.png" /* local location for default food card image */
 
 // The Current City that has been saved to Local Storage or default value of "Sacramento, CA"
 let currentCity = localStorage.getItem("storedCurrentCity") ?? "Sacramento, CA";
@@ -32,10 +27,10 @@ let cityObject = {
 }
 
 currentWeather(currentCity);
-
 let todayDate= dayjs().format("YYYY-MM-DD")
 let weekDate= dayjs().add(7,"day").format("YYYY-MM-DD")
 let eventInput= "arts"
+let foodInput = 'commercial.food_and_drink,catering'
 
 function currentWeather(city) {
 
@@ -142,8 +137,6 @@ buttonCity.addEventListener("click" , function(){
 
     weather.textContent="";
 //calls the current weather and five day functions when the button is clicked
-
-
     currentWeather(inputLocation);
 
     }
@@ -153,8 +146,6 @@ buttonCity.addEventListener("click" , function(){
 
      let eventRequestUrl= "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime="+todayDate+"T00:00:00Z&&endDateTime="+weekDate+"T23:59:59Z&classificationName="+eventInput+"&city="+currentCity+"&apikey=yTpugCkiZy8jJLwQIFI29hvie9b9teAA"
 
-
-   
    fetch(eventRequestUrl)
         .then(function (response){
              return response.json();
@@ -175,7 +166,6 @@ buttonCity.addEventListener("click" , function(){
        let eventClassification=document.createElement("p");
        let descriptionEvents = document.createElement("div");
     
-
        eventColumn.className="column"
        eventCard.className="card";
        eventCardImage.className="card-image";
@@ -260,8 +250,7 @@ buttonCity.addEventListener("click" , function(){
        eventMediaContent.appendChild(eventLink)
        eventMediaContent.appendChild(eventClassification)
        eventCardContent.appendChild(descriptionEvents);
-       
-       
+      
     }
     bulmaCarousel.attach('#slider', {
         slidesToScroll: 1,
@@ -272,8 +261,6 @@ buttonCity.addEventListener("click" , function(){
     }
  })
 }
-
-
 
 musicEvent.addEventListener("click" , function(){
     let eventLi=document.querySelectorAll("li")
@@ -347,11 +334,6 @@ miscEvent.addEventListener("click" , function(){
      ticketMasterEvents()
 })
 
-
-
-
-
-
 // openBrewery api
 
 function requestBarsBreweries() {
@@ -415,482 +397,104 @@ function requestBarsBreweries() {
                 </div>
               </div>
             </div>`
-        
 
         barContainer.appendChild(barCardEl)
       }
     })
 }
 
-
-indian.addEventListener("click", function() {
-  restaurants.innerHTML ="";
+indian.addEventListener("click", function() { /* Event listener for the tab filtering for indian food */
   let eventLi=document.querySelectorAll("li")
   for(i=0; i<eventLi.length; i++){
     eventLi[i].className=""}
-  getFoodIndian()
-  indian.classList.add("is-active")
+    foodInput = 'catering.restaurant.indian' /* Food input paramters for fetch URL changed based on the tab selected */
+    foodPic = "./assets/images/indian.png"
+    indian.classList.add("is-active")
+    getFoodAll()
 })
 
-
-steakhouse.addEventListener("click", function() {
-  restaurants.innerHTML ="";
+steakhouse.addEventListener("click", function() { /* Event listener for the tab filtering for steakhouse food */
   let eventLi=document.querySelectorAll("li")
   for(i=0; i<eventLi.length; i++){
     eventLi[i].className=""}
-  getFoodSteakhouse()
+  foodInput = 'catering.restaurant.steak_house,catering.restaurant.barbecue' /* Food input paramters for fetch URL changed based on the tab selected */
+  foodPic = "./assets/images/steakhouse.png"
   steakhouse.classList.add("is-active")
+  getFoodAll()
 })
 
-
-seafood.addEventListener("click", function() {
-  restaurants.innerHTML ="";
+seafood.addEventListener("click", function() { /* Event listener for the tab filtering for seafood food */
   let eventLi=document.querySelectorAll("li")
   for(i=0; i<eventLi.length; i++){
     eventLi[i].className=""}
-  getFoodSeafood()
+    foodInput = 'catering.restaurant.seafood,catering.restaurant.fish_and_chips' /* Food input paramters for fetch URL changed based on the tab selected */
+    foodPic = "./assets/images/seafood.png"
   seafood.classList.add("is-active")
+  getFoodAll()
 })
 
-
-italian.addEventListener("click", function() {
-  restaurants.innerHTML ="";
+italian.addEventListener("click", function() { /* Event listener for the tab filtering for italian food */
   let eventLi=document.querySelectorAll("li")
   for(i=0; i<eventLi.length; i++){
     eventLi[i].className=""}
-  getFoodItalian()
+    foodInput = 'catering.restaurant.pizza,catering.restaurant.italian' /* Food input paramters for fetch URL changed based on the tab selected */
+    foodPic = "./assets/images/italian.png"
   italian.classList.add("is-active")
+  getFoodAll()
 })
 
-chinese.addEventListener("click", function() {
-  restaurants.innerHTML ="";
+chinese.addEventListener("click", function() { /* Event listener for the tab filtering for chinese food */
   let eventLi=document.querySelectorAll("li")
   for(i=0; i<eventLi.length; i++){
     eventLi[i].className=""}
-  getFoodChinese()
-  chinese.classList.add("is-active")
+    foodInput = 'catering.restaurant.chinese' /* Food input paramters for fetch URL changed based on the tab selected */
+    foodPic = "./assets/images/chinese.png"
+    chinese.classList.add("is-active")
+    getFoodAll()
 })
 
-mexican.addEventListener("click", function() {
-  
-restaurants.innerHTML ="";
-
+mexican.addEventListener("click", function() { /* Event listener for the tab filtering for Mexican food */
 let eventLi=document.querySelectorAll("li")
 for(i=0; i<eventLi.length; i++){
   eventLi[i].className=""}
   mexican.classList.add("is-active")
-  getFoodMexican()
+  foodInput = 'catering.restaurant.mexican,catering.restaurant.tex-mex,catering.restaurant.tacos' /* Food input paramters for fetch URL changed based on the tab selected */
+  foodPic = "./assets/images/mexican.png"
+  getFoodAll()
 })
 
-
-korean.addEventListener("click", function() {
-  getFoodKorean()
-restaurants.innerHTML ="";
+korean.addEventListener("click", function() { /* Event listener for the tab filtering for korean food */
 let eventLi=document.querySelectorAll("li")
 for(i=0; i<eventLi.length; i++){
   eventLi[i].className=""}
 korean.classList.add("is-active")
+foodInput = 'catering.restaurant.korean' /* Food input paramters for fetch URL changed based on the tab selected */
+foodPic = "./assets/images/korean.png"
+getFoodAll()
 })
 
-
-function getFoodIndian() {
-  let urlIndian= `https://api.geoapify.com/v2/places?categories=catering.restaurant.indian&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
-  let newParent2=document.createElement("div")
-  newParent2.setAttribute("id","slider2")
-  restaurants.setAttribute("class","")
-
-  fetch(urlIndian)
-  .then(function (response) {
-      return response.json();
-  })
-  .then(function (data) {
-    console.log(data)
-for (i=0; i < data.features.length; i++) {
-  let foodCard = document.createElement("div");
-  let foodCardImage=document.createElement("img");
-  let headingFood=document.createElement("h2");
-  let foodUrl= document.createElement("a");
-  let foodPhone= document.createElement("a");
-  let foodAddress=document.createElement("p")
-
-  foodCard.className="card column section";
-  foodCardImage.className="card-image";
-  headingFood.className="title is-4"
-  foodUrl.className= "content"
-  foodPhone.className="has-text-weight-bold"
-  foodAddress.className= "content"
-  
-  foodCardImage.src= "./assets/images/indian.png"
-  headingFood.textContent=data.features[i].properties.name;
-  foodUrl.textContent=data.features[i].properties.datasource.raw.website;
-  foodPhone.textContent="Phone: "+data.features[i].properties.datasource.raw.phone;
-  foodAddress.textContent=data.features[i].properties.address_line2;
-  
-  foodCard.appendChild(foodCardImage);
-  foodCard.appendChild(headingFood);
-  foodCard.appendChild(foodPhone);
-  foodCard.appendChild(foodAddress);
-  restaurants.appendChild(newParent2);
-  newParent2.appendChild(foodCard)
-  foodCard.appendChild(foodUrl);
-  }
-  bulmaCarousel.attach('#slider2', {
-    slidesToScroll: 1,
-    slidesToShow: 3,
-    infinite: true,
-    autoplay: false,
-});  
-  })
-
-}
-
-
-function getFoodSteakhouse()   {
-  let urlSteakhouse= `https://api.geoapify.com/v2/places?categories=catering.restaurant.steak_house,catering.restaurant.barbecue&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
-  let newParent2=document.createElement("div")
-  newParent2.setAttribute("id","slider2")
-  restaurants.setAttribute("class","")
-
-  fetch(urlSteakhouse)
-  .then(function (response) {
-      return response.json();
-  })
-  .then(function (data) {
-    console.log(data)
-for (i=0; i < data.features.length; i++) {
-  let foodCard = document.createElement("div");
-  let foodCardImage=document.createElement("img");
-  let headingFood=document.createElement("h2");
-  let foodUrl= document.createElement("a");
-  let foodPhone= document.createElement("a");
-  let foodAddress=document.createElement("p")
-  
-  foodCard.className="card column section";
-  foodCardImage.className="card-image";
-  headingFood.className="title is-4"
-  foodUrl.className= "content"
-  foodPhone.className="has-text-weight-bold"
-  foodAddress.className= "content"
-  
-  foodCardImage.src= "./assets/images/steakhouse.png"
-  headingFood.textContent=data.features[i].properties.name;
-  foodUrl.textContent=data.features[i].properties.datasource.raw.website;
-  foodPhone.textContent="Phone: "+data.features[i].properties.datasource.raw.phone;
-  foodAddress.textContent=data.features[i].properties.address_line2;
-  
-  foodCard.appendChild(foodCardImage);
-  foodCard.appendChild(headingFood);
-  foodCard.appendChild(foodPhone);
-  foodCard.appendChild(foodAddress);
-  restaurants.appendChild(newParent2);
-  newParent2.appendChild(foodCard)
-  foodCard.appendChild(foodUrl);
-  }
-  bulmaCarousel.attach('#slider2', {
-    slidesToScroll: 1,
-    slidesToShow: 3,
-    infinite: true,
-    autoplay: false,
-});  
-  })
-
-}
-
-function getFoodSeafood() {
-  let urlSeafood= `https://api.geoapify.com/v2/places?categories=catering.restaurant.seafood,catering.restaurant.fish_and_chips&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
-  let newParent2=document.createElement("div")
-  newParent2.setAttribute("id","slider2")
-  restaurants.setAttribute("class","")
-
-  fetch(urlSeafood)
-  .then(function (response) {
-      return response.json();
-  })
-  .then(function (data) {
-    console.log(data)
-for (i=0; i < data.features.length; i++) {
-  let foodCard = document.createElement("div");
-  let foodCardImage=document.createElement("img");
-  let headingFood=document.createElement("h2");
-  let foodUrl= document.createElement("a");
-  let foodPhone= document.createElement("a");
-  let foodAddress=document.createElement("p")
-  
-  foodCard.className="card column section";
-  foodCardImage.className="card-image";
-  headingFood.className="title is-4"
-  foodUrl.className= "content"
-  foodPhone.className="has-text-weight-bold"
-  foodAddress.className= "content"
-  
-  foodCardImage.src= "./assets/images/seafood.png"
-  headingFood.textContent=data.features[i].properties.name;
-  foodUrl.textContent=data.features[i].properties.datasource.raw.website;
-  foodPhone.textContent="Phone: "+data.features[i].properties.datasource.raw.phone;
-  foodAddress.textContent=data.features[i].properties.address_line2;
-  
-  foodCard.appendChild(foodCardImage);
-  foodCard.appendChild(headingFood);
-  foodCard.appendChild(foodPhone);
-  foodCard.appendChild(foodAddress);
-  restaurants.appendChild(newParent2);
-  newParent2.appendChild(foodCard);
-  foodCard.appendChild(foodUrl);
-  }
-  bulmaCarousel.attach('#slider2', {
-    slidesToScroll: 1,
-    slidesToShow: 3,
-    infinite: true,
-    autoplay: false,
-});  
-  })
-}
-
-function getFoodItalian() {
-  let urlItalian= `https://api.geoapify.com/v2/places?categories=catering.restaurant.pizza,catering.restaurant.italian&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
-  let newParent2=document.createElement("div")
-  newParent2.setAttribute("id","slider2")
-  restaurants.setAttribute("class","")
-
-  fetch(urlItalian)
-  .then(function (response) {
-      return response.json();
-  })
-  .then(function (data) {
-    console.log(data)
-for (i=0; i < data.features.length; i++) {
-  let foodCard = document.createElement("div");
-  let foodCardImage=document.createElement("img");
-  let headingFood=document.createElement("h2");
-  let foodUrl= document.createElement("a");
-  let foodPhone= document.createElement("a");
-  let foodAddress=document.createElement("p")
-  
-  foodCard.className="card column section";
-  foodCardImage.className="card-image";
-  headingFood.className="title is-4"
-  foodUrl.className= "content"
-  foodPhone.className="has-text-weight-bold"
-  foodAddress.className= "content"
-  
-  foodCardImage.src= "./assets/images/italian.png"
-  headingFood.textContent=data.features[i].properties.name;
-  foodUrl.textContent=data.features[i].properties.datasource.raw.website;
-  foodPhone.textContent="Phone: "+data.features[i].properties.datasource.raw.phone;
-  foodAddress.textContent=data.features[i].properties.address_line2;
-  
-  foodCard.appendChild(foodCardImage);
-  foodCard.appendChild(headingFood);
-  foodCard.appendChild(foodPhone);
-  foodCard.appendChild(foodAddress);
-  restaurants.appendChild(newParent2);
-  newParent2.appendChild(foodCard)
-  foodCard.appendChild(foodUrl);
-  
-  }
-  bulmaCarousel.attach('#slider2', {
-    slidesToScroll: 1,
-    slidesToShow: 3,
-    infinite: true,
-    autoplay: false,
-});  
-  })
-}
-
-function getFoodMexican() {
-  let urlMexican= `https://api.geoapify.com/v2/places?categories=catering.restaurant.mexican,catering.restaurant.tex-mex,catering.restaurant.tacos&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
-  let newParent2=document.createElement("div")
-  newParent2.setAttribute("id","slider2")
-  restaurants.setAttribute("class","")
-
-  fetch(urlMexican)
-  .then(function (response) {
-      return response.json();
-  })
-  .then(function (data) {
-    console.log(data)
-for (i=0; i < data.features.length; i++) {
-  let foodCard = document.createElement("div");
-  let foodCardImage=document.createElement("img");
-  let headingFood=document.createElement("h2");
-  let foodUrl= document.createElement("a");
-  let foodPhone= document.createElement("a");
-  let foodAddress=document.createElement("p")
-
-  foodCard.className="card column section";
-  foodCardImage.className="card-image";
-  headingFood.className="title is-4"
-  foodUrl.className= "content"
-  foodPhone.className="has-text-weight-bold"
-  foodAddress.className= "content"
-  
-  foodCardImage.src= "./assets/images/mexican.png"
-  headingFood.textContent=data.features[i].properties.name;
-  foodUrl.textContent=data.features[i].properties.datasource.raw.website;
-  foodPhone.textContent="Phone: "+data.features[i].properties.datasource.raw.phone;
-  foodAddress.textContent=data.features[i].properties.address_line2;
-  
-  foodCard.appendChild(foodCardImage);
-  foodCard.appendChild(headingFood);
-  foodCard.appendChild(foodPhone);
-  foodCard.appendChild(foodAddress);
-  restaurants.appendChild(newParent2);
-  newParent2.appendChild(foodCard)
-  foodCard.appendChild(foodUrl);
-  
-  }
-    bulmaCarousel.attach('#slider2', {
-    slidesToScroll: 1,
-    slidesToShow: 3,
-    infinite: true,
-    autoplay: false,
-});  
-  })
-
-}
-
-
-function getFoodKorean() {
-  let urlKorean= `https://api.geoapify.com/v2/places?categories=catering.restaurant.korean&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
-  let newParent2=document.createElement("div")
-  newParent2.setAttribute("id","slider2")
-  restaurants.setAttribute("class","")
-
-  fetch(urlKorean)
-  .then(function (response) {
-      return response.json();
-  })
-  .then(function (data) {
-    console.log(data)
-for (i=0; i < data.features.length; i++) {
-  let foodCard = document.createElement("div");
-  let foodCardImage=document.createElement("img");
-  let headingFood=document.createElement("h2");
-  let foodUrl= document.createElement("a");
-  let foodPhone= document.createElement("a");
-  let foodAddress=document.createElement("p")
-  
-  foodCard.className="card column section";
-  foodCardImage.className="card-image";
-  headingFood.className="title is-4"
-  foodUrl.className= "content"
-  foodPhone.className="has-text-weight-bold"
-  foodAddress.className= "content"
-  
-  foodCardImage.src= "./assets/images/korean.png"
-  headingFood.textContent=data.features[i].properties.name;
-  foodUrl.textContent=data.features[i].properties.datasource.raw.website;
-  foodPhone.textContent="Phone: "+data.features[i].properties.datasource.raw.phone;
-  foodAddress.textContent=data.features[i].properties.address_line2;
-  
-  foodCard.appendChild(foodCardImage);
-  foodCard.appendChild(headingFood);
-  foodCard.appendChild(foodPhone);
-  foodCard.appendChild(foodAddress);
-  restaurants.appendChild(newParent2);
-  newParent2.appendChild(foodCard)
-  foodCard.appendChild(foodUrl);
-  
-  }
-  bulmaCarousel.attach('#slider2', {
-    slidesToScroll: 1,
-    slidesToShow: 3,
-    infinite: true,
-    autoplay: false,
-});  
-  })
-
-}
-
-
-
-function getFoodChinese() {
-  let urlChinese= `https://api.geoapify.com/v2/places?categories=catering.restaurant.chinese&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
-  let newParent2=document.createElement("div")
-  newParent2.setAttribute("id","slider2")
-  restaurants.setAttribute("class","")
-
-  fetch(urlChinese)
-  .then(function (response) {
-      return response.json();
-  })
-  .then(function (data) {
-    console.log(data)
-    for (i=0; i < data.features.length; i++) {
-
-    let foodCard = document.createElement("div");
-    let foodCardImage=document.createElement("img");
-    let headingFood=document.createElement("h2");
-    let foodUrl= document.createElement("a");
-    let foodPhone= document.createElement("a");
-    let foodAddress=document.createElement("p")
-
-    foodCard.className="card column section";
-    foodCardImage.className="card-image";
-    headingFood.className="title is-4"
-    foodUrl.className= "content"
-    foodPhone.className="has-text-weight-bold"
-    foodAddress.className= "content"
-
-    foodCardImage.src= "./assets/images/chinese.png"
-    headingFood.textContent=data.features[i].properties.name;
-    foodUrl.textContent=data.features[i].properties.datasource.raw.website;
-    foodPhone.textContent="Phone: "+data.features[i].properties.datasource.raw.phone;
-    foodAddress.textContent=data.features[i].properties.address_line2;
-
-    foodCard.appendChild(foodCardImage);
-    foodCard.appendChild(headingFood);
-    foodCard.appendChild(foodPhone);
-    foodCard.appendChild(foodAddress);
-    newParent2.appendChild(foodCard)
-    restaurants.appendChild(newParent2);
-    foodCard.appendChild(foodUrl);
-    }
-    bulmaCarousel.attach('#slider2', {
-      slidesToScroll: 1,
-      slidesToShow: 3,
-      infinite: true,
-      autoplay: false,
-  });  
-  })
-}
-
 function getFoodAll () {
- restaurants.innerHTML ="";
- let newParent2=document.createElement("div")
+  restaurants.innerHTML ="";
+  let newParent2=document.createElement("div")
  newParent2.setAttribute("id","slider2")
  restaurants.setAttribute("class","")
 
-      let urlAll= `https://api.geoapify.com/v2/places?categories=commercial.food_and_drink,catering&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
+      let urlAll= 'https://api.geoapify.com/v2/places?categories=' + foodInput +'&filter=circle:'+cityObject.lon+','+cityObject.lat+',25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d'
       
-      /* adjust URL for tabbed type
-      catering.restaurant.pizza
-      catering.restaurant.burger
-      catering.restaurant.italian
-      catering.restaurant.chinese
-      catering.restaurant.japanese
-      catering.restaurant.indian
-      catering.restaurant.sushi
-      catering.restaurant.seafood
-      catering.restaurant.steak_house	
-      catering.restaurant.barbecue	
-      */
-
       fetch(urlAll)
         .then(function (response){
           return response.json();
         })
       .then(function (data) {
         for (i=0; i < data.features.length; i++) {
-      
-          let foodCard = document.createElement("div");
-        let foodCardImage=document.createElement("img");
+     
+        let foodCard = document.createElement("div");
+        foodCardImage=document.createElement("img");
         let headingFood=document.createElement("h2");
         let foodUrl= document.createElement("a");
         let foodPhone= document.createElement("a");
         let foodAddress=document.createElement("p")
         
-
         foodCard.className="card column section";
         foodCardImage.className="card-image";
         headingFood.className="title is-4"
@@ -898,8 +502,7 @@ function getFoodAll () {
         foodPhone.className="has-text-weight-bold"
         foodAddress.className= "content"
         
-
-        foodCardImage.src= "./assets/images/brewpub.png"
+        foodCardImage.src= foodPic
         headingFood.textContent=data.features[i].properties.name;
         foodUrl.textContent=data.features[i].properties.datasource.raw.website;
         foodPhone.textContent="Phone: "+data.features[i].properties.datasource.raw.phone;
@@ -921,12 +524,3 @@ function getFoodAll () {
       });  
       })
 }
-
-
-
-
-  
-
-    
-
-  
