@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.4/dist/css/bulma-carousel.min.css" />
     <!-- Main Styles -->
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="./assets/css/styles.css">
     <!-- DayJS -->
     <script
     src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
@@ -46,7 +46,7 @@
         <div class="field has-addons">
           <p class="control">
 <!-- Search Field -->
-            <input class="input is static" id="input-city" type="text" placeholder="Search for a City">
+            <input class="input is static" id="input-city" type="text" placeholder="Enter city, state/province">
           </p>
           <p class="control">
 <!-- Submit Button -->
@@ -205,7 +205,7 @@
         Restaurants
       </p>
       <p class="subtitle">
-        Provided by Google Places
+        Provided by Geoapify
       </p>
     </div>
   </section>
@@ -214,11 +214,11 @@
       <li class="is-active"><a id="all">All</a></li>
       <li id="indian"><a>Indian</a></li>
       <li id="chinese"><a>Chinese</a></li>
-      <li><a id="mexican">Mexican</a></li>
-      <li><a id="korean">Korean</a></li>
-      <li><a id="italian">Italian</a></li>
-      <li><a id="seafood">Seafood</a></li>
-      <li><a id="steakhouse">Steakhouse</a></li>
+      <li id="mexican"><a>Mexican</a></li>
+      <li id="korean"><a>Korean</a></li>
+      <li id="italian"><a>Italian</a></li>
+      <li id="seafood"><a>Seafood</a></li>
+      <li id="steakhouse"><a>Steakhouse</a></li>
 
   
     </ul>
@@ -322,34 +322,17 @@
         Breweries & Drinks
       </p>
       <p class="subtitle">
-        Provided by Brewhub
+        Provided by Open Brewery DB
       </p>
     </div>
   </section>
-  <div class="tabs">
-    <ul>
-      <li class="is-active"><a>Bars</a></li>
-      <li><a>Dives</a></li>
-      <li><a>Breweries</a></li>
-    </ul>
-  </div>
 
   <div id="barContainer" class="columns section is-multiline">
 
   </div>
-   
-  <script src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.3/dist/js/bulma-carousel.min.js"></script>
- 
 <button id = "close" class="modal-close is-large" aria-label="close"></button> 
-<script src="./assets/Javascript/script.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.3/dist/js/bulma-carousel.min.js"></script>
-<script>
-    bulmaCarousel.attach('#ticketmaster-event-data', {
-        slidesToScroll: 1,
-        slidesToShow: 3,
-        infinite: true,
-        autoplay: true,
-    });
-</script>
+<script src="./assets/Javascript/script.js"></script>
 </body>
 </html>

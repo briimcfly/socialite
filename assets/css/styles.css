@@ -20,19 +20,14 @@ html {
   bottom: 0
 }
 
-#slider .card-content{
-  max-width: 50%;
+.slider-pagination {
+  background-color: #333;
 }
 
 #slider{
   overflow: hidden;
 }
 
-@media screen and (max-width: 1023px) {
-  #slider .card-content{
-    display: none;
-  }
-}
 
 .prev,
 .next {
@@ -72,4 +67,36 @@ max-width: 1200px;
 
 .caption-container {
 color: white;
+}
+
+img {
+  max-height: 300px;
+}
+
+
+@media screen and (min-width: 480px) {
+  .slider-item {
+    width: 232px;
+  }
+}
+
+@media screen and (min-width: 640px) {
+  .slider-item {
+    min-width: 310px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .slider-item {
+    min-width: 400px;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .slider-item {
+    min-width: 500px;
+    height: 100%;
+    
+    ;
+  }
 }

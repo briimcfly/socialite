@@ -487,7 +487,7 @@ function getFoodAll () {
         })
       .then(function (data) {
         for (i=0; i < data.features.length; i++) {
-      
+     
         let foodCard = document.createElement("div");
         foodCardImage=document.createElement("img");
         let headingFood=document.createElement("h2");
