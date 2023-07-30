@@ -499,6 +499,7 @@ for(i=0; i<eventLi.length; i++){
   eventLi[i].className=""}
 korean.classList.add("is-active")
 foodInput = 'catering.restaurant.korean'
+foodPic = "./assets/images/korean.png"
 getFoodAll()
 })
 
