@@ -27,7 +27,6 @@ let cityObject = {
 }
 
 currentWeather(currentCity);
-
 let todayDate= dayjs().format("YYYY-MM-DD")
 let weekDate= dayjs().add(7,"day").format("YYYY-MM-DD")
 let eventInput= "arts"
@@ -416,7 +415,6 @@ function requestBarsBreweries() {
 
 
 indian.addEventListener("click", function() {
-  // restaurants.innerHTML ="";
   let eventLi=document.querySelectorAll("li")
   for(i=0; i<eventLi.length; i++){
     eventLi[i].className=""}
@@ -428,7 +426,6 @@ indian.addEventListener("click", function() {
 
 
 steakhouse.addEventListener("click", function() {
-  restaurants.innerHTML ="";
   let eventLi=document.querySelectorAll("li")
   for(i=0; i<eventLi.length; i++){
     eventLi[i].className=""}
@@ -440,7 +437,6 @@ steakhouse.addEventListener("click", function() {
 
 
 seafood.addEventListener("click", function() {
-  restaurants.innerHTML ="";
   let eventLi=document.querySelectorAll("li")
   for(i=0; i<eventLi.length; i++){
     eventLi[i].className=""}
@@ -452,7 +448,6 @@ seafood.addEventListener("click", function() {
 
 
 italian.addEventListener("click", function() {
-  restaurants.innerHTML ="";
   let eventLi=document.querySelectorAll("li")
   for(i=0; i<eventLi.length; i++){
     eventLi[i].className=""}
@@ -463,7 +458,6 @@ italian.addEventListener("click", function() {
 })
 
 chinese.addEventListener("click", function() {
-  restaurants.innerHTML ="";
   let eventLi=document.querySelectorAll("li")
   for(i=0; i<eventLi.length; i++){
     eventLi[i].className=""}
@@ -474,7 +468,6 @@ chinese.addEventListener("click", function() {
 })
 
 mexican.addEventListener("click", function() {
-restaurants.innerHTML ="";
 let eventLi=document.querySelectorAll("li")
 for(i=0; i<eventLi.length; i++){
   eventLi[i].className=""}
@@ -486,7 +479,6 @@ for(i=0; i<eventLi.length; i++){
 
 
 korean.addEventListener("click", function() {
-restaurants.innerHTML ="";
 let eventLi=document.querySelectorAll("li")
 for(i=0; i<eventLi.length; i++){
   eventLi[i].className=""}
