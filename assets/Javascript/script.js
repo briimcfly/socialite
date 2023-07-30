@@ -414,76 +414,75 @@ function requestBarsBreweries() {
 }
 
 
-indian.addEventListener("click", function() {
+indian.addEventListener("click", function() { /* Event listener for the tab filtering for indian food */
   let eventLi=document.querySelectorAll("li")
   for(i=0; i<eventLi.length; i++){
     eventLi[i].className=""}
-    foodInput = 'catering.restaurant.indian'
+    foodInput = 'catering.restaurant.indian' /* Food input paramters for fetch URL changed based on the tab selected */
     foodPic = "./assets/images/indian.png"
     indian.classList.add("is-active")
     getFoodAll()
 })
 
 
-steakhouse.addEventListener("click", function() {
+steakhouse.addEventListener("click", function() { /* Event listener for the tab filtering for steakhouse food */
   let eventLi=document.querySelectorAll("li")
   for(i=0; i<eventLi.length; i++){
     eventLi[i].className=""}
-  foodInput = 'catering.restaurant.steak_house,catering.restaurant.barbecue'
+  foodInput = 'catering.restaurant.steak_house,catering.restaurant.barbecue' /* Food input paramters for fetch URL changed based on the tab selected */
   foodPic = "./assets/images/steakhouse.png"
   steakhouse.classList.add("is-active")
   getFoodAll()
 })
 
 
-seafood.addEventListener("click", function() {
+seafood.addEventListener("click", function() { /* Event listener for the tab filtering for seafood food */
   let eventLi=document.querySelectorAll("li")
   for(i=0; i<eventLi.length; i++){
     eventLi[i].className=""}
-    foodInput = 'catering.restaurant.seafood,catering.restaurant.fish_and_chips'
+    foodInput = 'catering.restaurant.seafood,catering.restaurant.fish_and_chips' /* Food input paramters for fetch URL changed based on the tab selected */
     foodPic = "./assets/images/seafood.png"
   seafood.classList.add("is-active")
   getFoodAll()
 })
 
 
-italian.addEventListener("click", function() {
+italian.addEventListener("click", function() { /* Event listener for the tab filtering for italian food */
   let eventLi=document.querySelectorAll("li")
   for(i=0; i<eventLi.length; i++){
     eventLi[i].className=""}
-    foodInput = 'catering.restaurant.pizza,catering.restaurant.italian'
+    foodInput = 'catering.restaurant.pizza,catering.restaurant.italian' /* Food input paramters for fetch URL changed based on the tab selected */
     foodPic = "./assets/images/italian.png"
   italian.classList.add("is-active")
   getFoodAll()
 })
 
-chinese.addEventListener("click", function() {
+chinese.addEventListener("click", function() { /* Event listener for the tab filtering for chinese food */
   let eventLi=document.querySelectorAll("li")
   for(i=0; i<eventLi.length; i++){
     eventLi[i].className=""}
-    foodInput = 'catering.restaurant.chinese'
+    foodInput = 'catering.restaurant.chinese' /* Food input paramters for fetch URL changed based on the tab selected */
     foodPic = "./assets/images/chinese.png"
     chinese.classList.add("is-active")
     getFoodAll()
 })
 
-mexican.addEventListener("click", function() {
+mexican.addEventListener("click", function() { /* Event listener for the tab filtering for Mexican food */
 let eventLi=document.querySelectorAll("li")
 for(i=0; i<eventLi.length; i++){
   eventLi[i].className=""}
   mexican.classList.add("is-active")
-  foodInput = 'catering.restaurant.mexican,catering.restaurant.tex-mex,catering.restaurant.tacos'
+  foodInput = 'catering.restaurant.mexican,catering.restaurant.tex-mex,catering.restaurant.tacos' /* Food input paramters for fetch URL changed based on the tab selected */
   foodPic = "./assets/images/mexican.png"
   getFoodAll()
 })
 
-
-korean.addEventListener("click", function() {
+korean.addEventListener("click", function() { /* Event listener for the tab filtering for korean food */
 let eventLi=document.querySelectorAll("li")
 for(i=0; i<eventLi.length; i++){
   eventLi[i].className=""}
 korean.classList.add("is-active")
-foodInput = 'catering.restaurant.korean'
+foodInput = 'catering.restaurant.korean' /* Food input paramters for fetch URL changed based on the tab selected */
 foodPic = "./assets/images/korean.png"
 getFoodAll()
 })
