@@ -487,6 +487,7 @@ for(i=0; i<eventLi.length; i++){
   eventLi[i].className=""}
   mexican.classList.add("is-active")
   foodInput = 'catering.restaurant.mexican,catering.restaurant.tex-mex,catering.restaurant.tacos'
+  foodPic = "./assets/images/mexican.png"
   getFoodAll()
 })
 
