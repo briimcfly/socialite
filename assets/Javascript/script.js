@@ -15,8 +15,8 @@ let festivalsEvent=document.getElementById("festivals");
 let miscEvent=document.getElementById("misc");
 let restaurants = document.getElementById('restaurants')
 let all = document.getElementById('all')
-let foodCardImage="";
-let foodPic= "./assets/images/brewpub.png"
+let foodCardImage=""; /* default food card image */
+let foodPic= "./assets/images/brewpub.png" /* local location for default food card image */
 
 // The Current City that has been saved to Local Storage or default value of "Sacramento, CA"
 let currentCity = localStorage.getItem("storedCurrentCity") ?? "Sacramento, CA";
@@ -137,8 +137,6 @@ buttonCity.addEventListener("click" , function(){
 
     weather.textContent="";
 //calls the current weather and five day functions when the button is clicked
-
-
     currentWeather(inputLocation);
 
     }
@@ -148,8 +146,6 @@ buttonCity.addEventListener("click" , function(){
 
      let eventRequestUrl= "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime="+todayDate+"T00:00:00Z&&endDateTime="+weekDate+"T23:59:59Z&classificationName="+eventInput+"&city="+currentCity+"&apikey=yTpugCkiZy8jJLwQIFI29hvie9b9teAA"
 
-
-   
    fetch(eventRequestUrl)
         .then(function (response){
              return response.json();
@@ -170,7 +166,6 @@ buttonCity.addEventListener("click" , function(){
        let eventClassification=document.createElement("p");
        let descriptionEvents = document.createElement("div");
     
-
        eventColumn.className="column"
        eventCard.className="card";
        eventCardImage.className="card-image";
@@ -255,8 +250,7 @@ buttonCity.addEventListener("click" , function(){
        eventMediaContent.appendChild(eventLink)
        eventMediaContent.appendChild(eventClassification)
        eventCardContent.appendChild(descriptionEvents);
-       
-       
+      
     }
     bulmaCarousel.attach('#slider', {
         slidesToScroll: 1,
@@ -267,8 +261,6 @@ buttonCity.addEventListener("click" , function(){
     }
  })
 }
-
-
 
 musicEvent.addEventListener("click" , function(){
     let eventLi=document.querySelectorAll("li")
@@ -405,13 +397,11 @@ function requestBarsBreweries() {
                 </div>
               </div>
             </div>`
-        
 
         barContainer.appendChild(barCardEl)
       }
     })
 }
-
 
 indian.addEventListener("click", function() { /* Event listener for the tab filtering for indian food */
   let eventLi=document.querySelectorAll("li")
@@ -423,7 +413,6 @@ indian.addEventListener("click", function() { /* Event listener for the tab filt
     getFoodAll()
 })
 
-
 steakhouse.addEventListener("click", function() { /* Event listener for the tab filtering for steakhouse food */
   let eventLi=document.querySelectorAll("li")
   for(i=0; i<eventLi.length; i++){
@@ -434,7 +423,6 @@ steakhouse.addEventListener("click", function() { /* Event listener for the tab 
   getFoodAll()
 })
 
-
 seafood.addEventListener("click", function() { /* Event listener for the tab filtering for seafood food */
   let eventLi=document.querySelectorAll("li")
   for(i=0; i<eventLi.length; i++){
@@ -444,7 +432,6 @@ seafood.addEventListener("click", function() { /* Event listener for the tab fil
   seafood.classList.add("is-active")
   getFoodAll()
 })
-
 
 italian.addEventListener("click", function() { /* Event listener for the tab filtering for italian food */
   let eventLi=document.querySelectorAll("li")
@@ -508,7 +495,6 @@ function getFoodAll () {
         let foodPhone= document.createElement("a");
         let foodAddress=document.createElement("p")
         
-
         foodCard.className="card column section";
         foodCardImage.className="card-image";
         headingFood.className="title is-4"
@@ -516,7 +502,6 @@ function getFoodAll () {
         foodPhone.className="has-text-weight-bold"
         foodAddress.className= "content"
         
-
         foodCardImage.src= foodPic
         headingFood.textContent=data.features[i].properties.name;
         foodUrl.textContent=data.features[i].properties.datasource.raw.website;
