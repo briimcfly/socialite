@@ -14,14 +14,7 @@ let filmEvent=document.getElementById("film");
 let festivalsEvent=document.getElementById("festivals");
 let miscEvent=document.getElementById("misc");
 let restaurants = document.getElementById('restaurants')
-let chinese = document.getElementById('chinese')
-let korean = document.getElementById('korean')
 let all = document.getElementById('all')
-let indian = document.getElementById('indian')
-let mexican = document.getElementById('mexican')
-let italian = document.getElementById('italian')
-let seafood = document.getElementById('seafood')
-let steakhouse = document.getElementById('steakhouse')
 let foodCardImage="";
 let foodPic= "./assets/images/brewpub.png"
 
