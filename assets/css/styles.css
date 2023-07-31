@@ -86,7 +86,7 @@ color: white;
 /* media queries */
 @media screen and (min-width: 480px) {
   .slider-item {
-    width: 232px;
+    min-width: 200px;
   }
 }
 
