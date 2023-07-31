@@ -15,18 +15,9 @@ let festivalsEvent=document.getElementById("festivals");
 let miscEvent=document.getElementById("misc");
 let restaurants = document.getElementById('restaurants')
 let all = document.getElementById('all')
-<<<<<<< HEAD
 let foodCardImage=""; /* default food card image */
 let foodPic= "./assets/images/brewpub.png" /* local location for default food card image */
-=======
-let indian = document.getElementById('indian')
-let mexican = document.getElementById('mexican')
-let italian = document.getElementById('italian')
-let seafood = document.getElementById('seafood')
-let steakhouse = document.getElementById('steakhouse')
-let foodCardImage="";
-let foodPic= "./assets/images/brewpub.png"
->>>>>>> 48da476 (rebase w/donnies last merge)
+
 
 // The Current City that has been saved to Local Storage or default value of "Sacramento, CA"
 let currentCity = localStorage.getItem("storedCurrentCity") ?? "Sacramento, CA";
@@ -142,9 +133,8 @@ buttonCity.addEventListener("click" , function(){
 
  inputCity.addEventListener("keypress" , function(event){
     if (event.key === "Enter") {
-    event.preventDefault()
-    inputLocation =inputCity.value.trim()
-
+    event.preventDefault();
+    inputLocation =inputCity.value.trim();
     weather.textContent="";
 //calls the current weather and five day functions when the enter is pressed
     currentWeather(inputLocation);
@@ -224,7 +214,7 @@ buttonCity.addEventListener("click" , function(){
        let eventClassification=document.createElement("p");
        let descriptionEvents = document.createElement("div");
 
-      eventColumn.newParent="column is-one-third "
+      // eventColumn.newParent="column is-one-third "
        eventCard.className="card";
        eventCardImage.className="card-image";
        eventFigure.className="image is-4by3";
@@ -355,8 +345,10 @@ miscEvent.addEventListener("click" , function(){
 function requestBarsBreweries() {
   // html elements
   let barContainer = document.querySelector("#barContainer");
-  barContainer.innerHTML = "";
-  barContainer.setAttribute("class", "main-carousel")
+  barContainer.innerHTML = ""
+  let barParentNew = document.createElement("div")
+  barParentNew.setAttribute("id", "slider3")
+  barContainer.appendChild(barParentNew);
 
   let requestUrl = `https://api.openbrewerydb.org/v1/breweries?by_dist=${cityObject.lat},${cityObject.lon}&per_page=20`
 
@@ -389,10 +381,11 @@ function requestBarsBreweries() {
             returnedResults.push(barObject)
         }
       }
+      
       // create result cards
       for (i = 0; i < returnedResults.length; i++) {
         let barCardEl = document.createElement("div")
-        barCardEl.className = "carousel-cell"
+        barCardEl.className = ""
         barCardEl.innerHTML = 
           `<div class="card">
                 <div class="card-image">
@@ -415,16 +408,14 @@ function requestBarsBreweries() {
                 </div>
               </div>`
 
-        barContainer.appendChild(barCardEl)
+        barParentNew.appendChild(barCardEl)
       }
-      let elem = document.querySelector(".main-carousel")
-      new Flickity( elem, {
-      // options
-      cellAlign: 'left',
-      contain: true,
-      freeScroll: true,
-      wrapAround: true,
-      });
+      bulmaCarousel.attach('#slider3', {
+        slidesToScroll: 1,
+        slidesToShow: 3,
+        infinite: true,
+        autoplay: false,
+      }); 
     })
 }
 
@@ -513,7 +504,8 @@ function getFoodAll () {
         })
       .then(function (data) {
         for (i=0; i < data.features.length; i++) {
-      
+        
+        let foodColumn = document.createElement("div")
         let foodCard = document.createElement("div");
         foodCardImage=document.createElement("img");
         let headingFood=document.createElement("h2");
@@ -521,7 +513,8 @@ function getFoodAll () {
         let foodPhone= document.createElement("a");
         let foodAddress=document.createElement("p")
         
-        foodCard.className="card column section";
+        // foodColumn.className = "column is-one-third"
+        foodCard.className="card image is-4by3";
         foodCardImage.className="card-image";
         headingFood.className="title is-4"
         foodUrl.className= "content"
@@ -539,7 +532,8 @@ function getFoodAll () {
         foodCard.appendChild(foodPhone);
         foodCard.appendChild(foodAddress);
         restaurants.appendChild(newParent2);
-        newParent2.appendChild(foodCard);
+        foodColumn.appendChild(foodCard)
+        newParent2.appendChild(foodColumn);
         foodCard.appendChild(foodUrl);
         }
         bulmaCarousel.attach('#slider2', {
