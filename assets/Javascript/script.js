@@ -15,8 +15,18 @@ let festivalsEvent=document.getElementById("festivals");
 let miscEvent=document.getElementById("misc");
 let restaurants = document.getElementById('restaurants')
 let all = document.getElementById('all')
+<<<<<<< HEAD
 let foodCardImage=""; /* default food card image */
 let foodPic= "./assets/images/brewpub.png" /* local location for default food card image */
+=======
+let indian = document.getElementById('indian')
+let mexican = document.getElementById('mexican')
+let italian = document.getElementById('italian')
+let seafood = document.getElementById('seafood')
+let steakhouse = document.getElementById('steakhouse')
+let foodCardImage="";
+let foodPic= "./assets/images/brewpub.png"
+>>>>>>> 48da476 (rebase w/donnies last merge)
 
 // The Current City that has been saved to Local Storage or default value of "Sacramento, CA"
 let currentCity = localStorage.getItem("storedCurrentCity") ?? "Sacramento, CA";
@@ -495,7 +505,7 @@ function getFoodAll () {
         })
       .then(function (data) {
         for (i=0; i < data.features.length; i++) {
-     
+      
         let foodCard = document.createElement("div");
         foodCardImage=document.createElement("img");
         let headingFood=document.createElement("h2");
