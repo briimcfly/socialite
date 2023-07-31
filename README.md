@@ -45,7 +45,15 @@
         Chelsea Wagner: https://github.com/caf62219
        
     Assistance from Jehyun Jung TA and Jamie Otto TA
-    
+
+    Bulma documentation: https://bulma.io/documentation/overview/start/
+    Bulma Carouseling documentation: https://wikiki.github.io/components/carousel/
+    Day JS documentation: https://day.js.org/docs/en/installation/browser
+    Open Weather Map API documentation: https://openweathermap.org/api
+    Ticketmaster API documentation: https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/
+    Open Brewery DB API documentation: https://www.openbrewerydb.org/documentation
+    Geoapify API documentation: https://apidocs.geoapify.com/
+
 
 # License
     N/A
