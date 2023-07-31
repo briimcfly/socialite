@@ -18,7 +18,6 @@ let all = document.getElementById('all')
 let foodCardImage=""; /* default food card image */
 let foodPic= "./assets/images/brewpub.png" /* local location for default food card image */
 
-
 // The Current City that has been saved to Local Storage or default value of "Sacramento, CA"
 let currentCity = localStorage.getItem("storedCurrentCity") ?? "Sacramento, CA";
 let cityObject = {
