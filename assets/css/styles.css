@@ -1,8 +1,17 @@
+
+/* elemental selectors */
 html {
     scroll-behavior: smooth !important;
   }
 
-  .ellipsis {
+  /* limiting the height of images */
+  img {
+  max-height: 300px;
+}
+
+/* class selectors */
+/* For events description to only show 4 lines */
+.ellipsis {
     display: -webkit-box;
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
@@ -10,10 +19,7 @@ html {
     text-overflow: ellipsis;
   }
 
-#modal-launcher {
-  display:none;
-}
- 
+  /* selectors for the carouseling */
 .slider-text {
   position: absolute;
   right: 0;
@@ -23,11 +29,6 @@ html {
 .slider-pagination {
   background-color: #333;
 }
-
-#slider{
-  overflow: hidden;
-}
-
 
 .prev,
 .next {
@@ -51,7 +52,6 @@ right: 0;
 border-radius: 3px 0 0 3px;
 }
 
-
 .numbertext {
 color: #f2f2f2;
 font-size: 12px;
@@ -69,11 +69,16 @@ max-width: 1200px;
 color: white;
 }
 
-img {
-  max-height: 300px;
+/* id selectors */
+#slider{
+  overflow: hidden;
 }
 
+#modal-launcher {
+  display:none;
+}
 
+/* media queries */
 @media screen and (min-width: 480px) {
   .slider-item {
     width: 232px;

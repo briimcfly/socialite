@@ -136,12 +136,12 @@ buttonCity.addEventListener("click" , function(){
     inputLocation =inputCity.value.trim()
 
     weather.textContent="";
-//calls the current weather and five day functions when the button is clicked
+//calls the current weather and five day functions when the enter is pressed
     currentWeather(inputLocation);
 
     }
  })
-
+// Ticketmaster function
  function ticketMasterEvents () {
 
      let eventRequestUrl= "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime="+todayDate+"T00:00:00Z&&endDateTime="+weekDate+"T23:59:59Z&classificationName="+eventInput+"&city="+currentCity+"&apikey=yTpugCkiZy8jJLwQIFI29hvie9b9teAA"
@@ -151,7 +151,7 @@ buttonCity.addEventListener("click" , function(){
              return response.json();
         })
    .then(function (data) {
-
+// if no events are returned a card is created that states no events of this type
     if (data.page.totalElements===0) {
         ticketmasterEventData.innerHTML=""
        let eventColumn=document.createElement("div")
@@ -191,7 +191,7 @@ buttonCity.addEventListener("click" , function(){
        eventMediaContent.appendChild(eventClassification)
        eventCardContent.appendChild(descriptionEvents);
     }
-
+// cards are created based on events available
     else {
        ticketmasterEventData.innerHTML=""
        let newParent=document.createElement("div")
@@ -200,7 +200,6 @@ buttonCity.addEventListener("click" , function(){
 
        for(i=0; i<data._embedded.events.length; i++){
        
-
        let eventColumn=document.createElement("div")
        let eventCard = document.createElement("div");
        let eventCardImage=document.createElement("div");
@@ -215,8 +214,7 @@ buttonCity.addEventListener("click" , function(){
        let eventClassification=document.createElement("p");
        let descriptionEvents = document.createElement("div");
 
-      // ticketmasterEventData.className="columns section is-multiline slider"
-       eventColumn.newParent="column is-one-third "
+      eventColumn.newParent="column is-one-third "
        eventCard.className="card";
        eventCardImage.className="card-image";
        eventFigure.className="image is-4by3";
@@ -252,6 +250,7 @@ buttonCity.addEventListener("click" , function(){
        eventCardContent.appendChild(descriptionEvents);
       
     }
+    //carouseling feature
     bulmaCarousel.attach('#slider', {
         slidesToScroll: 1,
         slidesToShow: 3,
@@ -262,6 +261,7 @@ buttonCity.addEventListener("click" , function(){
  })
 }
 
+//music event tab
 musicEvent.addEventListener("click" , function(){
     let eventLi=document.querySelectorAll("li")
     for(i=0; i<eventLi.length; i++){
@@ -271,6 +271,7 @@ musicEvent.addEventListener("click" , function(){
     ticketMasterEvents()
 })
 
+//sports event tab
 sportsEvent.addEventListener("click" , function(){
     let eventLi=document.querySelectorAll("li")
     for(i=0; i<eventLi.length; i++){
@@ -280,6 +281,7 @@ sportsEvent.addEventListener("click" , function(){
     ticketMasterEvents()
 })
 
+//arts event tab
 artsEvent.addEventListener("click" , function(){
     let eventLi=document.querySelectorAll("li")
     for(i=0; i<eventLi.length; i++){
@@ -289,6 +291,7 @@ artsEvent.addEventListener("click" , function(){
     ticketMasterEvents()
 })
 
+//family event tab
 familyEvent.addEventListener("click" , function(){
     let eventLi=document.querySelectorAll("li")
     for(i=0; i<eventLi.length; i++){
@@ -298,6 +301,7 @@ familyEvent.addEventListener("click" , function(){
     ticketMasterEvents()
 })
 
+//comedy event tab
 comedyEvent.addEventListener("click" , function(){
     let eventLi=document.querySelectorAll("li")
     for(i=0; i<eventLi.length; i++){
@@ -307,6 +311,7 @@ comedyEvent.addEventListener("click" , function(){
     ticketMasterEvents()
 })
 
+//film event tab
 filmEvent.addEventListener("click" , function(){
     let eventLi=document.querySelectorAll("li")
     for(i=0; i<eventLi.length; i++){
@@ -316,6 +321,7 @@ filmEvent.addEventListener("click" , function(){
      ticketMasterEvents()
 })
 
+//festivals event tab
 festivalsEvent.addEventListener("click" , function(){
     let eventLi=document.querySelectorAll("li")
     for(i=0; i<eventLi.length; i++){
@@ -325,6 +331,7 @@ festivalsEvent.addEventListener("click" , function(){
     ticketMasterEvents()
 })
 
+//miscellaneous event tab
 miscEvent.addEventListener("click" , function(){
     let eventLi=document.querySelectorAll("li") 
     for(i=0; i<eventLi.length; i++){
@@ -335,7 +342,6 @@ miscEvent.addEventListener("click" , function(){
 })
 
 // openBrewery api
-
 function requestBarsBreweries() {
   // html elements
   let barContainer = document.querySelector("#barContainer");
@@ -403,6 +409,7 @@ function requestBarsBreweries() {
     })
 }
 
+//restaurants api with geoapify
 indian.addEventListener("click", function() { /* Event listener for the tab filtering for indian food */
   let eventLi=document.querySelectorAll("li")
   for(i=0; i<eventLi.length; i++){
