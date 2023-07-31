@@ -353,10 +353,10 @@ miscEvent.addEventListener("click" , function(){
 
 // openBrewery api
 function requestBarsBreweries() {
-  
   // html elements
   let barContainer = document.querySelector("#barContainer");
   barContainer.innerHTML = "";
+  barContainer.setAttribute("class", "main-carousel")
 
   let requestUrl = `https://api.openbrewerydb.org/v1/breweries?by_dist=${cityObject.lat},${cityObject.lon}&per_page=20`
 
@@ -395,28 +395,36 @@ function requestBarsBreweries() {
         barCardEl.className = "carousel-cell"
         barCardEl.innerHTML = 
           `<div class="card">
-              <div class="card-image">
-                <figure class="image is-4by3">
-                  <img src="assets\\images\\${returnedResults[i].bartype}.png" alt="Placeholder image">
-                </figure>
-              </div>
-              <div class="card-content">
-                <div class="media">
-                  <div class="media-content">
-                    <p id = "barBrewName" class="title is-4">${returnedResults[i].barname}</p>
-                    <p id = "barBrewType" class="subtitle is-6">${returnedResults[i].bartype}</p>
+                <div class="card-image">
+                  <figure class="image is-4by3">
+                    <img src="assets\\images\\${returnedResults[i].bartype}.png" alt="Placeholder image">
+                  </figure>
+                </div>
+                <div class="card-content">
+                  <div class="media">
+                    <div class="media-content">
+                      <p id = "barBrewName" class="title is-4">${returnedResults[i].barname}</p>
+                      <p id = "barBrewType" class="subtitle is-6">${returnedResults[i].bartype}</p>
+                    </div>
+                  </div>
+                  <div id = "eventDescription" class="content ellipsis">
+                    <p class="has-text-weight-bold">${returnedResults[i].address}</p>
+                    <p class="has-text-weight-bold">Phone: <a href="tel:${returnedResults[i].phone}">${returnedResults[i].phone}</a></p>
+                    <p class="has-text-weight-bold"><a href=${returnedResults[i].url} target="_blank">Visit them here!</a></p>
                   </div>
                 </div>
-                <div id = "eventDescription" class="content ellipsis">
-                  <p class="has-text-weight-bold">${returnedResults[i].address}</p>
-                  <p class="has-text-weight-bold">Phone: <a href="tel:${returnedResults[i].phone}">${returnedResults[i].phone}</a></p>
-                  <p class="has-text-weight-bold"><a href=${returnedResults[i].url} target="_blank">Visit them here!</a></p>
-                </div>
-              </div>
-            </div>`
+              </div>`
 
         barContainer.appendChild(barCardEl)
       }
+      let elem = document.querySelector(".main-carousel")
+      new Flickity( elem, {
+      // options
+      cellAlign: 'left',
+      contain: true,
+      freeScroll: true,
+      wrapAround: true,
+      });
     })
 }
 
