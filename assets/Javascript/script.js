@@ -342,7 +342,6 @@ miscEvent.addEventListener("click" , function(){
 
 // openBrewery api
 function requestBarsBreweries() {
-  
   // html elements
   let barContainer = document.querySelector("#barContainer");
   barContainer.innerHTML = ""
