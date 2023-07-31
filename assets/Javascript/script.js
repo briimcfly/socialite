@@ -343,11 +343,12 @@ miscEvent.addEventListener("click" , function(){
 
 // openBrewery api
 function requestBarsBreweries() {
+  
   // html elements
   let barContainer = document.querySelector("#barContainer");
   barContainer.innerHTML = "";
 
-  let requestUrl = `https://api.openbrewerydb.org/v1/breweries?by_dist=${cityObject.lat},${cityObject.lon}&per_page=10`
+  let requestUrl = `https://api.openbrewerydb.org/v1/breweries?by_dist=${cityObject.lat},${cityObject.lon}&per_page=20`
 
   fetch(requestUrl)
     .then(function (response) {
@@ -381,7 +382,7 @@ function requestBarsBreweries() {
       // create result cards
       for (i = 0; i < returnedResults.length; i++) {
         let barCardEl = document.createElement("div")
-        barCardEl.className = "column is-one-quarter"
+        barCardEl.className = "carousel-cell"
         barCardEl.innerHTML = 
           `<div class="card">
               <div class="card-image">
