@@ -22,6 +22,8 @@ let mexican = document.getElementById('mexican')
 let italian = document.getElementById('italian')
 let seafood = document.getElementById('seafood')
 let steakhouse = document.getElementById('steakhouse')
+let foodCardImage="";
+let foodPic= "./assets/images/brewpub.png"
 
 // The Current City that has been saved to Local Storage or default value of "Sacramento, CA"
 let currentCity = localStorage.getItem("storedCurrentCity") ?? "Sacramento, CA";
@@ -36,6 +38,7 @@ currentWeather(currentCity);
 let todayDate= dayjs().format("YYYY-MM-DD")
 let weekDate= dayjs().add(7,"day").format("YYYY-MM-DD")
 let eventInput= "arts"
+let foodInput = 'commercial.food_and_drink,catering'
 
 function currentWeather(city) {
 
@@ -347,11 +350,6 @@ miscEvent.addEventListener("click" , function(){
      ticketMasterEvents()
 })
 
-
-
-
-
-
 // openBrewery api
 
 function requestBarsBreweries() {
@@ -425,12 +423,14 @@ function requestBarsBreweries() {
 
 
 indian.addEventListener("click", function() {
-  restaurants.innerHTML ="";
+  // restaurants.innerHTML ="";
   let eventLi=document.querySelectorAll("li")
   for(i=0; i<eventLi.length; i++){
     eventLi[i].className=""}
-  getFoodIndian()
-  indian.classList.add("is-active")
+    foodInput = 'catering.restaurant.indian'
+    foodPic = "./assets/images/indian.png"
+    indian.classList.add("is-active")
+    getFoodAll()
 })
 
 
@@ -439,8 +439,10 @@ steakhouse.addEventListener("click", function() {
   let eventLi=document.querySelectorAll("li")
   for(i=0; i<eventLi.length; i++){
     eventLi[i].className=""}
-  getFoodSteakhouse()
+  foodInput = 'catering.restaurant.steak_house,catering.restaurant.barbecue'
+  foodPic = "./assets/images/steakhouse.png"
   steakhouse.classList.add("is-active")
+  getFoodAll()
 })
 
 
@@ -449,8 +451,10 @@ seafood.addEventListener("click", function() {
   let eventLi=document.querySelectorAll("li")
   for(i=0; i<eventLi.length; i++){
     eventLi[i].className=""}
-  getFoodSeafood()
+    foodInput = 'catering.restaurant.seafood,catering.restaurant.fish_and_chips'
+    foodPic = "./assets/images/seafood.png"
   seafood.classList.add("is-active")
+  getFoodAll()
 })
 
 
@@ -459,8 +463,10 @@ italian.addEventListener("click", function() {
   let eventLi=document.querySelectorAll("li")
   for(i=0; i<eventLi.length; i++){
     eventLi[i].className=""}
-  getFoodItalian()
+    foodInput = 'catering.restaurant.pizza,catering.restaurant.italian'
+    foodPic = "./assets/images/italian.png"
   italian.classList.add("is-active")
+  getFoodAll()
 })
 
 chinese.addEventListener("click", function() {
@@ -468,415 +474,406 @@ chinese.addEventListener("click", function() {
   let eventLi=document.querySelectorAll("li")
   for(i=0; i<eventLi.length; i++){
     eventLi[i].className=""}
-  getFoodChinese()
-  chinese.classList.add("is-active")
+    foodInput = 'catering.restaurant.chinese'
+    foodPic = "./assets/images/chinese.png"
+    chinese.classList.add("is-active")
+    getFoodAll()
 })
 
 mexican.addEventListener("click", function() {
-  
 restaurants.innerHTML ="";
-
 let eventLi=document.querySelectorAll("li")
 for(i=0; i<eventLi.length; i++){
   eventLi[i].className=""}
   mexican.classList.add("is-active")
-  getFoodMexican()
+  foodInput = 'catering.restaurant.mexican,catering.restaurant.tex-mex,catering.restaurant.tacos'
+  getFoodAll()
 })
 
 
 korean.addEventListener("click", function() {
-  getFoodKorean()
 restaurants.innerHTML ="";
 let eventLi=document.querySelectorAll("li")
 for(i=0; i<eventLi.length; i++){
   eventLi[i].className=""}
 korean.classList.add("is-active")
+foodInput = 'catering.restaurant.korean'
+getFoodAll()
 })
 
 
-function getFoodIndian() {
-  let urlIndian= `https://api.geoapify.com/v2/places?categories=catering.restaurant.indian&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
-  let newParent2=document.createElement("div")
-  newParent2.setAttribute("id","slider2")
-  restaurants.setAttribute("class","")
-
-  fetch(urlIndian)
-  .then(function (response) {
-      return response.json();
-  })
-  .then(function (data) {
-    console.log(data)
-for (i=0; i < data.features.length; i++) {
-  let foodCard = document.createElement("div");
-  let foodCardImage=document.createElement("img");
-  let headingFood=document.createElement("h2");
-  let foodUrl= document.createElement("a");
-  let foodPhone= document.createElement("a");
-  let foodAddress=document.createElement("p")
-
-  foodCard.className="card column section";
-  foodCardImage.className="card-image";
-  headingFood.className="title is-4"
-  foodUrl.className= "content"
-  foodPhone.className="has-text-weight-bold"
-  foodAddress.className= "content"
+// function getFoodIndian() {
+//   let urlIndian='https://api.geoapify.com/v2/places?categories=' + foodInput +'&filter=circle:'+cityObject.lon+','+cityObject.lat+',25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d'
   
-  foodCardImage.src= "./assets/images/indian.png"
-  headingFood.textContent=data.features[i].properties.name;
-  foodUrl.textContent=data.features[i].properties.datasource.raw.website;
-  foodPhone.textContent="Phone: "+data.features[i].properties.datasource.raw.phone;
-  foodAddress.textContent=data.features[i].properties.address_line2;
+  // `https://api.geoapify.com/v2/places?categories=catering.restaurant.indian&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
+//   let newParent2=document.createElement("div")
+//   newParent2.setAttribute("id","slider2")
+//   restaurants.setAttribute("class","")
+
+//   fetch(urlIndian)
+//   .then(function (response) {
+//       return response.json();
+//   })
+//   .then(function (data) {
+//     console.log(data)
+// for (i=0; i < data.features.length; i++) {
+//   let foodCard = document.createElement("div");
+//   let foodCardImage=document.createElement("img");
+//   let headingFood=document.createElement("h2");
+//   let foodUrl= document.createElement("a");
+//   let foodPhone= document.createElement("a");
+//   let foodAddress=document.createElement("p")
+
+//   foodCard.className="card column section";
+//   foodCardImage.className="card-image";
+//   headingFood.className="title is-4"
+//   foodUrl.className= "content"
+//   foodPhone.className="has-text-weight-bold"
+//   foodAddress.className= "content"
   
-  foodCard.appendChild(foodCardImage);
-  foodCard.appendChild(headingFood);
-  foodCard.appendChild(foodPhone);
-  foodCard.appendChild(foodAddress);
-  restaurants.appendChild(newParent2);
-  newParent2.appendChild(foodCard)
-  foodCard.appendChild(foodUrl);
-  }
-  bulmaCarousel.attach('#slider2', {
-    slidesToScroll: 1,
-    slidesToShow: 3,
-    infinite: true,
-    autoplay: false,
-});  
-  })
-
-}
-
-
-function getFoodSteakhouse()   {
-  let urlSteakhouse= `https://api.geoapify.com/v2/places?categories=catering.restaurant.steak_house,catering.restaurant.barbecue&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
-  let newParent2=document.createElement("div")
-  newParent2.setAttribute("id","slider2")
-  restaurants.setAttribute("class","")
-
-  fetch(urlSteakhouse)
-  .then(function (response) {
-      return response.json();
-  })
-  .then(function (data) {
-    console.log(data)
-for (i=0; i < data.features.length; i++) {
-  let foodCard = document.createElement("div");
-  let foodCardImage=document.createElement("img");
-  let headingFood=document.createElement("h2");
-  let foodUrl= document.createElement("a");
-  let foodPhone= document.createElement("a");
-  let foodAddress=document.createElement("p")
+//   foodCardImage.src= "./assets/images/indian.png"
+//   headingFood.textContent=data.features[i].properties.name;
+//   foodUrl.textContent=data.features[i].properties.datasource.raw.website;
+//   foodPhone.textContent="Phone: "+data.features[i].properties.datasource.raw.phone;
+//   foodAddress.textContent=data.features[i].properties.address_line2;
   
-  foodCard.className="card column section";
-  foodCardImage.className="card-image";
-  headingFood.className="title is-4"
-  foodUrl.className= "content"
-  foodPhone.className="has-text-weight-bold"
-  foodAddress.className= "content"
+//   foodCard.appendChild(foodCardImage);
+//   foodCard.appendChild(headingFood);
+//   foodCard.appendChild(foodPhone);
+//   foodCard.appendChild(foodAddress);
+//   restaurants.appendChild(newParent2);
+//   newParent2.appendChild(foodCard)
+//   foodCard.appendChild(foodUrl);
+//   }
+//   bulmaCarousel.attach('#slider2', {
+//     slidesToScroll: 1,
+//     slidesToShow: 3,
+//     infinite: true,
+//     autoplay: false,
+// });  
+//   })
+
+// }
+
+
+// function getFoodSteakhouse()   {
+//   let urlSteakhouse= `https://api.geoapify.com/v2/places?categories=catering.restaurant.steak_house,catering.restaurant.barbecue&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
+//   let newParent2=document.createElement("div")
+//   newParent2.setAttribute("id","slider2")
+//   restaurants.setAttribute("class","")
+
+//   fetch(urlSteakhouse)
+//   .then(function (response) {
+//       return response.json();
+//   })
+//   .then(function (data) {
+//     console.log(data)
+// for (i=0; i < data.features.length; i++) {
+//   let foodCard = document.createElement("div");
+//   let foodCardImage=document.createElement("img");
+//   let headingFood=document.createElement("h2");
+//   let foodUrl= document.createElement("a");
+//   let foodPhone= document.createElement("a");
+//   let foodAddress=document.createElement("p")
   
-  foodCardImage.src= "./assets/images/steakhouse.png"
-  headingFood.textContent=data.features[i].properties.name;
-  foodUrl.textContent=data.features[i].properties.datasource.raw.website;
-  foodPhone.textContent="Phone: "+data.features[i].properties.datasource.raw.phone;
-  foodAddress.textContent=data.features[i].properties.address_line2;
+//   foodCard.className="card column section";
+//   foodCardImage.className="card-image";
+//   headingFood.className="title is-4"
+//   foodUrl.className= "content"
+//   foodPhone.className="has-text-weight-bold"
+//   foodAddress.className= "content"
   
-  foodCard.appendChild(foodCardImage);
-  foodCard.appendChild(headingFood);
-  foodCard.appendChild(foodPhone);
-  foodCard.appendChild(foodAddress);
-  restaurants.appendChild(newParent2);
-  newParent2.appendChild(foodCard)
-  foodCard.appendChild(foodUrl);
-  }
-  bulmaCarousel.attach('#slider2', {
-    slidesToScroll: 1,
-    slidesToShow: 3,
-    infinite: true,
-    autoplay: false,
-});  
-  })
-
-}
-
-function getFoodSeafood() {
-  let urlSeafood= `https://api.geoapify.com/v2/places?categories=catering.restaurant.seafood,catering.restaurant.fish_and_chips&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
-  let newParent2=document.createElement("div")
-  newParent2.setAttribute("id","slider2")
-  restaurants.setAttribute("class","")
-
-  fetch(urlSeafood)
-  .then(function (response) {
-      return response.json();
-  })
-  .then(function (data) {
-    console.log(data)
-for (i=0; i < data.features.length; i++) {
-  let foodCard = document.createElement("div");
-  let foodCardImage=document.createElement("img");
-  let headingFood=document.createElement("h2");
-  let foodUrl= document.createElement("a");
-  let foodPhone= document.createElement("a");
-  let foodAddress=document.createElement("p")
+//   foodCardImage.src= "./assets/images/steakhouse.png"
+//   headingFood.textContent=data.features[i].properties.name;
+//   foodUrl.textContent=data.features[i].properties.datasource.raw.website;
+//   foodPhone.textContent="Phone: "+data.features[i].properties.datasource.raw.phone;
+//   foodAddress.textContent=data.features[i].properties.address_line2;
   
-  foodCard.className="card column section";
-  foodCardImage.className="card-image";
-  headingFood.className="title is-4"
-  foodUrl.className= "content"
-  foodPhone.className="has-text-weight-bold"
-  foodAddress.className= "content"
+//   foodCard.appendChild(foodCardImage);
+//   foodCard.appendChild(headingFood);
+//   foodCard.appendChild(foodPhone);
+//   foodCard.appendChild(foodAddress);
+//   restaurants.appendChild(newParent2);
+//   newParent2.appendChild(foodCard)
+//   foodCard.appendChild(foodUrl);
+//   }
+//   bulmaCarousel.attach('#slider2', {
+//     slidesToScroll: 1,
+//     slidesToShow: 3,
+//     infinite: true,
+//     autoplay: false,
+// });  
+//   })
+
+// }
+
+// function getFoodSeafood() {
+//   let urlSeafood= `https://api.geoapify.com/v2/places?categories=catering.restaurant.seafood,catering.restaurant.fish_and_chips&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
+//   let newParent2=document.createElement("div")
+//   newParent2.setAttribute("id","slider2")
+//   restaurants.setAttribute("class","")
+
+//   fetch(urlSeafood)
+//   .then(function (response) {
+//       return response.json();
+//   })
+//   .then(function (data) {
+//     console.log(data)
+// for (i=0; i < data.features.length; i++) {
+//   let foodCard = document.createElement("div");
+//   let foodCardImage=document.createElement("img");
+//   let headingFood=document.createElement("h2");
+//   let foodUrl= document.createElement("a");
+//   let foodPhone= document.createElement("a");
+//   let foodAddress=document.createElement("p")
   
-  foodCardImage.src= "./assets/images/seafood.png"
-  headingFood.textContent=data.features[i].properties.name;
-  foodUrl.textContent=data.features[i].properties.datasource.raw.website;
-  foodPhone.textContent="Phone: "+data.features[i].properties.datasource.raw.phone;
-  foodAddress.textContent=data.features[i].properties.address_line2;
+//   foodCard.className="card column section";
+//   foodCardImage.className="card-image";
+//   headingFood.className="title is-4"
+//   foodUrl.className= "content"
+//   foodPhone.className="has-text-weight-bold"
+//   foodAddress.className= "content"
   
-  foodCard.appendChild(foodCardImage);
-  foodCard.appendChild(headingFood);
-  foodCard.appendChild(foodPhone);
-  foodCard.appendChild(foodAddress);
-  restaurants.appendChild(newParent2);
-  newParent2.appendChild(foodCard);
-  foodCard.appendChild(foodUrl);
-  }
-  bulmaCarousel.attach('#slider2', {
-    slidesToScroll: 1,
-    slidesToShow: 3,
-    infinite: true,
-    autoplay: false,
-});  
-  })
-}
-
-function getFoodItalian() {
-  let urlItalian= `https://api.geoapify.com/v2/places?categories=catering.restaurant.pizza,catering.restaurant.italian&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
-  let newParent2=document.createElement("div")
-  newParent2.setAttribute("id","slider2")
-  restaurants.setAttribute("class","")
-
-  fetch(urlItalian)
-  .then(function (response) {
-      return response.json();
-  })
-  .then(function (data) {
-    console.log(data)
-for (i=0; i < data.features.length; i++) {
-  let foodCard = document.createElement("div");
-  let foodCardImage=document.createElement("img");
-  let headingFood=document.createElement("h2");
-  let foodUrl= document.createElement("a");
-  let foodPhone= document.createElement("a");
-  let foodAddress=document.createElement("p")
+//   foodCardImage.src= "./assets/images/seafood.png"
+//   headingFood.textContent=data.features[i].properties.name;
+//   foodUrl.textContent=data.features[i].properties.datasource.raw.website;
+//   foodPhone.textContent="Phone: "+data.features[i].properties.datasource.raw.phone;
+//   foodAddress.textContent=data.features[i].properties.address_line2;
   
-  foodCard.className="card column section";
-  foodCardImage.className="card-image";
-  headingFood.className="title is-4"
-  foodUrl.className= "content"
-  foodPhone.className="has-text-weight-bold"
-  foodAddress.className= "content"
+//   foodCard.appendChild(foodCardImage);
+//   foodCard.appendChild(headingFood);
+//   foodCard.appendChild(foodPhone);
+//   foodCard.appendChild(foodAddress);
+//   restaurants.appendChild(newParent2);
+//   newParent2.appendChild(foodCard);
+//   foodCard.appendChild(foodUrl);
+//   }
+//   bulmaCarousel.attach('#slider2', {
+//     slidesToScroll: 1,
+//     slidesToShow: 3,
+//     infinite: true,
+//     autoplay: false,
+// });  
+//   })
+// }
+
+// function getFoodItalian() {
+//   let urlItalian= `https://api.geoapify.com/v2/places?categories=catering.restaurant.pizza,catering.restaurant.italian&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
+//   let newParent2=document.createElement("div")
+//   newParent2.setAttribute("id","slider2")
+//   restaurants.setAttribute("class","")
+
+//   fetch(urlItalian)
+//   .then(function (response) {
+//       return response.json();
+//   })
+//   .then(function (data) {
+//     console.log(data)
+// for (i=0; i < data.features.length; i++) {
+//   let foodCard = document.createElement("div");
+//   let foodCardImage=document.createElement("img");
+//   let headingFood=document.createElement("h2");
+//   let foodUrl= document.createElement("a");
+//   let foodPhone= document.createElement("a");
+//   let foodAddress=document.createElement("p")
   
-  foodCardImage.src= "./assets/images/italian.png"
-  headingFood.textContent=data.features[i].properties.name;
-  foodUrl.textContent=data.features[i].properties.datasource.raw.website;
-  foodPhone.textContent="Phone: "+data.features[i].properties.datasource.raw.phone;
-  foodAddress.textContent=data.features[i].properties.address_line2;
+//   foodCard.className="card column section";
+//   foodCardImage.className="card-image";
+//   headingFood.className="title is-4"
+//   foodUrl.className= "content"
+//   foodPhone.className="has-text-weight-bold"
+//   foodAddress.className= "content"
   
-  foodCard.appendChild(foodCardImage);
-  foodCard.appendChild(headingFood);
-  foodCard.appendChild(foodPhone);
-  foodCard.appendChild(foodAddress);
-  restaurants.appendChild(newParent2);
-  newParent2.appendChild(foodCard)
-  foodCard.appendChild(foodUrl);
+//   foodCardImage.src= "./assets/images/italian.png"
+//   headingFood.textContent=data.features[i].properties.name;
+//   foodUrl.textContent=data.features[i].properties.datasource.raw.website;
+//   foodPhone.textContent="Phone: "+data.features[i].properties.datasource.raw.phone;
+//   foodAddress.textContent=data.features[i].properties.address_line2;
   
-  }
-  bulmaCarousel.attach('#slider2', {
-    slidesToScroll: 1,
-    slidesToShow: 3,
-    infinite: true,
-    autoplay: false,
-});  
-  })
-}
-
-function getFoodMexican() {
-  let urlMexican= `https://api.geoapify.com/v2/places?categories=catering.restaurant.mexican,catering.restaurant.tex-mex,catering.restaurant.tacos&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
-  let newParent2=document.createElement("div")
-  newParent2.setAttribute("id","slider2")
-  restaurants.setAttribute("class","")
-
-  fetch(urlMexican)
-  .then(function (response) {
-      return response.json();
-  })
-  .then(function (data) {
-    console.log(data)
-for (i=0; i < data.features.length; i++) {
-  let foodCard = document.createElement("div");
-  let foodCardImage=document.createElement("img");
-  let headingFood=document.createElement("h2");
-  let foodUrl= document.createElement("a");
-  let foodPhone= document.createElement("a");
-  let foodAddress=document.createElement("p")
-
-  foodCard.className="card column section";
-  foodCardImage.className="card-image";
-  headingFood.className="title is-4"
-  foodUrl.className= "content"
-  foodPhone.className="has-text-weight-bold"
-  foodAddress.className= "content"
+//   foodCard.appendChild(foodCardImage);
+//   foodCard.appendChild(headingFood);
+//   foodCard.appendChild(foodPhone);
+//   foodCard.appendChild(foodAddress);
+//   restaurants.appendChild(newParent2);
+//   newParent2.appendChild(foodCard)
+//   foodCard.appendChild(foodUrl);
   
-  foodCardImage.src= "./assets/images/mexican.png"
-  headingFood.textContent=data.features[i].properties.name;
-  foodUrl.textContent=data.features[i].properties.datasource.raw.website;
-  foodPhone.textContent="Phone: "+data.features[i].properties.datasource.raw.phone;
-  foodAddress.textContent=data.features[i].properties.address_line2;
+//   }
+//   bulmaCarousel.attach('#slider2', {
+//     slidesToScroll: 1,
+//     slidesToShow: 3,
+//     infinite: true,
+//     autoplay: false,
+// });  
+//   })
+// }
+
+// function getFoodMexican() {
+//   let urlMexican= `https://api.geoapify.com/v2/places?categories=catering.restaurant.mexican,catering.restaurant.tex-mex,catering.restaurant.tacos&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
+//   let newParent2=document.createElement("div")
+//   newParent2.setAttribute("id","slider2")
+//   restaurants.setAttribute("class","")
+
+//   fetch(urlMexican)
+//   .then(function (response) {
+//       return response.json();
+//   })
+//   .then(function (data) {
+//     console.log(data)
+// for (i=0; i < data.features.length; i++) {
+//   let foodCard = document.createElement("div");
+//   let foodCardImage=document.createElement("img");
+//   let headingFood=document.createElement("h2");
+//   let foodUrl= document.createElement("a");
+//   let foodPhone= document.createElement("a");
+//   let foodAddress=document.createElement("p")
+
+//   foodCard.className="card column section";
+//   foodCardImage.className="card-image";
+//   headingFood.className="title is-4"
+//   foodUrl.className= "content"
+//   foodPhone.className="has-text-weight-bold"
+//   foodAddress.className= "content"
   
-  foodCard.appendChild(foodCardImage);
-  foodCard.appendChild(headingFood);
-  foodCard.appendChild(foodPhone);
-  foodCard.appendChild(foodAddress);
-  restaurants.appendChild(newParent2);
-  newParent2.appendChild(foodCard)
-  foodCard.appendChild(foodUrl);
+//   foodCardImage.src= "./assets/images/mexican.png"
+//   headingFood.textContent=data.features[i].properties.name;
+//   foodUrl.textContent=data.features[i].properties.datasource.raw.website;
+//   foodPhone.textContent="Phone: "+data.features[i].properties.datasource.raw.phone;
+//   foodAddress.textContent=data.features[i].properties.address_line2;
   
-  }
-    bulmaCarousel.attach('#slider2', {
-    slidesToScroll: 1,
-    slidesToShow: 3,
-    infinite: true,
-    autoplay: false,
-});  
-  })
-
-}
-
-
-function getFoodKorean() {
-  let urlKorean= `https://api.geoapify.com/v2/places?categories=catering.restaurant.korean&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
-  let newParent2=document.createElement("div")
-  newParent2.setAttribute("id","slider2")
-  restaurants.setAttribute("class","")
-
-  fetch(urlKorean)
-  .then(function (response) {
-      return response.json();
-  })
-  .then(function (data) {
-    console.log(data)
-for (i=0; i < data.features.length; i++) {
-  let foodCard = document.createElement("div");
-  let foodCardImage=document.createElement("img");
-  let headingFood=document.createElement("h2");
-  let foodUrl= document.createElement("a");
-  let foodPhone= document.createElement("a");
-  let foodAddress=document.createElement("p")
+//   foodCard.appendChild(foodCardImage);
+//   foodCard.appendChild(headingFood);
+//   foodCard.appendChild(foodPhone);
+//   foodCard.appendChild(foodAddress);
+//   restaurants.appendChild(newParent2);
+//   newParent2.appendChild(foodCard)
+//   foodCard.appendChild(foodUrl);
   
-  foodCard.className="card column section";
-  foodCardImage.className="card-image";
-  headingFood.className="title is-4"
-  foodUrl.className= "content"
-  foodPhone.className="has-text-weight-bold"
-  foodAddress.className= "content"
+//   }
+//     bulmaCarousel.attach('#slider2', {
+//     slidesToScroll: 1,
+//     slidesToShow: 3,
+//     infinite: true,
+//     autoplay: false,
+// });  
+//   })
+
+// }
+
+
+// function getFoodKorean() {
+//   let urlKorean= `https://api.geoapify.com/v2/places?categories=catering.restaurant.korean&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
+//   let newParent2=document.createElement("div")
+//   newParent2.setAttribute("id","slider2")
+//   restaurants.setAttribute("class","")
+
+//   fetch(urlKorean)
+//   .then(function (response) {
+//       return response.json();
+//   })
+//   .then(function (data) {
+//     console.log(data)
+// for (i=0; i < data.features.length; i++) {
+//   let foodCard = document.createElement("div");
+//   let foodCardImage=document.createElement("img");
+//   let headingFood=document.createElement("h2");
+//   let foodUrl= document.createElement("a");
+//   let foodPhone= document.createElement("a");
+//   let foodAddress=document.createElement("p")
   
-  foodCardImage.src= "./assets/images/korean.png"
-  headingFood.textContent=data.features[i].properties.name;
-  foodUrl.textContent=data.features[i].properties.datasource.raw.website;
-  foodPhone.textContent="Phone: "+data.features[i].properties.datasource.raw.phone;
-  foodAddress.textContent=data.features[i].properties.address_line2;
+//   foodCard.className="card column section";
+//   foodCardImage.className="card-image";
+//   headingFood.className="title is-4"
+//   foodUrl.className= "content"
+//   foodPhone.className="has-text-weight-bold"
+//   foodAddress.className= "content"
   
-  foodCard.appendChild(foodCardImage);
-  foodCard.appendChild(headingFood);
-  foodCard.appendChild(foodPhone);
-  foodCard.appendChild(foodAddress);
-  restaurants.appendChild(newParent2);
-  newParent2.appendChild(foodCard)
-  foodCard.appendChild(foodUrl);
+//   foodCardImage.src= "./assets/images/korean.png"
+//   headingFood.textContent=data.features[i].properties.name;
+//   foodUrl.textContent=data.features[i].properties.datasource.raw.website;
+//   foodPhone.textContent="Phone: "+data.features[i].properties.datasource.raw.phone;
+//   foodAddress.textContent=data.features[i].properties.address_line2;
   
-  }
-  bulmaCarousel.attach('#slider2', {
-    slidesToScroll: 1,
-    slidesToShow: 3,
-    infinite: true,
-    autoplay: false,
-});  
-  })
+//   foodCard.appendChild(foodCardImage);
+//   foodCard.appendChild(headingFood);
+//   foodCard.appendChild(foodPhone);
+//   foodCard.appendChild(foodAddress);
+//   restaurants.appendChild(newParent2);
+//   newParent2.appendChild(foodCard)
+//   foodCard.appendChild(foodUrl);
+  
+//   }
+//   bulmaCarousel.attach('#slider2', {
+//     slidesToScroll: 1,
+//     slidesToShow: 3,
+//     infinite: true,
+//     autoplay: false,
+// });  
+//   })
 
-}
+// }
 
 
 
-function getFoodChinese() {
-  let urlChinese= `https://api.geoapify.com/v2/places?categories=catering.restaurant.chinese&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
-  let newParent2=document.createElement("div")
-  newParent2.setAttribute("id","slider2")
-  restaurants.setAttribute("class","")
+// function getFoodChinese() {
+//   let urlChinese= `https://api.geoapify.com/v2/places?categories=catering.restaurant.chinese&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
+//   let newParent2=document.createElement("div")
+//   newParent2.setAttribute("id","slider2")
+//   restaurants.setAttribute("class","")
 
-  fetch(urlChinese)
-  .then(function (response) {
-      return response.json();
-  })
-  .then(function (data) {
-    console.log(data)
-    for (i=0; i < data.features.length; i++) {
+//   fetch(urlChinese)
+//   .then(function (response) {
+//       return response.json();
+//   })
+//   .then(function (data) {
+//     console.log(data)
+//     for (i=0; i < data.features.length; i++) {
 
-    let foodCard = document.createElement("div");
-    let foodCardImage=document.createElement("img");
-    let headingFood=document.createElement("h2");
-    let foodUrl= document.createElement("a");
-    let foodPhone= document.createElement("a");
-    let foodAddress=document.createElement("p")
+//     let foodCard = document.createElement("div");
+//     let foodCardImage=document.createElement("img");
+//     let headingFood=document.createElement("h2");
+//     let foodUrl= document.createElement("a");
+//     let foodPhone= document.createElement("a");
+//     let foodAddress=document.createElement("p")
 
-    foodCard.className="card column section";
-    foodCardImage.className="card-image";
-    headingFood.className="title is-4"
-    foodUrl.className= "content"
-    foodPhone.className="has-text-weight-bold"
-    foodAddress.className= "content"
+//     foodCard.className="card column section";
+//     foodCardImage.className="card-image";
+//     headingFood.className="title is-4"
+//     foodUrl.className= "content"
+//     foodPhone.className="has-text-weight-bold"
+//     foodAddress.className= "content"
 
-    foodCardImage.src= "./assets/images/chinese.png"
-    headingFood.textContent=data.features[i].properties.name;
-    foodUrl.textContent=data.features[i].properties.datasource.raw.website;
-    foodPhone.textContent="Phone: "+data.features[i].properties.datasource.raw.phone;
-    foodAddress.textContent=data.features[i].properties.address_line2;
+//     foodCardImage.src= "./assets/images/chinese.png"
+//     headingFood.textContent=data.features[i].properties.name;
+//     foodUrl.textContent=data.features[i].properties.datasource.raw.website;
+//     foodPhone.textContent="Phone: "+data.features[i].properties.datasource.raw.phone;
+//     foodAddress.textContent=data.features[i].properties.address_line2;
 
-    foodCard.appendChild(foodCardImage);
-    foodCard.appendChild(headingFood);
-    foodCard.appendChild(foodPhone);
-    foodCard.appendChild(foodAddress);
-    newParent2.appendChild(foodCard)
-    restaurants.appendChild(newParent2);
-    foodCard.appendChild(foodUrl);
-    }
-    bulmaCarousel.attach('#slider2', {
-      slidesToScroll: 1,
-      slidesToShow: 3,
-      infinite: true,
-      autoplay: false,
-  });  
-  })
-}
+//     foodCard.appendChild(foodCardImage);
+//     foodCard.appendChild(headingFood);
+//     foodCard.appendChild(foodPhone);
+//     foodCard.appendChild(foodAddress);
+//     newParent2.appendChild(foodCard)
+//     restaurants.appendChild(newParent2);
+//     foodCard.appendChild(foodUrl);
+//     }
+//     bulmaCarousel.attach('#slider2', {
+//       slidesToScroll: 1,
+//       slidesToShow: 3,
+//       infinite: true,
+//       autoplay: false,
+//   });  
+//   })
+// }
 
 function getFoodAll () {
- restaurants.innerHTML ="";
- let newParent2=document.createElement("div")
+  restaurants.innerHTML ="";
+  let newParent2=document.createElement("div")
  newParent2.setAttribute("id","slider2")
  restaurants.setAttribute("class","")
 
-      let urlAll= `https://api.geoapify.com/v2/places?categories=commercial.food_and_drink,catering&filter=circle:${cityObject.lon},${cityObject.lat},25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d`
+      let urlAll= 'https://api.geoapify.com/v2/places?categories=' + foodInput +'&filter=circle:'+cityObject.lon+','+cityObject.lat+',25000&apiKey=b3be0caaf96f4d2ca82c919fad3a6a1d'
       
-      /* adjust URL for tabbed type
-      catering.restaurant.pizza
-      catering.restaurant.burger
-      catering.restaurant.italian
-      catering.restaurant.chinese
-      catering.restaurant.japanese
-      catering.restaurant.indian
-      catering.restaurant.sushi
-      catering.restaurant.seafood
-      catering.restaurant.steak_house	
-      catering.restaurant.barbecue	
-      */
-
       fetch(urlAll)
         .then(function (response){
           return response.json();
@@ -884,8 +881,8 @@ function getFoodAll () {
       .then(function (data) {
         for (i=0; i < data.features.length; i++) {
       
-          let foodCard = document.createElement("div");
-        let foodCardImage=document.createElement("img");
+        let foodCard = document.createElement("div");
+        foodCardImage=document.createElement("img");
         let headingFood=document.createElement("h2");
         let foodUrl= document.createElement("a");
         let foodPhone= document.createElement("a");
@@ -900,7 +897,7 @@ function getFoodAll () {
         foodAddress.className= "content"
         
 
-        foodCardImage.src= "./assets/images/brewpub.png"
+        foodCardImage.src= foodPic
         headingFood.textContent=data.features[i].properties.name;
         foodUrl.textContent=data.features[i].properties.datasource.raw.website;
         foodPhone.textContent="Phone: "+data.features[i].properties.datasource.raw.phone;
@@ -922,12 +919,3 @@ function getFoodAll () {
       });  
       })
 }
-
-
-
-
-  
-
-    
-
-  
