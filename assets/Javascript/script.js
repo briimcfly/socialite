@@ -132,9 +132,8 @@ buttonCity.addEventListener("click" , function(){
 
  inputCity.addEventListener("keypress" , function(event){
     if (event.key === "Enter") {
-    event.preventDefault()
-    inputLocation =inputCity.value.trim()
-
+    event.preventDefault();
+    inputLocation =inputCity.value.trim();
     weather.textContent="";
 //calls the current weather and five day functions when the enter is pressed
     currentWeather(inputLocation);
@@ -214,7 +213,7 @@ buttonCity.addEventListener("click" , function(){
        let eventClassification=document.createElement("p");
        let descriptionEvents = document.createElement("div");
 
-      eventColumn.newParent="column is-one-third "
+      // eventColumn.newParent="column is-one-third "
        eventCard.className="card";
        eventCardImage.className="card-image";
        eventFigure.className="image is-4by3";
@@ -345,9 +344,12 @@ miscEvent.addEventListener("click" , function(){
 function requestBarsBreweries() {
   // html elements
   let barContainer = document.querySelector("#barContainer");
-  barContainer.innerHTML = "";
+  barContainer.innerHTML = ""
+  let barParentNew = document.createElement("div")
+  barParentNew.setAttribute("id", "slider3")
+  barContainer.appendChild(barParentNew);
 
-  let requestUrl = `https://api.openbrewerydb.org/v1/breweries?by_dist=${cityObject.lat},${cityObject.lon}&per_page=10`
+  let requestUrl = `https://api.openbrewerydb.org/v1/breweries?by_dist=${cityObject.lat},${cityObject.lon}&per_page=20`
 
   fetch(requestUrl)
     .then(function (response) {
@@ -378,34 +380,41 @@ function requestBarsBreweries() {
             returnedResults.push(barObject)
         }
       }
+      
       // create result cards
       for (i = 0; i < returnedResults.length; i++) {
         let barCardEl = document.createElement("div")
-        barCardEl.className = "column is-one-quarter"
+        barCardEl.className = ""
         barCardEl.innerHTML = 
           `<div class="card">
-              <div class="card-image">
-                <figure class="image is-4by3">
-                  <img src="assets\\images\\${returnedResults[i].bartype}.png" alt="Placeholder image">
-                </figure>
-              </div>
-              <div class="card-content">
-                <div class="media">
-                  <div class="media-content">
-                    <p id = "barBrewName" class="title is-4">${returnedResults[i].barname}</p>
-                    <p id = "barBrewType" class="subtitle is-6">${returnedResults[i].bartype}</p>
+                <div class="card-image">
+                  <figure class="image is-4by3">
+                    <img src="assets\\images\\${returnedResults[i].bartype}.png" alt="Placeholder image">
+                  </figure>
+                </div>
+                <div class="card-content">
+                  <div class="media">
+                    <div class="media-content">
+                      <p id = "barBrewName" class="title is-4">${returnedResults[i].barname}</p>
+                      <p id = "barBrewType" class="subtitle is-6">${returnedResults[i].bartype}</p>
+                    </div>
+                  </div>
+                  <div id = "eventDescription" class="content ellipsis">
+                    <p class="has-text-weight-bold">${returnedResults[i].address}</p>
+                    <p class="has-text-weight-bold">Phone: <a href="tel:${returnedResults[i].phone}">${returnedResults[i].phone}</a></p>
+                    <p class="has-text-weight-bold"><a href=${returnedResults[i].url} target="_blank">Visit them here!</a></p>
                   </div>
                 </div>
-                <div id = "eventDescription" class="content ellipsis">
-                  <p class="has-text-weight-bold">${returnedResults[i].address}</p>
-                  <p class="has-text-weight-bold">Phone: <a href="tel:${returnedResults[i].phone}">${returnedResults[i].phone}</a></p>
-                  <p class="has-text-weight-bold"><a href=${returnedResults[i].url} target="_blank">Visit them here!</a></p>
-                </div>
-              </div>
-            </div>`
+              </div>`
 
-        barContainer.appendChild(barCardEl)
+        barParentNew.appendChild(barCardEl)
       }
+      bulmaCarousel.attach('#slider3', {
+        slidesToScroll: 1,
+        slidesToShow: 3,
+        infinite: true,
+        autoplay: false,
+      }); 
     })
 }
 
@@ -494,7 +503,8 @@ function getFoodAll () {
         })
       .then(function (data) {
         for (i=0; i < data.features.length; i++) {
-     
+        
+        let foodColumn = document.createElement("div")
         let foodCard = document.createElement("div");
         foodCardImage=document.createElement("img");
         let headingFood=document.createElement("h2");
@@ -502,7 +512,8 @@ function getFoodAll () {
         let foodPhone= document.createElement("a");
         let foodAddress=document.createElement("p")
         
-        foodCard.className="card column section";
+        // foodColumn.className = "column is-one-third"
+        foodCard.className="card image is-4by3";
         foodCardImage.className="card-image";
         headingFood.className="title is-4"
         foodUrl.className= "content"
@@ -520,7 +531,8 @@ function getFoodAll () {
         foodCard.appendChild(foodPhone);
         foodCard.appendChild(foodAddress);
         restaurants.appendChild(newParent2);
-        newParent2.appendChild(foodCard);
+        foodColumn.appendChild(foodCard)
+        newParent2.appendChild(foodColumn);
         foodCard.appendChild(foodUrl);
         }
         bulmaCarousel.attach('#slider2', {
