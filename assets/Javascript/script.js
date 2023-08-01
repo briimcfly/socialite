@@ -152,6 +152,63 @@ buttonCity.addEventListener("click" , function(){
         emptyState(ticketmasterEventData);
     }
 // cards are created based on events available
+    else if (data.page.totalElements<5){
+      ticketmasterEventData.innerHTML="";
+      ticketmasterEventData.className="columns section is-multiline slider"
+    
+       for(i=0; i<data._embedded.events.length; i++){
+       
+        let eventColumn=document.createElement("div")
+        let eventCard = document.createElement("div");
+        let eventCardImage=document.createElement("div");
+        let eventFigure= document.createElement("figure");
+        let imgEvents =document.createElement("img");
+        let eventCardContent=document.createElement("div");
+        let eventMedia=document.createElement("div");
+        let eventMediaContent=document.createElement("div");
+        let headingEvents=document.createElement("p");
+        let eventDate=document.createElement("p");
+        let eventLink=document.createElement("a");
+        let eventClassification=document.createElement("p");
+        let descriptionEvents = document.createElement("div");
+ 
+        eventColumn.className="column is-one-third";
+        eventCard.className="card ";
+        eventCardImage.className="card-image";
+        eventFigure.className="image is-4by3";
+        eventCardContent.className="card-content";
+        eventMedia.className="media";
+        eventMediaContent.className="media-content";
+        headingEvents.className="title is-4";
+        eventClassification.className="subtitle is-6";
+        descriptionEvents.className="content ellipsis";
+        eventLink.setAttribute("target","_blank")
+ 
+        imgEvents.src=data._embedded.events[i].images[0].url;
+        headingEvents.textContent=data._embedded.events[i].name;
+        eventClassification.textContent=data._embedded.events[i].classifications[0].genre.name;
+        eventDate.textContent="Date: "+data._embedded.events[i].dates.start.localDate +" "+ data._embedded.events[i].dates.start.localTime;
+        eventLink.textContent="Link to TicketMaster" 
+        eventLink.href=data._embedded.events[i].url
+        descriptionEvents.textContent=data._embedded.events[i].info;
+         
+        ticketmasterEventData.appendChild(eventColumn);
+        eventColumn.appendChild(eventCard);
+        eventCard.appendChild(eventCardImage);
+        eventCardImage.appendChild(eventFigure)
+        eventFigure.appendChild(imgEvents)
+        eventCard.appendChild(eventCardContent);
+        eventCardContent.appendChild(eventMedia);
+        eventMedia.appendChild(eventMediaContent);
+        eventMediaContent.appendChild(headingEvents)
+        eventMediaContent.appendChild(eventDate)
+        eventMediaContent.appendChild(eventLink)
+        eventMediaContent.appendChild(eventClassification)
+        eventCardContent.appendChild(descriptionEvents);
+       
+     }
+    }
+    
     else {
        ticketmasterEventData.innerHTML=""
        let newParent=document.createElement("div")
