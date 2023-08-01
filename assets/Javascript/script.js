@@ -455,7 +455,7 @@ function getFoodAll () {
           return response.json();
         })
       .then(function (data) {
-        if(data.features === 0){
+        if(data.features.totalElements === 0){
           emptyState(restaurants);
         }
         else{
@@ -538,7 +538,7 @@ function emptyState(section){
   <section class="section is-medium">
     <h1 class="title">No Results</h1>
     <h2 class="subtitle">
-      No items from this type available in this location
+      No items from this type available in ${currentCity}
     </h2>
   </section>
   `
@@ -549,7 +549,10 @@ function emptyState(section){
 function loader(section){
   section.innerHTML = 
   `
-  <i class="fa-solid fa-loader fa-spin "></i>
+  <section class="is-flex is-justify-content-center is-align-items-center	p-6">
+    <i class="fa-regular fa-fire fa-bounce mr-2 is-size-3	"></i>
+    <p class="is-size-3	">loading...</p>
+  </section>
   `
 }
 
