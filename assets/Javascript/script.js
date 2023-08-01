@@ -543,3 +543,34 @@ function getFoodAll () {
       });  
       })
 }
+
+//////////////
+// Mobile Menu 
+const burgerIcon = document.querySelector('#burger');
+const navMenu = document.querySelector('#is-links');
+const navLink = document.querySelectorAll('.navbar-item');
+
+//function to toggle the nav
+function toggleNav(){
+    navMenu.classList.toggle('is-active');
+}
+
+//burger icon's click 
+burgerIcon.addEventListener('click', () => {
+    toggleNav();
+})
+
+//nav link close the toggle
+navLink.forEach(navLink => {
+    navLink.addEventListener('click', () => {
+        toggleNav();
+    });
+});
+
+//anywhere else close the toggle. 
+document.addEventListener('click', (event) => {
+    const target = event.target;
+    if (!target.closest('.navbar') && navMenu.classList.contains('is-active')) {
+        toggleNav();
+    }
+});
