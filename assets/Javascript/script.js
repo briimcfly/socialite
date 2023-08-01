@@ -81,7 +81,6 @@ function currentWeather(city) {
 //Function that sets a "Things to do in:" Header
 function cityHero(param){
     inputCity.value = "";
-    modalLauncher.style.display = "inline-flex";
     const titleEl = document.getElementById('titleEl'); 
     titleEl.innerHTML = "";
     titleEl.textContent = "Things to do this week in "; 
@@ -106,15 +105,11 @@ function cityHero(param){
 }
 
 //Modal Launcher 
-const modalLauncher = document.getElementById('modal-launcher')
 const modal = document.getElementById('modal');
 const modalClose = document.getElementById('close');
 const modalTitle = document.querySelector(".modal-card-title")
 const modalBody = document.querySelector(".modal-card-body")
 
-modalLauncher.onclick = function() {
-    modal.style.display = 'block';
-}
 
 modalClose.onclick = function(){
     modalTitle.textContent = ""
