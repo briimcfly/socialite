@@ -81,7 +81,6 @@ function currentWeather(city) {
 //Function that sets a "Things to do in:" Header
 function cityHero(param){
     inputCity.value = "";
-    modalLauncher.style.display = "inline-flex";
     const titleEl = document.getElementById('titleEl'); 
     titleEl.innerHTML = "";
     titleEl.textContent = "Things to do this week in "; 
@@ -106,15 +105,11 @@ function cityHero(param){
 }
 
 //Modal Launcher 
-const modalLauncher = document.getElementById('modal-launcher')
 const modal = document.getElementById('modal');
 const modalClose = document.getElementById('close');
 const modalTitle = document.querySelector(".modal-card-title")
 const modalBody = document.querySelector(".modal-card-body")
 
-modalLauncher.onclick = function() {
-    modal.style.display = 'block';
-}
 
 modalClose.onclick = function(){
     modalTitle.textContent = ""
@@ -148,47 +143,13 @@ buttonCity.addEventListener("click" , function(){
    fetch(eventRequestUrl)
         .then(function (response){
              return response.json();
+             
         })
    .then(function (data) {
 // if no events are returned a card is created that states no events of this type
     if (data.page.totalElements===0) {
         ticketmasterEventData.innerHTML=""
-       let eventColumn=document.createElement("div")
-       let eventCard = document.createElement("div");
-       let eventCardImage=document.createElement("div");
-       let eventFigure= document.createElement("figure");
-       let imgEvents =document.createElement("img");
-       let eventCardContent=document.createElement("div");
-       let eventMedia=document.createElement("div");
-       let eventMediaContent=document.createElement("div");
-       let headingEvents=document.createElement("p");
-       let eventClassification=document.createElement("p");
-       let descriptionEvents = document.createElement("div");
-    
-       eventColumn.className="column"
-       eventCard.className="card";
-       eventCardImage.className="card-image";
-       eventFigure.className="image is-4by3";
-       eventCardContent.className="card-content";
-       eventMedia.className="media";
-       eventMediaContent.className="media-content";
-       headingEvents.className="title is-4";
-       eventClassification.className="subtitle is-6";
-       descriptionEvents.className="content";
-
-       headingEvents.textContent="No events of this type";
-      
-       ticketmasterEventData.appendChild(eventColumn);
-       eventColumn.appendChild(eventCard);
-       eventCard.appendChild(eventCardImage);
-       eventCardImage.appendChild(eventFigure)
-       eventFigure.appendChild(imgEvents)
-       eventCard.appendChild(eventCardContent);
-       eventCardContent.appendChild(eventMedia);
-       eventMedia.appendChild(eventMediaContent);
-       eventMediaContent.appendChild(headingEvents);
-       eventMediaContent.appendChild(eventClassification)
-       eventCardContent.appendChild(descriptionEvents);
+        emptyState(ticketmasterEventData);
     }
 // cards are created based on events available
     else {
@@ -250,12 +211,7 @@ buttonCity.addEventListener("click" , function(){
       
     }
     //carouseling feature
-    bulmaCarousel.attach('#slider', {
-        slidesToScroll: 1,
-        slidesToShow: 3,
-        infinite: true,
-        autoplay: false,
-    });  
+    carousel('#slider');
     }
  })
 }
@@ -409,12 +365,7 @@ function requestBarsBreweries() {
 
         barParentNew.appendChild(barCardEl)
       }
-      bulmaCarousel.attach('#slider3', {
-        slidesToScroll: 1,
-        slidesToShow: 3,
-        infinite: true,
-        autoplay: false,
-      }); 
+      carousel('#slider3')
     })
 }
 
@@ -491,6 +442,7 @@ getFoodAll()
 
 function getFoodAll () {
   restaurants.innerHTML ="";
+  loader(restaurants);
   let newParent2=document.createElement("div")
  newParent2.setAttribute("id","slider2")
  restaurants.setAttribute("class","")
@@ -499,48 +451,49 @@ function getFoodAll () {
       
       fetch(urlAll)
         .then(function (response){
+
           return response.json();
         })
       .then(function (data) {
-        for (i=0; i < data.features.length; i++) {
-        
-        let foodColumn = document.createElement("div")
-        let foodCard = document.createElement("div");
-        foodCardImage=document.createElement("img");
-        let headingFood=document.createElement("h2");
-        let foodUrl= document.createElement("a");
-        let foodPhone= document.createElement("a");
-        let foodAddress=document.createElement("p")
-        
-        // foodColumn.className = "column is-one-third"
-        foodCard.className="card image is-4by3";
-        foodCardImage.className="card-image";
-        headingFood.className="title is-4"
-        foodUrl.className= "content"
-        foodPhone.className="has-text-weight-bold"
-        foodAddress.className= "content"
-        
-        foodCardImage.src= foodPic
-        headingFood.textContent=data.features[i].properties.name;
-        foodUrl.textContent=data.features[i].properties.datasource.raw.website;
-        foodPhone.textContent="Phone: "+data.features[i].properties.datasource.raw.phone;
-        foodAddress.textContent=data.features[i].properties.address_line2;
-
-        foodCard.appendChild(foodCardImage);
-        foodCard.appendChild(headingFood);
-        foodCard.appendChild(foodPhone);
-        foodCard.appendChild(foodAddress);
-        restaurants.appendChild(newParent2);
-        foodColumn.appendChild(foodCard)
-        newParent2.appendChild(foodColumn);
-        foodCard.appendChild(foodUrl);
+        if(data.features === 0){
+          emptyState(restaurants);
         }
-        bulmaCarousel.attach('#slider2', {
-          slidesToScroll: 1,
-          slidesToShow: 3,
-          infinite: true,
-          autoplay: false,
-      });  
+        else{
+          for (i=0; i < data.features.length; i++) {
+            restaurants.innerHTML = "";
+            let foodColumn = document.createElement("div")
+            let foodCard = document.createElement("div");
+            foodCardImage=document.createElement("img");
+            let headingFood=document.createElement("h2");
+            let foodUrl= document.createElement("a");
+            let foodPhone= document.createElement("a");
+            let foodAddress=document.createElement("p")
+            
+            // foodColumn.className = "column is-one-third"
+            foodCard.className="card image is-4by3";
+            foodCardImage.className="card-image";
+            headingFood.className="title is-4"
+            foodUrl.className= "content"
+            foodPhone.className="has-text-weight-bold"
+            foodAddress.className= "content"
+            
+            foodCardImage.src= foodPic
+            headingFood.textContent=data.features[i].properties.name;
+            foodUrl.textContent=data.features[i].properties.datasource.raw.website;
+            foodPhone.textContent="Phone: "+data.features[i].properties.datasource.raw.phone;
+            foodAddress.textContent=data.features[i].properties.address_line2;
+    
+            foodCard.appendChild(foodCardImage);
+            foodCard.appendChild(headingFood);
+            foodCard.appendChild(foodPhone);
+            foodCard.appendChild(foodAddress);
+            restaurants.appendChild(newParent2);
+            foodColumn.appendChild(foodCard)
+            newParent2.appendChild(foodColumn);
+            foodCard.appendChild(foodUrl);
+            }
+            carousel('#slider2');
+        }
       })
 }
 
@@ -574,3 +527,39 @@ document.addEventListener('click', (event) => {
         toggleNav();
     }
 });
+
+
+///////////////
+// Empty State
+
+function emptyState(section){
+  section.innerHTML = 
+  `
+  <section class="section is-medium">
+    <h1 class="title">No Results</h1>
+    <h2 class="subtitle">
+      No items from this type available in this location
+    </h2>
+  </section>
+  `
+}
+
+///////////////
+// Loader 
+function loader(section){
+  section.innerHTML = 
+  `
+  <i class="fa-solid fa-loader fa-spin "></i>
+  `
+}
+
+/////////////
+// Carousel 
+function carousel(section){
+  bulmaCarousel.attach(section, {
+    slidesToScroll: 1,
+    slidesToShow: 3,
+    infinite: true,
+    autoplay: false,
+});  
+}
