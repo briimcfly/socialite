@@ -549,8 +549,10 @@ function emptyState(section){
 function loader(section){
   section.innerHTML = 
   `
-  <i class="fa-regular fa-fire fa-bounce"></i>
-  <p>loading...</p>
+  <section class="is-flex is-justify-content-center is-align-items-center	p-6">
+    <i class="fa-regular fa-fire fa-bounce mr-2 is-size-3	"></i>
+    <p class="is-size-3	">loading...</p>
+  </section>
   `
 }
 
