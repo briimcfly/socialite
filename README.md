@@ -11,7 +11,7 @@
     
 ## Installation
 
-    Follow the following URL to the website: 
+    Follow the following URL to the website: https://briimcfly.github.io/socialite/
     
 
 ## Technologies Used
@@ -46,6 +46,7 @@
        
     Assistance from Jehyun Jung TA and Jamie Otto TA
 
+    Font Awesome: https://kit.fontawesome.com/1d33aad484.css
     Bulma documentation: https://bulma.io/documentation/overview/start/
     Bulma Carouseling documentation: https://wikiki.github.io/components/carousel/
     Day JS documentation: https://day.js.org/docs/en/installation/browser
@@ -53,6 +54,7 @@
     Ticketmaster API documentation: https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/
     Open Brewery DB API documentation: https://www.openbrewerydb.org/documentation
     Geoapify API documentation: https://apidocs.geoapify.com/
+    How to build and simple carousel in bulma: https://www.wplogout.com/create-a-simple-carousel-slider-in-bulma/
 
 
 # License
