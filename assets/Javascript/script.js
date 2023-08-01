@@ -153,42 +153,7 @@ buttonCity.addEventListener("click" , function(){
 // if no events are returned a card is created that states no events of this type
     if (data.page.totalElements===0) {
         ticketmasterEventData.innerHTML=""
-       let eventColumn=document.createElement("div")
-       let eventCard = document.createElement("div");
-       let eventCardImage=document.createElement("div");
-       let eventFigure= document.createElement("figure");
-       let imgEvents =document.createElement("img");
-       let eventCardContent=document.createElement("div");
-       let eventMedia=document.createElement("div");
-       let eventMediaContent=document.createElement("div");
-       let headingEvents=document.createElement("p");
-       let eventClassification=document.createElement("p");
-       let descriptionEvents = document.createElement("div");
-    
-       eventColumn.className="column"
-       eventCard.className="card";
-       eventCardImage.className="card-image";
-       eventFigure.className="image is-4by3";
-       eventCardContent.className="card-content";
-       eventMedia.className="media";
-       eventMediaContent.className="media-content";
-       headingEvents.className="title is-4";
-       eventClassification.className="subtitle is-6";
-       descriptionEvents.className="content";
-
-       headingEvents.textContent="No events of this type";
-      
-       ticketmasterEventData.appendChild(eventColumn);
-       eventColumn.appendChild(eventCard);
-       eventCard.appendChild(eventCardImage);
-       eventCardImage.appendChild(eventFigure)
-       eventFigure.appendChild(imgEvents)
-       eventCard.appendChild(eventCardContent);
-       eventCardContent.appendChild(eventMedia);
-       eventMedia.appendChild(eventMediaContent);
-       eventMediaContent.appendChild(headingEvents);
-       eventMediaContent.appendChild(eventClassification)
-       eventCardContent.appendChild(descriptionEvents);
+        emptyState(ticketmasterEventData);
     }
 // cards are created based on events available
     else {
@@ -574,3 +539,19 @@ document.addEventListener('click', (event) => {
         toggleNav();
     }
 });
+
+
+///////////////
+// Empty State
+
+function emptyState(section){
+  section.innerHTML = 
+  `
+  <section class="section is-medium">
+    <h1 class="title">No Results</h1>
+    <h2 class="subtitle">
+      No items from this type available in this location
+    </h2>
+  </section>
+  `
+}
