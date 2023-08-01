@@ -148,6 +148,7 @@ buttonCity.addEventListener("click" , function(){
    fetch(eventRequestUrl)
         .then(function (response){
              return response.json();
+             
         })
    .then(function (data) {
 // if no events are returned a card is created that states no events of this type
@@ -215,12 +216,7 @@ buttonCity.addEventListener("click" , function(){
       
     }
     //carouseling feature
-    bulmaCarousel.attach('#slider', {
-        slidesToScroll: 1,
-        slidesToShow: 3,
-        infinite: true,
-        autoplay: false,
-    });  
+    carousel('#slider');
     }
  })
 }
@@ -374,12 +370,7 @@ function requestBarsBreweries() {
 
         barParentNew.appendChild(barCardEl)
       }
-      bulmaCarousel.attach('#slider3', {
-        slidesToScroll: 1,
-        slidesToShow: 3,
-        infinite: true,
-        autoplay: false,
-      }); 
+      carousel('#slider3')
     })
 }
 
@@ -456,6 +447,7 @@ getFoodAll()
 
 function getFoodAll () {
   restaurants.innerHTML ="";
+  loader(restaurants);
   let newParent2=document.createElement("div")
  newParent2.setAttribute("id","slider2")
  restaurants.setAttribute("class","")
@@ -464,48 +456,49 @@ function getFoodAll () {
       
       fetch(urlAll)
         .then(function (response){
+
           return response.json();
         })
       .then(function (data) {
-        for (i=0; i < data.features.length; i++) {
-        
-        let foodColumn = document.createElement("div")
-        let foodCard = document.createElement("div");
-        foodCardImage=document.createElement("img");
-        let headingFood=document.createElement("h2");
-        let foodUrl= document.createElement("a");
-        let foodPhone= document.createElement("a");
-        let foodAddress=document.createElement("p")
-        
-        // foodColumn.className = "column is-one-third"
-        foodCard.className="card image is-4by3";
-        foodCardImage.className="card-image";
-        headingFood.className="title is-4"
-        foodUrl.className= "content"
-        foodPhone.className="has-text-weight-bold"
-        foodAddress.className= "content"
-        
-        foodCardImage.src= foodPic
-        headingFood.textContent=data.features[i].properties.name;
-        foodUrl.textContent=data.features[i].properties.datasource.raw.website;
-        foodPhone.textContent="Phone: "+data.features[i].properties.datasource.raw.phone;
-        foodAddress.textContent=data.features[i].properties.address_line2;
-
-        foodCard.appendChild(foodCardImage);
-        foodCard.appendChild(headingFood);
-        foodCard.appendChild(foodPhone);
-        foodCard.appendChild(foodAddress);
-        restaurants.appendChild(newParent2);
-        foodColumn.appendChild(foodCard)
-        newParent2.appendChild(foodColumn);
-        foodCard.appendChild(foodUrl);
+        if(data.features === 0){
+          emptyState(restaurants);
         }
-        bulmaCarousel.attach('#slider2', {
-          slidesToScroll: 1,
-          slidesToShow: 3,
-          infinite: true,
-          autoplay: false,
-      });  
+        else{
+          for (i=0; i < data.features.length; i++) {
+            restaurants.innerHTML = "";
+            let foodColumn = document.createElement("div")
+            let foodCard = document.createElement("div");
+            foodCardImage=document.createElement("img");
+            let headingFood=document.createElement("h2");
+            let foodUrl= document.createElement("a");
+            let foodPhone= document.createElement("a");
+            let foodAddress=document.createElement("p")
+            
+            // foodColumn.className = "column is-one-third"
+            foodCard.className="card image is-4by3";
+            foodCardImage.className="card-image";
+            headingFood.className="title is-4"
+            foodUrl.className= "content"
+            foodPhone.className="has-text-weight-bold"
+            foodAddress.className= "content"
+            
+            foodCardImage.src= foodPic
+            headingFood.textContent=data.features[i].properties.name;
+            foodUrl.textContent=data.features[i].properties.datasource.raw.website;
+            foodPhone.textContent="Phone: "+data.features[i].properties.datasource.raw.phone;
+            foodAddress.textContent=data.features[i].properties.address_line2;
+    
+            foodCard.appendChild(foodCardImage);
+            foodCard.appendChild(headingFood);
+            foodCard.appendChild(foodPhone);
+            foodCard.appendChild(foodAddress);
+            restaurants.appendChild(newParent2);
+            foodColumn.appendChild(foodCard)
+            newParent2.appendChild(foodColumn);
+            foodCard.appendChild(foodUrl);
+            }
+            carousel('#slider2');
+        }
       })
 }
 
@@ -554,4 +547,24 @@ function emptyState(section){
     </h2>
   </section>
   `
+}
+
+///////////////
+// Loader 
+function loader(section){
+  section.innerHTML = 
+  `
+  <i class="fa-solid fa-loader fa-spin "></i>
+  `
+}
+
+/////////////
+// Carousel 
+function carousel(section){
+  bulmaCarousel.attach(section, {
+    slidesToScroll: 1,
+    slidesToShow: 3,
+    infinite: true,
+    autoplay: false,
+});  
 }
