@@ -17,7 +17,7 @@
 ## Technologies Used
 
     -HTML, CSS, JavaScript
-    -CSS Framework: Bulma, Bulma Carousel Extension
+    -CSS Framework: Bulma, Bulma Carousel Extension, Font Awesome
     -Third Party API:
         Day JS
     -Server side APIs:
@@ -28,13 +28,10 @@
 
     
 ## Usage
-<img src="" alt="screenshot of Socialite Website" width="600px" />
+<img src="./assets/images/SocialiteScreenshot.png" alt="screenshot of Socialite Website" width="600px" />
    
-    -When the user loads the page, the previously searched city reloads.
-
-<img src="" alt="screenshot of Socialite Website" width="600px" />   
-    
-    -When the user scrolls down or uses the navigation at the top the user can see the restaurants and drinks sections.
+    -When the user loads the page, the previously searched city reloads.    
+    -When the user scrolls down or uses the navigation at the top, the user can see the restaurants and drinks sections.
 
 
 ## Credits
